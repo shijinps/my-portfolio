@@ -60,19 +60,28 @@
             background-color: #233554; /* Slate */
         }
         
-        /* --- NEW IMAGE STYLE --- */
-        .profile-image {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%; /* Makes the image a circle */
-            object-fit: cover; /* Ensures the image covers the circle area */
-            border: 3px solid #64ffda; /* Accent color border */
-            box-shadow: 0 0 25px rgba(100, 255, 218, 0.3); /* Soft glow */
-            transition: box-shadow 0.3s ease-in-out;
+        /* --- Hero Background Style --- */
+        #hero {
+            position: relative;
+            background: url('https://media1.tenor.com/m/QGfhvbfZW8sAAAAd/kalilinux.gif') no-repeat center center/cover;
         }
-        .profile-image:hover {
-            box-shadow: 0 0 45px rgba(100, 255, 218, 0.5); /* Intensified glow on hover */
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(10, 25, 47, 0.85); /* Semi-transparent overlay */
+            z-index: 1;
         }
+
+        #hero > * {
+            position: relative;
+            z-index: 2;
+        }
+
 
         /* Typing animation */
         .typewriter h2 {
@@ -131,7 +140,28 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: 0;
+        }
+        /* --- TOOL ICON STYLE --- */
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            transition: transform 0.3s ease-in-out, filter 0.3s;
+            filter: grayscale(100%) brightness(1.5);
+        }
+        .tool-icon:hover {
+            transform: scale(1.1);
+            filter: grayscale(0%) brightness(1);
+        }
+        .tool-icon-svg {
+             width: 60px;
+            height: 60px;
+            transition: transform 0.3s ease-in-out, fill 0.3s;
+            fill: #a8b2d1;
+        }
+        .tool-icon-svg:hover {
+            transform: scale(1.1);
+            fill: #64ffda;
         }
     </style>
 </head>
@@ -145,11 +175,11 @@
 
     <!-- Header -->
     <header class="bg-[#0a192f]/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-md">
-        <div class="container mx-auto px-6 py-5 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-[#64ffda]">SP</a>
+        <div class="container mx-auto px-6 py-5 flex justify-end items-center">
             <nav class="hidden md:flex items-center space-x-6">
                 <a href="#about" class="nav-link">About</a>
                 <a href="#skills" class="nav-link">Skills</a>
+                <a href="#tools" class="nav-link">Tools</a>
                 <a href="#projects" class="nav-link">Projects</a>
                 <a href="#contact" class="btn-primary text-sm font-medium">Contact</a>
             </nav>
@@ -161,37 +191,25 @@
         <div id="mobile-menu" class="hidden md:hidden bg-[#112240]">
             <a href="#about" class="block text-center py-4 px-6 hover:bg-slate-700 text-white">About</a>
             <a href="#skills" class="block text-center py-4 px-6 hover:bg-slate-700 text-white">Skills</a>
+            <a href="#tools" class="block text-center py-4 px-6 hover:bg-slate-700 text-white">Tools</a>
             <a href="#projects" class="block text-center py-4 px-6 hover:bg-slate-700 text-white">Projects</a>
             <a href="#contact" class="block text-center py-4 px-6 hover:bg-slate-700 text-white">Contact</a>
         </div>
     </header>
 
-    <main class="pt-24 container mx-auto px-6 md:px-12">
+    <main class="container mx-auto px-6 md:px-12">
         <!-- Hero Section -->
-        <section id="hero" class="min-h-screen flex items-center relative">
-            <canvas id="particle-canvas"></canvas>
-            <div class="flex flex-col-reverse md:flex-row items-center justify-between w-full">
-                <div class="md:w-3/5 text-center md:text-left typewriter" data-aos="fade-up">
-                    <p class="text-[#64ffda] mb-4">Hi, my name is</p>
-                    <h1 class="text-4xl md:text-7xl font-bold text-[#ccd6f6] leading-tight">Shijin P S.</h1>
-                    <h2 class="text-3xl md:text-5xl font-bold text-[#8892b0] mt-2">
-                        <span id="typing-text"></span><span class="cursor"></span>
-                    </h2>
-                    <p class="mt-6 max-w-xl text-lg">I'm a VAPT and SOC Analyst specializing in identifying vulnerabilities and protecting digital infrastructures. My passion lies in the continuous pursuit of securing the digital world.</p>
-                    <div class="mt-8">
-                        <a href="https://www.linkedin.com/in/shijinps/" target="_blank" rel="noopener noreferrer" class="btn-primary font-bold">
-                            Check out my LinkedIn!
-                        </a>
-                    </div>
-                </div>
-                <div class="md:w-2/5 flex justify-center mb-10 md:mb-0" data-aos="fade-left" data-aos-delay="200">
-                    <!-- 
-                        <<< HOW TO ADD YOUR PHOTO >>>
-                        1. Upload your photo to a site like Imgur or to your GitHub repository.
-                        2. Get the direct link for the image (it should end in .jpg, .png, etc.).
-                        3. Replace the "src" link below with your new image link.
-                    -->
-                    <img src="http://googleusercontent.com/file_content/1" alt="Shijin P S" class="profile-image">
+        <section id="hero" class="min-h-screen flex items-center">
+            <div class="w-full text-center md:text-left pt-24" data-aos="fade-up">
+                <h1 class="text-4xl md:text-7xl font-bold text-[#ccd6f6] leading-tight">Shijin P S.</h1>
+                <h2 class="text-3xl md:text-5xl font-bold text-[#8892b0] mt-2">
+                    <span id="typing-text"></span><span class="cursor"></span>
+                </h2>
+                <p class="mt-6 max-w-xl text-lg mx-auto md:mx-0">I'm a VAPT and SOC Analyst specializing in identifying vulnerabilities and protecting digital infrastructures. My passion lies in the continuous pursuit of securing the digital world.</p>
+                <div class="mt-8">
+                    <a href="https://www.linkedin.com/in/shijinps/" target="_blank" rel="noopener noreferrer" class="btn-primary font-bold">
+                        Check out my LinkedIn!
+                    </a>
                 </div>
             </div>
         </section>
@@ -230,6 +248,43 @@
                          <li class="flex items-center"><span class="text-[#64ffda] mr-3">▹</span>Certified IT Infrastructure & Cyber SOC Analyst</li>
                          <li class="flex items-center"><span class="text-[#64ffda] mr-3">▹</span>Network Defence Essentials</li>
                     </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section id="tools" class="py-20 md:py-32" data-aos="fade-up">
+            <h2 class="section-title">Some Tools I've Used and Learned</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-wrap justify-center items-center gap-8">
+                    <!-- Metasploit -->
+                    <div title="Metasploit">
+                        <svg class="tool-icon-svg" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0A12 12 0 1 0 12 24A12 12 0 1 0 12 0zm-1.09 4.645h2.18L12 6.423l-1.09-1.778zM7.03 8.32l3.88 2.24-3.88 2.24V8.32zm9.88 4.56a.26.26 0 0 1-.23.12H12l.02 3.8a.26.26 0 0 1-.49.1L7.03 14.82v1.51a.26.26 0 0 1-.4.23L4.55 15a.26.26 0 0 1-.12-.45l1.58-2.74-1.58-2.74a.26.26 0 0 1 .12-.45l2.08-1.2a.26.26 0 0 1 .4.23v1.51l4.49-2.58a.26.26 0 0 1 .49.1l.01 3.8h4.63a.26.26 0 0 1 .23.39l-1.59 2.75z"/></svg>
+                    </div>
+                    <!-- Wireshark -->
+                    <div title="Wireshark">
+                        <svg class="tool-icon-svg" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.93 2c-5.49 0-9.93 4.44-9.93 9.93s4.44 9.93 9.93 9.93 9.93-4.44 9.93-9.93S17.42 2 11.93 2zm-3.6 13.37c-.36 0-.66-.3-.66-.66V9.29c0-.36.3-.66.66-.66h1.2v-1.2h2.41v1.2h1.2c.36 0 .66.3.66.66v4.08c0 .36-.3.66-.66.66h-1.2v1.2H9.53v-1.2h-1.2z"/></svg>
+                    </div>
+                    <!-- Nessus -->
+                    <div title="Nessus">
+                       <svg class="tool-icon-svg" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.2 15.6c-.4.4-.8.7-1.3.9s-1 .3-1.5.3-1-.1-1.5-.3-.9-.5-1.3-.9-1.1-1.3-1.1-1.3c0-.6.4-1.1 1.1-1.5.7-.4 1.5-.6 2.4-.6s1.7.2 2.4.6c.7.4 1.1.9 1.1 1.5s-.4 1.1-1.2 1.5zM12 8.4c-1 0-1.8-.7-1.8-1.8S11 4.8 12 4.8s1.8.7 1.8 1.8S13 8.4 12 8.4z"/></svg>
+                    </div>
+                    <!-- Nikto -->
+                    <div title="Nikto">
+                        <svg class="tool-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2a8 8 0 100 16 8 8 0 000-16zm-1 3v2h2V7h-2zm0 4v6h2v-6h-2z"/></svg>
+                    </div>
+                    <!-- John the Ripper -->
+                    <div title="John the Ripper">
+                        <svg class="tool-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.5 2C9.46 2 7 4.46 7 7.5V11H4v10h16V11h-3V7.5C17 4.46 14.54 2 11.5 2zM12.5 4c1.93 0 3.5 1.57 3.5 3.5V11h-7V7.5C9 5.57 10.57 4 12.5 4z"/></svg>
+                    </div>
+                    <!-- Nmap -->
+                    <div title="Nmap">
+                        <img src="https://nmap.org/images/nmap-logo-256x256.png" alt="Nmap" class="tool-icon">
+                    </div>
+                    <!-- Burp Suite -->
+                    <div title="Burp Suite">
+                        <img src="https://portswigger.net/burp/assets/images/logo-1.6.2.svg" alt="Burp Suite" class="tool-icon">
+                    </div>
                 </div>
             </div>
         </section>
@@ -291,15 +346,23 @@
             mobileMenu.classList.toggle('hidden');
         });
 
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
+                const href = this.getAttribute('href');
+                // Check if href is more than just a "#" to prevent errors
+                if (href && href.length > 1) {
+                    e.preventDefault();
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
                 }
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
             });
         });
 
@@ -339,82 +402,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', type);
-
-        // Particle effect
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particlesArray;
-
-        const mouse = { x: null, y: null, radius: (canvas.height/110) * (canvas.width/110) };
-
-        window.addEventListener('mousemove', function(event) {
-            mouse.x = event.x;
-            mouse.y = event.y;
-        });
-
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x;
-                this.y = y;
-                this.directionX = directionX;
-                this.directionY = directionY;
-                this.size = size;
-                this.color = color;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = 'rgba(100, 255, 218, 0.1)';
-                ctx.fill();
-            }
-            update() {
-                if (this.x > canvas.width || this.x < 0) {
-                    this.directionX = -this.directionX;
-                }
-                if (this.y > canvas.height || this.y < 0) {
-                    this.directionY = -this.directionY;
-                }
-                this.x += this.directionX;
-                this.y += this.directionY;
-                this.draw();
-            }
-        }
-
-        function init() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 9000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 1;
-                let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-                let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-                let directionX = (Math.random() * .4) - .2;
-                let directionY = (Math.random() * .4) - .2;
-                let color = '#64ffda';
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-            }
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0,0,innerWidth, innerHeight);
-
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
-        }
-        
-        init();
-        animate();
-
-        window.addEventListener('resize', function() {
-            canvas.width = innerWidth;
-            canvas.height = innerHeight;
-            mouse.radius = (canvas.height/110) * (canvas.width/110);
-            init();
-        });
 
     </script>
 </body>
