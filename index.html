@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shijin P S - Cybersecurity Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Fira+Code:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-card: #0f172a;
+            --bg-header: rgba(10, 10, 10, 0.8);
+            --text-primary: #cbd5e1;
+            --text-headings: #e6f1ff;
+            --text-muted: #8892b0;
+            --accent-primary: #4CAF50;
+            --accent-secondary: #00f7d9;
+            --border-color: #1e293b;
+            --hero-btn-text: #0a0a0a;
+        }
+
+        body.light {
+            --bg-primary: #f0f2f5;
+            --bg-card: #ffffff;
+            --bg-header: rgba(255, 255, 255, 0.8);
+            --text-primary: #495057;
+            --text-headings: #1d2d35;
+            --text-muted: #6c757d;
+            --accent-primary: #28a745;
+            --accent-secondary: #17a2b8;
+            --border-color: #dee2e6;
+            --hero-btn-text: #ffffff;
+        }
+
+        /* Custom styles to match the Farhan Ansari example */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* A font similar to the example */
+            background-color: var(--bg-primary);
+            /* Very dark background */
+            color: var(--text-primary);
+            /* Light gray text for general content */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header-link {
+            color: var(--text-primary);
+            /* Light gray for header links */
+            transition: color 0.3s;
+        }
+
+        .header-link:hover {
+            color: var(--accent-primary);
+            /* A distinct green for hover, similar to example */
+        }
+
+        .accent-text {
+            color: var(--accent-primary);
+            /* Primary accent green */
+        }
+
+        .hero-btn-primary {
+            background-color: var(--accent-primary);
+            /* Green background for main button */
+            color: var(--hero-btn-text);
+            /* Dark text on green */
+            padding: 0.75rem 1.75rem;
+            border-radius: 6px;
+            /* Slightly more rounded */
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2);
+            /* Subtle shadow */
+        }
+
+        .hero-btn-primary:hover {
+            background-color: #45a049;
+            /* Darker green on hover */
+            transform: translateY(-2px);
+            /* Lift effect */
+        }
+
+        .hero-btn-outline {
+            background-color: transparent;
+            color: var(--accent-primary);
+            /* Green text for outline buttons */
+            border: 1px solid var(--accent-primary);
+            /* Green border */
+            padding: 0.75rem 1.75rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .hero-btn-outline:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+            /* Light green background on hover */
+            transform: translateY(-2px);
+            /* Lift effect */
+        }
+
+        .logo-font {
+            font-family: 'Fira Code', monospace;
+            /* Monospace for the logo */
+            font-size: 1.25rem;
+            /* text-xl */
+            color: var(--text-headings);
+        }
+
+        .logo-font .slash-color {
+            color: var(--accent-primary);
+            /* Green for the slash */
+        }
+
+        /* Adjustments for the header's fixed position and backdrop blur */
+        header {
+            background-color: var(--bg-header);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            /* Clearer shadow */
+        }
+
+        /* Hero section alignment */
+        #hero-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding-top: 4rem;
+            /* To account for fixed header */
+        }
+
+        #hero-section p {
+            max-width: 600px;
+            /* Limit width for readability */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #hero-section h1 {
+            color: var(--text-headings);
+        }
+
+        #hero-section h2 {
+            color: var(--text-muted);
+        }
+
+        #hero-section p {
+            color: var(--text-primary);
+        }
+
+        /* Mobile menu specific styles */
+        #mobile-menu {
+            background-color: var(--bg-card);
+            /* Darker background for mobile menu */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #mobile-menu a {
+            color: var(--text-primary);
+        }
+
+        #mobile-menu a:hover {
+            background-color: var(--bg-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Theme toggle button styling */
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: color 0.3s, border-color 0.3s;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+        }
+
+        /* Remove old styles if they conflict */
+        /* You might want to remove or adjust these based on your preference */
+        .section-title::after {
+            content: none;
+        }
+
+        /* Remove the line after section titles for now */
+        .typewriter span.cursor {
+            display: none;
+        }
+
+        /* Remove typing cursor if not using animation */
+
+        /* Particle Canvas (retained for background effect, adjust z-index if needed) */
+        #particle-canvas {
+            position: fixed;
+            /* Fixed to cover the whole viewport */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Ensure it's behind everything */
+            pointer-events: none;
+        }
+
+        /* --- ABOUT ME SECTION --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+
+        @media (max-width: 1024px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .about-text p {
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .about-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .about-chip,
+        .chip-exact {
+            font-family: 'Fira Code', monospace;
+            background-color: rgba(0, 247, 217, 0.1);
+            color: var(--accent-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            border: 1px solid rgba(0, 247, 217, 0.2);
+            transition: background-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .about-chip:hover,
+        .chip-exact:hover {
+            background-color: rgba(0, 247, 217, 0.2);
+        }
+
+        .about-image-wrapper {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .about-image-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            right: -1rem;
+            bottom: -1rem;
+            border: 2px solid var(--accent-secondary);
+            border-radius: 0.5rem;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .about-image-wrapper:hover::after {
+            top: 0.75rem;
+            left: 0.75rem;
+        }
+
+        .about-image-wrapper img {
+            border-radius: 0.5rem;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: filter 0.3s;
+        }
+
+        .about-image-wrapper:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* --- EXACT SKILLS SECTION STYLES --- */
+        .section-title-exact {
+            display: flex;
+            align-items: center;
+            font-size: 1.75rem;
+            /* approx 28px */
+            font-weight: 700;
+            color: var(--text-headings);
+            /* A light, almost white color */
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title-exact .title-num {
+            color: var(--accent-secondary);
+            /* The bright cyan/green from the image */
+            font-family: 'Fira Code', monospace;
+            font-size: 1.25rem;
+            /* smaller than title */
+            margin-right: 0.75rem;
+        }
+
+        .section-title-exact .title-line {
+            flex-grow: 1;
+            height: 1px;
+            background-color: var(--border-color);
+            /* A dark blue-gray line */
+            margin-left: 1.25rem;
+        }
+
+        .skill-card-exact {
+            background-color: var(--bg-card);
+            /* A very dark blue, almost black */
+            border: 1px solid var(--border-color);
+            /* Subtle border */
+            padding: 1.5rem;
+            border-radius: 4px;
+            color: var(--text-primary);
+            /* Light text color */
+            transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
+        }
+
+        .skill-card-exact:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-secondary);
+        }
+
+        .skill-title-exact {
+            display: flex;
+            align-items: center;
+            font-size: 1.125rem;
+            /* text-lg */
+            font-weight: 600;
+            color: var(--text-headings);
+        }
+
+        .skill-title-exact i {
+            color: var(--accent-secondary);
+            margin-right: 0.75rem;
+        }
+
+        .progress-track {
+            background-color: var(--text-headings);
+            /* The white-ish track */
+            height: 4px;
+            border-radius: 2px;
+            width: 100%;
+        }
+
+        .progress-fill {
+            background-color: var(--accent-secondary);
+            height: 100%;
+            border-radius: 2px;
+        }
+
+        .chip-exact i {
+            color: var(--accent-secondary);
+            margin-right: 0.5rem;
+        }
+
+        .list-exact {
+            list-style: none;
+            padding: 0;
+        }
+
+        .list-exact li {
+            display: flex;
+            align-items: center;
+            color: var(--text-primary);
+        }
+
+        .list-exact li i {
+            color: var(--accent-secondary);
+            margin-right: 0.75rem;
+        }
+
+        /* --- TOOL ICON STYLE --- */
+        .tool-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            /* label/text color */
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .tool-item:hover {
+            transform: translateY(-5px);
+            color: var(--text-primary);
+        }
+
+        /* Icon tinting: keep labels neutral but tint icons (SVG or placeholder) green */
+        .tool-item .icon {
+            color: var(--accent-primary);
+            /* default icon color (green) */
+
+            transition: color 0.25s, transform 0.25s;
+        }
+
+        .tool-item:hover .icon {
+            color: var(--accent-secondary);
+            /* brighter on hover */
+            transform: translateY(-4px);
+        }
+
+        .tool-item img {
+            width: 50px;
+            /* Adjusted size for consistency */
+            height: 50px;
+            object-fit: contain;
+            /* Ensure images scale correctly */
+            filter: none;
+            /* show original colored logos by default */
+            transition: transform 0.25s, filter 0.3s;
+            display: block;
+            background-color: transparent;
+            max-width: 60px;
+            max-height: 60px;
+        }
+
+        /* Simple fallback placeholders for remote logos that may block hotlinking */
+        .tool-placeholder {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: background 0.25s, transform 0.25s, color 0.25s;
+            background: transparent;
+            border: 2px solid currentColor;
+            /* border will use the icon color */
+            color: inherit;
+            /* allow .icon color to control this when .icon class is applied */
+        }
+
+        .tool-item:hover img {
+            transform: translateY(-4px);
+            filter: none;
+            /* keep full color on hover */
+        }
+
+        .tool-item svg {
+            width: 50px;
+            height: 50px;
+            fill: currentColor;
+            /* inherit color from the .icon color */
+            transition: fill 0.3s, transform 0.3s;
+            display: block;
+        }
+
+        .tool-item:hover svg {
+            fill: var(--accent-secondary);
+            /* SVG fill color on hover */
+        }
+
+        .tool-item span {
+            font-size: 0.875rem;
+            /* text-sm */
+            font-weight: 500;
+            text-align: center;
+            color: var(--text-muted);
+            /* ensure labels stay subtle */
+        }
+
+        /* --- Professional circular badges for icons --- */
+        .icon-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            /* green */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 14px rgba(76, 175, 80, 0.12), inset 0 -6px 12px rgba(0, 0, 0, 0.12);
+            transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+        }
+
+        .icon-circle:hover {
+            background: var(--accent-secondary);
+            /* bright on hover */
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.08), inset 0 -6px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .icon-circle .icon-inner {
+            width: 34px;
+            height: 34px;
+            fill: var(--hero-btn-text);
+            /* dark glyph on green */
+        }
+
+        /* if we want white glyph instead, uncomment next rule */
+        /* .icon-circle .icon-inner { fill: #ffffff; } */
+        .icon-circle .icon-text {
+            font-weight: 700;
+            color: var(--hero-btn-text);
+            font-size: 0.95rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-card h3 {
+            color: var(--text-headings);
+        }
+
+        .section-card p {
+            color: var(--text-primary);
+        }
+
+        .section-card .text-3xl {
+            color: var(--accent-primary);
+        }
+
+        #contact h2 {
+            color: var(--text-headings);
+        }
+
+        #contact p {
+            color: var(--text-primary);
+        }
+
+        footer {
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--text-primary);
+        }
+
+        footer a:hover {
+            color: var(--accent-primary);
+        }
+
+        #about h2 {
+            color: var(--text-headings);
+        }
+
+        #about p {
+            color: var(--text-primary);
+        }
+
+        #tools h2 {
+            color: var(--text-headings);
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Shijin PS",
+      "url": "https://www.shijin.in/",
+      "sameAs": [
+        "https://www.linkedin.com/in/shijinps/",
+        "https://www.instagram.com/shijin.ps.13/"
+      ],
+      "jobTitle": [
+        "System Administrator",
+        "Cybersecurity Analyst",
+        "Network Engineer",
+        "Network Security Engineer",
+        "Cyber Security Engineer",
+        "Cloud Security Specialist",
+        "Cloud Engineer",
+        "Information Security Analyst",
+        "Cyber Crime Investigator",
+        "Digital Forensics Analyst"
+      ],
+      "knowsAbout": [
+        "Enterprise Networking", "Network Security", "Cybersecurity Architecture", "Cloud Computing",
+        "Cisco Systems", "Cisco IOS", "CCNP", "CCNA", "Routing and Switching", "OSPF", "BGP", "EIGRP", 
+        "Static Routing", "VLAN Segmentation", "Inter-VLAN Routing", "Spanning Tree Protocol (STP)", 
+        "Rapid STP (RSTP)", "EtherChannel", "Port Security", "Access Control Lists (ACLs)", "NAT/PAT",
+        "Subnetting (VLSM)", "Layer 2 Security", "Layer 3 Routing", "Network Topologies", "Wireshark", 
+        "Packet Analysis", "Cisco 3560 Switch", "Cisco 2900 Router", "Network Troubleshooting",
+        
+        "Ethical Hacking", "Certified Ethical Hacker (CEH)", "Penetration Testing", "Vulnerability Assessment", 
+        "VAPT", "Information Security", "Incident Response", "Threat Hunting", "SIEM", "Log Analysis", 
+        "Firewall Administration", "Next-Gen Firewalls (NGFW)", "IDS/IPS", "VPN Configuration", "IPsec", 
+        "SSL/TLS", "Cryptography", "Public Key Infrastructure (PKI)", "Endpoint Security", "Malware Analysis", 
+        "Digital Forensics", "Cyber Crime Investigation", "Network Forensics", "Linux Security", "Windows Server Security", 
+        "Identity and Access Management (IAM)", "Zero Trust Architecture", "SOC Operations", "OWASP Top 10",
+        
+        "Cloud Architecture", "Cloud Security", "Amazon Web Services (AWS)", "AWS Security", "Microsoft Azure", 
+        "Azure Security", "Google Cloud Platform (GCP)", "Cloud Networking", "Cloud Infrastructure", 
+        "Infrastructure as Code (IaC)", "Virtual Private Cloud (VPC)", "Cloud Firewalls", "IAM Policies", 
+        "Cloud Deployment", "Virtualization", "VMware ESXi", "Hyper-V", "Container Security", "Docker", 
+        "Kubernetes Security", "DevSecOps", "Cloud Log Monitoring", "Serverless Security",
+        
+        "System Administration", "Linux Administration", "Ubuntu Server", "CentOS", "RHEL", "Windows Server Administration", 
+        "Active Directory", "Group Policy (GPO)", "DNS Server Management", "DHCP Server Configuration", 
+        "Hardware Tinkering", "Server Hardware Optimization", "Dell PowerVault 745N", "NAS/SAN Storage", 
+        "RAID Configuration", "Backup and Recovery Disaster Planning", "Data Center Virtualization", 
+        "Enterprise Systems Monitoring", "Bash Scripting", "Python Automation", "n8n Automation", "API Integration",
+        
+        "Computer Applications", "MCA", "Data Structures", "Algorithms", "Database Management Systems (DBMS)", 
+        "SQL", "Network Programing", "Software Engineering", "IT Infrastructure Management", "Information Systems Audit",
+        "Public Administration", "Indian Polity", "Constitutional Law", "Administrative Law", "UPSC CSE"
+      ]
+    }
+    </script>
+</head>
+
+<body class="antialiased">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 py-5">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Left: Logo/Name -->
+            <a href="#" class="logo-font">
+                &lt;Shijin P S <span class="slash-color">/</span>&gt;
+            </a>
+
+            <!-- Right: Navigation and Theme Toggle -->
+            <nav class="flex items-center space-x-6">
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#about" class="header-link">About</a>
+                    <a href="#experience" class="header-link">Experience</a>
+                    <a href="#skills" class="header-link">Skills</a>
+                    <a href="#education" class="header-link">Education</a>
+                    <a href="#certifications" class="header-link">Certifications</a>
+                    <a href="#projects" class="header-link">Projects</a>
+                    <a href="#blog" class="header-link">Blog</a>
+                    <a href="#contact" class="header-link">Contact</a>
+                </div>
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="theme-toggle-btn">
+                    <i class="fas fa-sun"></i> <!-- Or fas fa-moon for dark mode default -->
+                </button>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none ml-4">
+                    <i class="fas fa-bars text-xl text-[#d1d1d1]"></i>
+                </button>
+            </nav>
+        </div>
+        <!-- Mobile Menu (initially hidden) -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 py-2">
+            <a href="#about" class="block text-center py-3 px-6">About</a>
+            <a href="#experience" class="block text-center py-3 px-6">Experience</a>
+            <a href="#skills" class="block text-center py-3 px-6">Skills</a>
+            <a href="#education" class="block text-center py-3 px-6">Education</a>
+            <a href="#certifications" class="block text-center py-3 px-6">Certifications</a>
+            <a href="#projects" class="block text-center py-3 px-6">Projects</a>
+            <a href="#blog" class="block text-center py-3 px-6">Blog</a>
+            <a href="#contact" class="block text-center py-3 px-6">Contact</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 md:px-12">
+        <!-- Hero Section -->
+        <section id="hero-section" class="relative">
+            <canvas id="particle-canvas"></canvas> <!-- Particle canvas for background -->
+            <div class="relative z-10 w-full" data-aos="fade-up">
+                <p class="text-base md:text-lg font-medium accent-text mb-4">Hello, my name is</p>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-tight mb-4">Shijin P S.
+                </h1>
+                <h2 class="text-2xl md:text-4xl font-semibold text-[#b0b0b0] mb-8">Cybersecurity Professional</h2>
+                <p class="mt-6 text-lg md:text-xl leading-relaxed mb-10 text-[#a0a0a0]">I'm a VAPT, Network Security,
+                    and Cloud Security Specialist
+                    specializing in identifying vulnerabilities and protecting digital infrastructures. My passion lies
+                    in the continuous pursuit of securing the digital world.</p>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="mailto:shijinps101010@gmail.com" class="hero-btn-primary">
+                        <i class="fas fa-envelope mr-2"></i> Get In Touch
+                    </a>
+                    <a href="https://www.linkedin.com/in/shijinps/" target="_blank" rel="noopener noreferrer"
+                        class="hero-btn-outline">
+                        <i class="fab fa-linkedin-in mr-2"></i> LinkedIn
+                    </a>
+                    <a href="https://github.com/shijinps" target="_blank" rel="noopener noreferrer"
+                        class="hero-btn-outline">
+                        <i class="fab fa-github mr-2"></i> GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 md:py-32" data-aos="fade-up">
+            <h2 class="section-title-exact">
+                About Me
+                <span class="title-line"></span>
+            </h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        I hold a Bachelor’s degree in Commerce (Finance). After discovering my strong interest in
+                        cybersecurity, I made a strategic career transition into this rapidly evolving domain.
+                        Understanding that a solid foundation in networking is essential for cybersecurity, I pursued
+                        and completed a Diploma in Computer Hardware and Network Engineering (DHNE).
+                    </p>
+                    <p>
+                        To further strengthen my technical expertise, I completed the Certified IT Infrastructure &
+                        Cyber
+                        Security Analyst (CICSA) program from RedTeam Hacker Academy. I also earned the Certified
+                        Ethical Hacker (CEH) certification from EC-Council, which enhanced my skills in ethical
+                        hacking, threat analysis, and security assessment.
+                    </p>
+                    <p>
+                        Currently, I am continuing to advance my knowledge by pursuing a Master of Computer Applications
+                        (MCA) along with CCNA and CCNP certifications, with a strong focus on networking, security
+                        architecture, and advanced troubleshooting.
+                    </p>
+                    <p>
+                        I am deeply committed to continuous learning and professional growth in cybersecurity. I
+                        actively engage in self-driven learning through hands-on practice, industry research, and
+                        ongoing upskilling to stay aligned with emerging threats and evolving technologies. I aspire to
+                        contribute effectively to securing digital assets, strengthening organizational security
+                        postures, and delivering impactful cybersecurity solutions.
+                    </p>
+                    <div class="about-chips">
+                        <span class="about-chip">Network Security</span>
+                        <span class="about-chip">Cloud Security</span>
+                        <span class="about-chip">Penetration Testing</span>
+                        <span class="about-chip">Incident Response</span>
+                        <span class="about-chip">SIEM</span>
+                    </div>
+                </div>
+                <div class="about-image-wrapper" data-aos="fade-left" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                        alt="A person working on a laptop in a modern office setting.">
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20 md:py-32" data-aos="fade-up">
+            <h2 class="section-title-exact">Experience</h2>
+            <div class="max-w-4xl">
+                <p class="text-lg leading-relaxed">Experience details go here.</p>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="py-20 md:py-32" data-aos="fade-up">
+            <h2 class="section-title-exact">Education</h2>
+            <div class="max-w-4xl">
+                <div class="space-y-8">
+                    <!-- Masters -->
+                    <div class="section-card p-6 rounded-lg relative hover:transform hover:scale-[1.01] transition-transform duration-300"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
+                            <h3 class="text-xl font-bold text-[#e6f1ff]">Masters Computer Applications (MCA)</h3>
+                            <span
+                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded mt-2 md:mt-0">2025</span>
+                        </div>
+                        <h4 class="text-lg text-[#ccd6f6] mb-1"><i
+                                class="fas fa-university mr-2 text-[#4CAF50]"></i>Uttaranchal University</h4>
+                        <p class="text-[#8892b0] ml-6">Dehradun, Uttarakhand, India</p>
+                    </div>
+
+                    <!-- Diploma -->
+                    <div class="section-card p-6 rounded-lg relative hover:transform hover:scale-[1.01] transition-transform duration-300"
+                        data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
+                            <h3 class="text-xl font-bold text-[#e6f1ff]">Diploma in Hardware & Network Engineering
+                                (DHNE)</h3>
+                            <span
+                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded mt-2 md:mt-0">2023</span>
+                        </div>
+                        <h4 class="text-lg text-[#ccd6f6] mb-1"><i
+                                class="fas fa-laptop-code mr-2 text-[#4CAF50]"></i>Kerala State Rutronix</h4>
+                        <p class="text-[#8892b0] ml-6">Thrissur, Kerala</p>
+                    </div>
+
+                    <!-- Bachelors -->
+                    <div class="section-card p-6 rounded-lg relative hover:transform hover:scale-[1.01] transition-transform duration-300"
+                        data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
+                            <h3 class="text-xl font-bold text-[#e6f1ff]">Bachelor of Commerce (B.Com)</h3>
+                            <span
+                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded mt-2 md:mt-0">2020</span>
+                        </div>
+                        <h4 class="text-lg text-[#ccd6f6] mb-1"><i
+                                class="fas fa-graduation-cap mr-2 text-[#4CAF50]"></i>Jyothis College of Advanced
+                            Studies</h4>
+                        <p class="text-[#8892b0] ml-6">Kerala</p>
+                    </div>
+
+                    <!-- Diploma C-DIT -->
+                    <div class="section-card p-6 rounded-lg relative hover:transform hover:scale-[1.01] transition-transform duration-300"
+                        data-aos="fade-up" data-aos-delay="400">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
+                            <h3 class="text-xl font-bold text-[#e6f1ff]">Diploma of Education, Accounting and Finance
+                            </h3>
+                            <span
+                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded mt-2 md:mt-0">2022</span>
+                        </div>
+                        <h4 class="text-lg text-[#ccd6f6] mb-1"><i
+                                class="fas fa-book-reader mr-2 text-[#4CAF50]"></i>Centre for Development of Imaging
+                            Technology (C-DIT)</h4>
+                        <p class="text-[#8892b0] ml-6">Kerala</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="py-20 md:py-32" data-aos="fade-up">
+            <h2 class="section-title-exact">Certifications</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <!-- CCNP -->
+                <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                    data-aos="zoom-in" data-aos-delay="100">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-4xl text-[#4CAF50]"><i class="fas fa-network-wired"></i></div>
+                        <i class="fas fa-check-circle text-[#4CAF50]"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">CCNP</h3>
+                    <p class="text-[#8892b0] mb-4 flex-grow">Cisco Certified Networking Professional</p>
+                    <div class="mt-auto pt-4 border-t border-[#1e293b]">
+                        <span class="text-xs font-mono text-[#4CAF50]">Cisco</span>
+                    </div>
+                </div>
+
+                <!-- CEH -->
+                <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                    data-aos="zoom-in" data-aos-delay="200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-4xl text-[#4CAF50]"><i class="fas fa-user-secret"></i></div>
+                        <i class="fas fa-check-circle text-[#4CAF50]"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">CEH v12</h3>
+                    <p class="text-[#8892b0] mb-4 flex-grow">Certified Ethical Hacker</p>
+                    <div class="mt-auto pt-4 border-t border-[#1e293b] flex flex-col gap-1">
+                        <span class="text-xs text-[#8892b0]">EC-Council</span>
+                        <span class="text-xs font-mono text-[#4CAF50]">ID: ECC5978104362</span>
+                    </div>
+                </div>
+
+                <!-- CICSA -->
+                <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                    data-aos="zoom-in" data-aos-delay="300">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-4xl text-[#4CAF50]"><i class="fas fa-shield-virus"></i></div>
+                        <i class="fas fa-check-circle text-[#4CAF50]"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">CICSA</h3>
+                    <p class="text-[#8892b0] mb-4 flex-grow">Certified IT Infrastructure & Cyber SOC Analyst</p>
+                    <div class="mt-auto pt-4 border-t border-[#1e293b] flex flex-col gap-1">
+                        <span class="text-xs text-[#8892b0]">RedTeam Hacker Academy</span>
+                        <span class="text-xs font-mono text-[#4CAF50]">ID: RTXSTU11113</span>
+                    </div>
+                </div>
+
+                <!-- Python -->
+                <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                    data-aos="zoom-in" data-aos-delay="400">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-4xl text-[#4CAF50]"><i class="fab fa-python"></i></div>
+                        <i class="fas fa-check-circle text-[#4CAF50]"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">Proficiency Certificate in Python</h3>
+                    <p class="text-[#8892b0] mb-4 flex-grow">Programers</p>
+                    <div class="mt-auto pt-4 border-t border-[#1e293b]">
+                        <span class="text-xs font-mono text-[#4CAF50]">Issued Jan 2022</span>
+                    </div>
+                </div>
+
+                <!-- Tally -->
+                <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                    data-aos="zoom-in" data-aos-delay="500">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-4xl text-[#4CAF50]"><i class="fas fa-file-invoice"></i></div>
+                        <i class="fas fa-check-circle text-[#4CAF50]"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">Tally Certified</h3>
+                    <p class="text-[#8892b0] mb-4 flex-grow">Tally Solutions Pvt Ltd</p>
+                    <div class="mt-auto pt-4 border-t border-[#1e293b] flex flex-col gap-1">
+                        <span class="text-xs text-[#8892b0]">Issued Mar 2021</span>
+                        <span class="text-xs font-mono text-[#4CAF50]">ID: 908236494</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="py-20 md:py-32" data-aos="fade-up">
+            <h2 class="section-title-exact">Blog</h2>
+            <div class="max-w-4xl">
+                <p class="text-lg leading-relaxed">Blog posts go here.</p>
+            </div>
+        </section>
+
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 md:py-32" data-aos="fade-up">
+            <h2 class="section-title-exact">
+                Skills
+                <span class="title-line"></span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Security Expertise -->
+                <div class="skill-card-exact" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="skill-title-exact"><i class="fas fa-shield-alt"></i> Security Expertise</h3>
+                    <div class="space-y-4 mt-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>VA/PT
+                                    Assessments</span><span>90%</span></div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>Secure Config
+                                    Reviews</span><span>85%</span></div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>Vulnerability
+                                    Management</span><span>85%</span></div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>Incident Response &
+                                    Forensics</span><span>80%</span></div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web & Infrastructure (Mapped from Cloud Platforms) -->
+                <div class="skill-card-exact" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="skill-title-exact"><i class="fas fa-server"></i> Web & Cloud Mgmt</h3>
+                    <div class="space-y-4 mt-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>Oracle Cloud
+                                    Infrastructure</span><span>85%</span></div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>WHM & cPanel</span><span>90%</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>Web App
+                                    Deployment</span><span>85%</span></div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>PaaS Platform
+                                    Mgmt</span><span>80%</span></div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hardware & Network (Mapped from Programming) -->
+                <div class="skill-card-exact" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="skill-title-exact"><i class="fas fa-network-wired"></i> Hardware & Network</h3>
+                    <div class="space-y-4 mt-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>Network
+                                    Installation</span><span>90%</span></div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>Routers &
+                                    Switches</span><span>85%</span></div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>Hardware
+                                    Assembly</span><span>90%</span></div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1"><span>Troubleshooting</span><span>95%</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Protocols & Standards -->
+                <div class="skill-card-exact" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="skill-title-exact"><i class="fas fa-globe"></i> Protocols & Compliance</h3>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> ISO 27001</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> Compliance</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> OWASP</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> TCP/IP</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> DNS/HTTP</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> SSL/TLS</span>
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div class="skill-card-exact" data-aos="fade-up" data-aos-delay="500">
+                    <h3 class="skill-title-exact"><i class="fas fa-award"></i> Certifications</h3>
+                    <ul class="list-exact mt-4">
+                        <li><i class="fas fa-check-circle"></i> CEH v12 (Certified Ethical Hacker)</li>
+                        <li><i class="fas fa-check-circle"></i> CICSA (RedTeam Academy)</li>
+                        <li><i class="fas fa-check-circle"></i> CCNP (In Progress)</li>
+                        <li><i class="fas fa-check-circle"></i> DHNE (Hardware & Networking)</li>
+                    </ul>
+                </div>
+
+                <!-- Additional Skills -->
+                <div class="skill-card-exact" data-aos="fade-up" data-aos-delay="600">
+                    <h3 class="skill-title-exact"><i class="fas fa-wrench"></i> Tools & Methods</h3>
+                    <ul class="list-exact mt-4">
+                        <li><i class="fas fa-check-circle"></i> Burp Suite & Metasploit</li>
+                        <li><i class="fas fa-check-circle"></i> Wireshark Analysis</li>
+                        <li><i class="fas fa-check-circle"></i> Risk Mitigation</li>
+                        <li><i class="fas fa-check-circle"></i> Technical Support</li>
+                        <li><i class="fas fa-check-circle"></i> Asset Management</li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section id="tools" class="py-20 md:py-32" data-aos="fade-up">
+            <h2 class="section-title">Some Tools I've Used and Learned</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 place-items-center">
+                    <!-- Metasploit -->
+                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="50">
+                        <div class="icon-circle">
+                            <svg class="icon-inner" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <title>Metasploit</title>
+                                <path
+                                    d="M11.353 0h1.368q4.19.218 8.144 1.616.217.077.216.309-.015 4.033-.002 12.102 0 .81-.093 1.173c-.217.845-.76 1.635-1.326 2.325q-.318.388-1.024 1.046-2.955 2.75-6.01 5.094-.183.14-.516.335h-.17q-.627-.42-.945-.673-3.992-3.184-5.442-4.459-1.348-1.185-2.169-2.611c-.369-.64-.466-1.287-.465-2.099q.01-6.048.002-12.218c0-.183.09-.264.261-.325Q7.145.227 11.352 0ZM7.474 7.864q0-.094.069-.031l2.797 2.516a.374.372 21.2 0 1 .122.276l-.006 4.333a.182.182 0 0 0 .183.184l2.524-.018a.11.11 89.8 0 0 .108-.11q-.007-2.201.01-4.461.002-.173.146-.29 1.397-1.145 2.946-2.393.068-.055.068.032v10.881q0 .092.063.024.794-.865 1.628-1.838.71-.83.984-1.87.26-.989.262-1.997.007-4.754.009-9.768a.136.136 0 0 0-.137-.136q-1.15.004-2.424 0c-.287-.002-.441-.022-.619.149Q14.16 5.317 11.982 7.4a.046.046 0 0 1-.062 0Q9.782 5.437 7.769 3.525c-.234-.222-.515-.381-.843-.373q-1.09.026-2.33.005-.184-.004-.184.18-.003 4.54.005 9.032.002.536.036 1.027c.076 1.093.2 2.126.803 3.021.574.852 1.329 1.656 2.126 2.405q.023.022.054.026.04.006.04-.034z" />
+                            </svg>
+                        </div>
+                        <span>Metasploit</span>
+                    </div>
+                    <!-- Wireshark -->
+                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="icon-circle">
+                            <svg class="icon-inner" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <title>Wireshark</title>
+                                <path
+                                    d="m2.95 0c-1.62 0-2.95 1.32-2.95 2.95v18.1c0 1.63 1.32 2.95 2.95 2.95h18.1c1.62 0 2.95-1.32 2.95-2.95v-18.1c-.00024-1.63-1.32-2.95-2.95-2.95zm0 1.09h18.1c1.04 0 1.85.818 1.85 1.86v14h-5.27c-.335-.796-2.57-6.47.283-10.9a.516.517 0 0 0-.443-.794c-5.24.0827-8.2 3.19-9.74 6.21-1.35 2.64-1.63 4.91-1.69 5.53h-4.95v-14c0-1.04.817-1.86 1.85-1.86zm13.6 5.24c-2.62 5.24.248 11.4.248 11.4a.516.517 0 0 0 .469.301h5.62v3.05c0 1.04-.817 1.86-1.85 1.86h-18.1c-1.04 0-1.85-.818-1.85-1.86v-3.05h5.39a.516.517 0 0 0 .514-.477s.226-2.8 1.66-5.62c1.34-2.62 3.67-5.17 7.91-5.57z" />
+                            </svg>
+                        </div>
+                        <span>Wireshark</span>
+                    </div>
+                    <!-- Nessus -->
+                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="150">
+                        <div class="icon-circle">
+                            <i class="fas fa-bug icon-text text-2xl"></i>
+                        </div>
+                        <span>Nessus</span>
+                    </div>
+                    <!-- Nikto -->
+                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="icon-circle">
+                            <i class="fas fa-bolt icon-text text-2xl"></i>
+                        </div>
+                        <span>Nikto</span>
+                    </div>
+                    <!-- OWASP ZAP -->
+                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="250">
+                        <div class="icon-circle">
+                            <svg class="icon-inner" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <title>OWASP</title>
+                                <path
+                                    d="M15.897 20.503c-.384 0-1.782-2.489-1.97-3.198-.393-1.486-.308-2.114-.285-2.314.072-.613.667-.92.703-1.748.01-.256.14-1.535.243-2.534a1.723 1.723 0 0 1-.733-.343c.676.908-.32 1.995-1.767 3.443-1.536 1.536-4.945 2.961-4.945 2.961s1.425-3.41 2.961-4.945c1.13-1.129 2.04-1.983 2.816-1.983.22 0 .427.067.627.216a1.722 1.722 0 0 1-.343-.733c-.999.103-2.278.232-2.534.244-.829.036-1.135.63-1.747.702-.07.008-.194.024-.388.024-.36 0-.963-.054-1.926-.31-.772-.203-3.648-1.84-3.14-2.045.26-.105 1.087-.176 2.175-.176 1.047 0 2.337.066 3.596.23 1.57.205 3.01.463 3.992.656.016-.053.035-.104.058-.154l-1.004-.48s-.8-.92-.715-.984a.02.02 0 0 1 .012-.003c.126 0 .767.733.829.816l.605.202-.284-.249s-.388-1.438-.287-1.472h.004c.106 0 .459 1.25.489 1.34.07.06.303.152.596.32l-.308-.79s.14-1.305.243-1.305h.003c.105.021-.02 1.089-.047 1.221l.51.783a1.31 1.31 0 0 1 .463-.082c.184 0 .374.036.558.107-.236-.502-.218-1.025.095-1.338a.84.84 0 0 1 .353-.209.462.462 0 0 1 .457-.383c.127 0 .254.05.352.148a.497.497 0 0 1 .147.335c.151-.311.329-.73.317-.867-.03-.307-.386-.852-.39-.857a.076.076 0 0 1 .064-.119c.025 0 .05.012.064.035.016.023.381.582.414.927.018.198-.21.696-.333.95a2.227 2.227 0 0 1 .873.874c.245-.12.715-.334.927-.334l.024.001c.345.033.904.399.927.414a.076.076 0 0 1-.084.128c-.005-.004-.55-.36-.857-.39h-.015c-.15 0-.552.171-.852.317.12.004.242.053.335.147a.482.482 0 0 1 .012.681.459.459 0 0 1-.247.128.845.845 0 0 1-.21.354.924.924 0 0 1-.67.255c-.212 0-.441-.055-.667-.16.132.343.142.708.025 1.02l.783.51c.095-.019.666-.088.993-.088.13 0 .222.011.228.04.02.106-1.305.247-1.305.247l-.79-.308c.168.293.26.527.32.596.091.03 1.374.392 1.34.493-.004.012-.026.017-.063.017-.283 0-1.41-.304-1.41-.304l-.248-.284.202.605c.087.065.876.755.813.841-.004.005-.009.007-.016.007-.139 0-.967-.722-.967-.722l-.481-1.004a1.18 1.18 0 0 1-.154.058c.193.982.451 2.422.656 3.992.335 2.569.26 5.261.054 5.77-.016.041-.042.06-.076.06M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12m0-22.153C6.393 1.847 1.847 6.393 1.847 12S6.393 22.153 12 22.153 22.153 17.607 22.153 12 17.607 1.847 12 1.847Z" />
+                            </svg>
+                        </div>
+                        <span>OWASP ZAP</span>
+                    </div>
+                    <!-- Nmap -->
+                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="icon-circle">
+                            <i class="fas fa-eye icon-text text-2xl"></i>
+                        </div>
+                        <span>Nmap</span>
+                    </div>
+                    <!-- Burp Suite -->
+                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="350">
+                        <div class="icon-circle">
+                            <svg class="icon-inner" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <title>Burp Suite</title>
+                                <path
+                                    d="M0 0v24h24V0Zm11.063 3.357h1.874v2.756L10.41 9.2h2.527v3.748h4.579l-4.578 5.592v2.104h-1.876v-2.758l2.528-3.086h-2.527V11.05h-4.58l4.58-5.592Z" />
+                            </svg>
+                        </div>
+                        <span>Burp Suite</span>
+                    </div>
+                    <!-- Kali Linux -->
+                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="icon-circle">
+                            <i class="fas fa-dragon icon-text text-2xl"></i>
+                        </div>
+                        <span>Kali Linux</span>
+                    </div>
+                    <!-- Elastic SIEM -->
+                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="500">
+                        <div class="icon-circle">
+                            <svg class="icon-inner" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <title>Elastic</title>
+                                <path
+                                    d="M20.345 16.33l-3.959-.926-1.05-2.01 5.177-4.535a3.962 3.962 0 012.559 3.702 4.006 4.006 0 01-2.727 3.77m-2.976 4.68c-.616 0-1.22-.207-1.714-.587l.782-4.077 3.596.841c.115.31.172.642.172.987a2.839 2.839 0 01-2.836 2.836m-2.637-.586a5.92 5.92 0 01-4.908 2.6A5.947 5.947 0 014 15.905l5.167-4.67 5.272 2.403 1.167 2.23zM.928 11.443a4.007 4.007 0 012.726-3.77l3.95.933.927 1.98-5.05 4.565a3.97 3.97 0 01-2.553-3.708m5.703-8.45a2.841 2.841 0 011.723.58l-.789 4.092-3.598-.85a2.842 2.842 0 01-.172-.986A2.84 2.84 0 016.63 2.992m2.66.59A5.92 5.92 0 0120.1 6.93c0 .4-.038.781-.114 1.164l-5.299 4.643-5.251-2.394-1.026-2.19zM24 12.571a4.723 4.723 0 00-3.124-4.454 6.695 6.695 0 00.126-1.29A6.789 6.789 0 0014.22.047 6.769 6.769 0 008.727 2.86a3.586 3.586 0 00-2.204-.754A3.604 3.604 0 003.15 6.959 4.786 4.786 0 000 11.431 4.727 4.727 0 003.139 15.9a6.876 6.876 0 00-.124 1.289 6.773 6.773 0 006.765 6.765c2.19 0 4.22-1.052 5.49-2.824a3.568 3.568 0 002.207.769 3.603 3.603 0 003.374-4.854A4.785 4.785 0 0024 12.572" />
+                            </svg>
+                        </div>
+                        <span>Elastic SIEM</span>
+                    </div>
+                    <!-- Wazuh -->
+                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="550">
+                        <div class="icon-circle">
+                            <i class="fas fa-project-diagram icon-text text-2xl"></i>
+                        </div>
+                        <span>Wazuh</span>
+                    </div>
+                    <!-- Splunk -->
+                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="600">
+                        <div class="icon-circle">
+                            <svg class="icon-inner" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <title>Splunk</title>
+                                <path
+                                    d="M23.348 11.911l-2.241-1.091v-.65L24 11.621v.593l-2.893 1.438v-.636zm-5.397 1.841h-.961v-5.31h.961v3.116h.102l1.28-1.481.723.31-1.23 1.316 1.453 1.809-.888.311-1.44-1.996zm-2.577-.002v-2.068a2.685 2.685 0 0 0-.026-.42.791.791 0 0 0-.09-.26c-.113-.202-.308-.304-.59-.304a.888.888 0 0 0-.461.113.673.673 0 0 0-.286.33 1.012 1.012 0 0 0-.07.263c-.012.13-.019.262-.017.395v1.95h-.961v-3.614h.961l.002.485c.185-.2.373-.348.566-.437.192-.089.418-.134.673-.134.286 0 .527.058.721.177a1.016 1.016 0 0 1 .475.665 1.972 1.972 0 0 1 .054.448c.002.1.004.22.004.358v2.053zm-4.115.002l-.002-.485a1.783 1.783 0 0 1-.565.437 1.597 1.597 0 0 1-.674.135c-.285 0-.524-.057-.72-.17a.972.972 0 0 1-.425-.504.75.75 0 0 1-.054-.167 1.918 1.918 0 0 1-.033-.199 2.033 2.033 0 0 1-.017-.258 15.516 15.516 0 0 1-.005-.355V10.13h.956v2.07c-.003.141.006.282.026.42.015.092.045.18.09.26.113.204.308.306.59.306.36 0 .606-.15.74-.449.035-.082.06-.168.074-.257.017-.134.024-.269.022-.403v-1.95h.955v3.624zM7.184 8.44h.955v5.31h-.955zM5.759 11.9c0-.396-.08-.708-.24-.937a.759.759 0 0 0-.657-.345.804.804 0 0 0-.693.366c-.171.245-.256.574-.253.99 0 .405.084.723.25.957a.796.796 0 0 0 .69.347.685.685 0 0 0 .433-.135.985.985 0 0 0 .277-.34c.071-.14.121-.292.147-.448.03-.151.043-.3.046-.455m1.01-.036c.003.266-.04.532-.129.786-.082.23-.204.441-.364.626-.31.361-.764.567-1.24.563a1.67 1.67 0 0 1-.313-.028 1.041 1.041 0 0 1-.275-.098 1.33 1.33 0 0 1-.257-.178 2.379 2.379 0 0 1-.265-.268v2.293h-.929v-5.425h.93l.004.529c.169-.212.353-.368.55-.468.197-.1.426-.15.688-.147a1.509 1.509 0 0 1 1.156.507c.148.166.259.361.33.571.08.236.12.485.115.737m-4.21.89a.946.946 0 0 1-.102.441 1.007 1.007 0 0 1-.282.345c-.13.1-.275.173-.43.22a1.8 1.8 0 0 1-.546.08 1.985 1.985 0 0 1-.637-.097 1.964 1.964 0 0 1-.563-.32l.312-.505c.15.126.284.217.405.275.115.057.24.087.368.087a.557.557 0 0 0 .373-.12.396.396 0 0 0 .14-.322.475.475 0 0 0-.12-.318 1.306 1.306 0 0 0-.187-.173 9.231 9.231 0 0 0-.308-.232 6.787 6.787 0 0 1-.281-.21 2.11 2.11 0 0 1-.252-.232 1.039 1.039 0 0 1-.18-.275.826.826 0 0 1-.069-.347.893.893 0 0 1 .094-.409.935.935 0 0 1 .255-.314 1.22 1.22 0 0 1 .39-.203c.16-.05.327-.074.494-.072.184 0 .368.026.545.076.174.05.338.123.488.219l-.282.454a1.05 1.05 0 0 0-.608-.201.504.504 0 0 0-.323.102.307.307 0 0 0-.126.253c0 .098.041.193.113.26.074.078.203.186.385.325.185.136.336.253.457.355.104.085.202.182.286.286.065.08.115.173.145.273a.808.808 0 0 1 .046.299Z" />
+                            </svg>
+                        </div>
+                        <span>Splunk</span>
+                    </div>
+
+                    <!-- GNS3 -->
+                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="650">
+                        <div class="icon-circle">
+                            <i class="fas fa-network-wired icon-text text-2xl"></i>
+                        </div>
+                        <span>GNS3</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 md:py-32" data-aos="fade-up">
+            <h2 class="section-title">Projects & Accomplishments</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="section-card p-6" data-aos="zoom-in-up" data-aos-delay="100">
+                    <div class="text-3xl text-[#4CAF50] mb-4"><i class="fas fa-award"></i></div>
+                    <h3 class="text-xl font-bold mb-2 text-[#ccd6f6]">NCIIPC Hall of Fame</h3>
+                    <p>Recognized for reporting security vulnerabilities in over 30+ government websites.</p>
+                </div>
+                <div class="section-card p-6" data-aos="zoom-in-up" data-aos-delay="200">
+                    <div class="text-3xl text-[#4CAF50] mb-4"><i class="fas fa-bug-slash"></i></div>
+                    <h3 class="text-xl font-bold mb-2 text-[#ccd6f6]">Web App Pentesting</h3>
+                    <p>Conducted in-depth penetration tests for commercial websites like 'Lamasia' and 'bismideal.com'.
+                    </p>
+                </div>
+                <div class="section-card p-6" data-aos="zoom-in-up" data-aos-delay="300">
+                    <div class="text-3xl text-[#4CAF50] mb-4"><i class="fas fa-laptop-code"></i></div>
+                    <h3 class="text-xl font-bold mb-2 text-[#ccd6f6]">Vulnhub Challenges</h3>
+                    <p>Successfully completed and documented numerous CTF challenges (Dc-1, Biohazard, etc.).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sessions Section -->
+        <section id="sessions" class="py-20 md:py-32" data-aos="fade-up">
+            <h2 class="section-title-exact">
+                Sessions & Workshops
+                <span class="title-line"></span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Session 1: Vimala College -->
+                <div class="section-card p-0 rounded-lg overflow-hidden hover:transform hover:scale-[1.01] transition-all duration-300"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <!-- Carousel Container -->
+                    <div class="relative h-64 bg-gray-800 overflow-hidden group vimala-carousel">
+                        <img src="assets/images/vimala-1.jpg"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-100"
+                            alt="Vimala College Session 1">
+                        <img src="assets/images/vimala-2.jpg"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                            alt="Vimala College Session 2">
+                        <img src="assets/images/vimala-3.jpg"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                            alt="Vimala College Session 3">
+                        <img src="assets/images/vimala-4.jpg"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                            alt="Vimala College Session 4">
+                        <img src="assets/images/vimala-5.jpg"
+                            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 opacity-0"
+                            alt="Vimala College Session 5">
+
+                        <!-- Navigation dots -->
+                        <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2 z-10">
+                            <span class="w-2 h-2 rounded-full bg-white opacity-100 shadow-md"></span>
+                            <span class="w-2 h-2 rounded-full bg-white opacity-50 shadow-md"></span>
+                            <span class="w-2 h-2 rounded-full bg-white opacity-50 shadow-md"></span>
+                            <span class="w-2 h-2 rounded-full bg-white opacity-50 shadow-md"></span>
+                            <span class="w-2 h-2 rounded-full bg-white opacity-50 shadow-md"></span>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded">Session</span>
+                            <a href="https://www.linkedin.com/in/shijinps/" target="_blank"
+                                class="text-[#8892b0] hover:text-[#4CAF50]"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">Awareness & Intro to Cybersecurity</h3>
+                        <p class="text-[#8892b0] mb-4 text-sm"><i class="fas fa-map-marker-alt mr-2"></i>Vimala College,
+                            Thrissur</p>
+                        <p class="text-[#8892b0]">An enriching session engaging with students on "Awareness and
+                            Introduction to
+                            Cybersecurity & Career Orientation".</p>
+                    </div>
+                </div>
+
+                <!-- Session 2: Sri Vyasa N.S.S. College -->
+                <div class="section-card p-0 rounded-lg overflow-hidden hover:transform hover:scale-[1.01] transition-all duration-300"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative h-64 bg-gray-800">
+                        <div class="absolute inset-0 flex items-center justify-center text-[#8892b0]">
+                            <i class="fas fa-university text-5xl opacity-50"></i>
+                        </div>
+                        <!-- Updated Image -->
+                        <img src="assets/images/session-vyasa-updated.jpg" alt="Session at Sri Vyasa N.S.S. College"
+                            class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded">Session</span>
+                            <a href="https://www.linkedin.com/in/shijinps/" target="_blank"
+                                class="text-[#8892b0] hover:text-[#4CAF50]"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">Cybersecurity Career Orientation</h3>
+                        <p class="text-[#8892b0] mb-4 text-sm"><i class="fas fa-map-marker-alt mr-2"></i>Sri Vyasa
+                            N.S.S.
+                            College</p>
+                        <p class="text-[#8892b0]">A great experience discussing career paths and cybersecurity
+                            fundamentals
+                            with enthusiastic students.</p>
+                    </div>
+                </div>
+
+                <!-- Session 3: Systech Group Workshop -->
+                <div class="section-card p-0 rounded-lg overflow-hidden hover:transform hover:scale-[1.01] transition-all duration-300"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative h-64 bg-gray-800">
+                        <div class="absolute inset-0 flex items-center justify-center text-[#8892b0]">
+                            <i class="fas fa-laptop-code text-5xl opacity-50"></i>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                            alt="Ethical Hacking Workshop" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded">Workshop</span>
+                            <a href="https://www.systechgroup.in" target="_blank"
+                                class="text-[#8892b0] hover:text-[#4CAF50]"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">Ethical Hacking Workshop</h3>
+                        <p class="text-[#8892b0] mb-4 text-sm"><i class="fas fa-map-marker-alt mr-2"></i>Systech Group
+                        </p>
+                        <p class="text-[#8892b0]">Participated in a hands-on workshop focused on ethical hacking
+                            techniques, tools, and defenses.</p>
+                    </div>
+                </div>
+
+                <!-- Session 4: SheCode CTF -->
+                <div class="section-card p-0 rounded-lg overflow-hidden hover:transform hover:scale-[1.01] transition-all duration-300"
+                    data-aos="fade-up" data-aos-delay="400">
+                    <div class="relative h-64 bg-gray-800">
+                        <div class="absolute inset-0 flex items-center justify-center text-[#8892b0]">
+                            <i class="fas fa-flag text-5xl opacity-50"></i>
+                        </div>
+                        <img src="assets/images/session-shecode.jpg" alt="SheCode CTF"
+                            class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded">CTF
+                                Event</span>
+                            <a href="https://redteamthrissur.com" target="_blank"
+                                class="text-[#8892b0] hover:text-[#4CAF50]"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">SheCode CTF</h3>
+                        <p class="text-[#8892b0] mb-4 text-sm"><i class="fas fa-map-marker-alt mr-2"></i>RedTeam Hacker
+                            Academy, Thrissur</p>
+                        <p class="text-[#8892b0]">Participant in the SheCode CTF event, solving challenges and engaging
+                            with the community.</p>
+                    </div>
+                </div>
+
+                <!-- Session 5: Cyber Shield 2.0 -->
+                <div class="section-card p-0 rounded-lg overflow-hidden hover:transform hover:scale-[1.01] transition-all duration-300"
+                    data-aos="fade-up" data-aos-delay="500">
+                    <div class="relative h-64 bg-gray-800">
+                        <div class="absolute inset-0 flex items-center justify-center text-[#8892b0]">
+                            <i class="fas fa-shield-alt text-5xl opacity-50"></i>
+                        </div>
+                        <img src="assets/images/session-cybershield-updated.jpg" alt="Cyber Shield 2.0"
+                            class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <span
+                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded">Event</span>
+                            <a href="https://www.linkedin.com/in/shijinps/" target="_blank"
+                                class="text-[#8892b0] hover:text-[#4CAF50]"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">Cyber Shield 2.0</h3>
+                        <p class="text-[#8892b0] mb-4 text-sm"><i class="fas fa-map-marker-alt mr-2"></i>Pearl Regency,
+                            Thrissur</p>
+                        <p class="text-[#8892b0]">Participated in Cyber Shield 2.0 to engage with industry experts and
+                            enhance knowledge in advanced cybersecurity practices.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 md:py-32 text-center" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold text-[#ccd6f6] mb-4">Get In Touch</h2>
+            <p class="max-w-xl mx-auto mb-8">I'm always open to discussing new projects, creative ideas, or
+                opportunities to be part of your vision. Whether you have a question or just want to say hi, I'll try my
+                best to get back to you!</p>
+            <a href="mailto:shijinps101010@gmail.com" class="hero-btn-primary font-bold text-lg">
+                Say Hello
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6">
+        <div class="container mx-auto px-6 text-center text-[#8892b0] text-sm">
+            <div class="flex justify-center space-x-6 mb-4 md:hidden">
+                <a href="https://www.linkedin.com/in/shijinps/" target="_blank" rel="noopener noreferrer"
+                    class="hover:text-[#4CAF50] text-2xl"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/shijinps" target="_blank" rel="noopener noreferrer"
+                    class="hover:text-[#4CAF50] text-2xl"><i class="fab fa-github"></i></a>
+            </div>
+            <p>&copy; 2024 Shijin P S. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href && href.length > 1) {
+                    e.preventDefault();
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Theme toggle functionality
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const themeIcon = themeToggleBtn.querySelector('i');
+
+        // Check for saved theme in localStorage
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        } else {
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('light');
+
+            // Update icon and save preference
+            if (body.classList.contains('light')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // --- Particle Canvas Animation ---
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const numParticles = 80;
+        const particleColor = '#4CAF50'; // Green accent color
+        const lineColor = 'rgba(76, 175, 80, 0.2)'; // Faint green lines
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            if (particles.length === 0) {
+                createParticles();
+            } else { // Re-initialize particles on resize to distribute them correctly
+                createParticles();
+            }
+        }
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = particleColor;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function createParticles() {
+            particles = [];
+            for (let i = 0; i < numParticles; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                particles.push(new Particle(x, y));
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.strokeStyle = lineColor;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        animateParticles();
+    </script>
+</body>
+
+</html>
