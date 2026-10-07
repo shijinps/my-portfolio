@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Network & HA Firewall Deployment - Case Study | Shijin P S</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-card: #0f172a;
+            --bg-header: rgba(10, 10, 10, 0.85);
+            --text-primary: #cbd5e1;
+            --text-headings: #e6f1ff;
+            --text-muted: #8892b0;
+            --accent-primary: #4CAF50;
+            --accent-secondary: #00f7d9;
+            --border-color: #1e293b;
+            --hero-btn-text: #0a0a0a;
+        }
+
+        body.light {
+            --bg-primary: #f0f2f5;
+            --bg-card: #ffffff;
+            --bg-header: rgba(255, 255, 255, 0.85);
+            --text-primary: #495057;
+            --text-headings: #1d2d35;
+            --text-muted: #6c757d;
+            --accent-primary: #28a745;
+            --accent-secondary: #17a2b8;
+            --border-color: #dee2e6;
+            --hero-btn-text: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header-link {
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+
+        .header-link:hover {
+            color: var(--accent-primary);
+        }
+
+        .logo-font {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.25rem;
+            color: var(--text-headings);
+        }
+
+        .logo-font .slash-color {
+            color: var(--accent-primary);
+        }
+
+        header {
+            background-color: var(--bg-header);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+        }
+
+        .badge-pill {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(76, 175, 80, 0.35);
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--accent-primary);
+        }
+
+        .badge-cyan {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(0, 247, 217, 0.35);
+            background: rgba(0, 247, 217, 0.1);
+            color: var(--accent-secondary);
+        }
+
+        .step-number {
+            font-family: 'Fira Code', monospace;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.15);
+            color: var(--accent-primary);
+            border: 1px solid var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .gallery-item {
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            background: #111827;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.15);
+        }
+
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Modal Lightbox */
+        #lightbox-modal {
+            display: none;
+        }
+
+        #lightbox-modal.active {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="logo-font flex items-center space-x-2">
+                <span>&lt;Shijin P S <span class="slash-color">/</span>&gt;</span>
+            </a>
+
+            <div class="flex items-center space-x-4">
+                <a href="index.html#infrastructure"
+                    class="header-link flex items-center space-x-2 font-mono text-sm hover:text-[#4CAF50] transition">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Portfolio</span>
+                </a>
+                <button id="theme-toggle" class="theme-toggle-btn" title="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-28 pb-20">
+        <div class="container mx-auto px-6 max-w-6xl">
+
+            <!-- Breadcrumbs -->
+            <nav class="text-sm font-mono text-[#8892b0] mb-6 flex items-center space-x-2" data-aos="fade-down">
+                <a href="index.html" class="hover:text-[#4CAF50]">Home</a>
+                <span>/</span>
+                <a href="index.html#infrastructure" class="hover:text-[#4CAF50]">Infrastructure Deployments</a>
+                <span>/</span>
+                <span class="text-[#e6f1ff]">Arista & Fortinet HA Deployment</span>
+            </nav>
+
+            <!-- Case Study Hero -->
+            <div class="mb-12" data-aos="fade-up">
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="badge-pill"><i class="fas fa-network-wired mr-1"></i> Enterprise Switching</span>
+                    <span class="badge-pill"><i class="fas fa-shield-halved mr-1"></i> Fortinet HA Cluster</span>
+                    <span class="badge-cyan"><i class="fas fa-wifi mr-1"></i> Wi-Fi 7 (Arista AP-C460)</span>
+                    <span class="badge-cyan"><i class="fas fa-bolt mr-1"></i> Dual-Homed Redundancy</span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-[#e6f1ff] mb-4 tracking-tight leading-tight">
+                    Enterprise Campus Network & High-Availability Firewall Deployment
+                </h1>
+                <p class="text-lg md:text-xl text-[#8892b0] max-w-3xl leading-relaxed">
+                    End-to-end implementation of an enterprise campus infrastructure using Arista Networks Core & Access
+                    switching, dual Fortinet FortiGate 200G HA firewalls, and dual-homed redundant uplinks tested for
+                    seamless sub-second failover.
+                </p>
+            </div>
+
+            <!-- Key Metric Summary Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16" data-aos="fade-up" data-aos-delay="100">
+                <div class="section-card p-5 rounded-lg border-l-4 border-l-[#4CAF50]">
+                    <div class="text-xs font-mono uppercase text-[#8892b0] mb-1">Architecture</div>
+                    <div class="text-xl md:text-2xl font-bold text-[#e6f1ff]">2 Core + 4 Access</div>
+                    <div class="text-xs text-[#8892b0] mt-1">+ 2 AP Switches</div>
+                </div>
+                <div class="section-card p-5 rounded-lg border-l-4 border-l-[#00f7d9]">
+                    <div class="text-xs font-mono uppercase text-[#8892b0] mb-1">Perimeter Security</div>
+                    <div class="text-xl md:text-2xl font-bold text-[#e6f1ff]">FortiGate 200G</div>
+                    <div class="text-xs text-[#8892b0] mt-1">Active HA Cluster</div>
+                </div>
+                <div class="section-card p-5 rounded-lg border-l-4 border-l-[#4CAF50]">
+                    <div class="text-xs font-mono uppercase text-[#8892b0] mb-1">Backbone Links</div>
+                    <div class="text-xl md:text-2xl font-bold text-[#e6f1ff]">10G SFP+ & Fiber</div>
+                    <div class="text-xs text-[#8892b0] mt-1">DAC + OM3/OM4 LC-LC</div>
+                </div>
+                <div class="section-card p-5 rounded-lg border-l-4 border-l-[#00f7d9]">
+                    <div class="text-xs font-mono uppercase text-[#8892b0] mb-1">Stress Testing</div>
+                    <div class="text-xl md:text-2xl font-bold text-[#e6f1ff]">Zero Packet Loss</div>
+                    <div class="text-xs text-[#8892b0] mt-1">Live Cable-Pull Validated</div>
+                </div>
+            </div>
+
+            <!-- Implementation Walkthrough -->
+            <div class="space-y-12 mb-16">
+
+                <!-- Phase 1 -->
+                <div class="section-card p-8 rounded-xl" data-aos="fade-up">
+                    <div class="flex items-start space-x-4">
+                        <div class="step-number flex-shrink-0">01</div>
+                        <div class="space-y-3">
+                            <h2 class="text-2xl font-bold text-[#e6f1ff]">Client Requirements & Solution Design</h2>
+                            <p class="text-[#8892b0] leading-relaxed">
+                                The client required an enterprise-grade infrastructure capable of delivering maximum
+                                throughput, zero single points of failure (SPOF), and high-density wireless coverage.
+                                After analyzing operational bandwidth and resilience requirements, we proposed and delivered
+                                an <strong class="text-[#e6f1ff]">Arista Networks</strong> switching fabric coupled with
+                                enterprise perimeter security powered by <strong class="text-[#e6f1ff]">Fortinet FortiGate</strong>.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                                <div class="bg-black/30 p-4 rounded-lg border border-white/5">
+                                    <div class="text-[#4CAF50] font-mono text-sm font-semibold mb-1"><i class="fas fa-check-circle mr-2"></i>Core Objectives</div>
+                                    <ul class="text-sm text-[#8892b0] space-y-1 list-disc list-inside">
+                                        <li>Eliminate all single points of failure across core and access layers</li>
+                                        <li>High-throughput 10G interconnects across campus distribution</li>
+                                        <li>Next-generation perimeter firewalling with stateful failover</li>
+                                        <li>Wi-Fi 7 readiness for high-density client access</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-black/30 p-4 rounded-lg border border-white/5">
+                                    <div class="text-[#00f7d9] font-mono text-sm font-semibold mb-1"><i class="fas fa-box-open mr-2"></i>Hardware Bill of Materials (BOM)</div>
+                                    <ul class="text-sm text-[#8892b0] space-y-1 list-disc list-inside">
+                                        <li>Arista 720DP Series Enterprise Switches (Core & Access)</li>
+                                        <li>Arista AP-C460 Wi-Fi 7 Enterprise Access Points</li>
+                                        <li>Dual Fortinet FortiGate 200G Next-Gen Firewalls</li>
+                                        <li>Arista SFP-10G-T-RP transceivers, DAC cables & OM3/OM4 fiber</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="section-card p-8 rounded-xl" data-aos="fade-up">
+                    <div class="flex items-start space-x-4">
+                        <div class="step-number flex-shrink-0">02</div>
+                        <div class="space-y-3">
+                            <h2 class="text-2xl font-bold text-[#e6f1ff]">Dual Core High Availability (HA) & Redundant Uplink Topology</h2>
+                            <p class="text-[#8892b0] leading-relaxed">
+                                To ensure total fault tolerance, the switching architecture was engineered with a dual-core topology:
+                            </p>
+                            <ul class="space-y-2 text-[#8892b0] list-none pt-1">
+                                <li class="flex items-start">
+                                    <i class="fas fa-code-branch text-[#4CAF50] mt-1 mr-3"></i>
+                                    <span><strong class="text-[#e6f1ff]">Dual Core Switches:</strong> Two Arista switches operate as redundant core engines interconnecting via high-speed inter-switch links (ISL / MLAG) for synchronized state and seamless Layer 2/3 forwarding.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-network-wired text-[#4CAF50] mt-1 mr-3"></i>
+                                    <span><strong class="text-[#e6f1ff]">Dual-Homed Access Layer:</strong> 4 Access Switches and 2 AP Switches are connected to the core. <em class="text-[#00f7d9]">Every single switch has dedicated redundant uplinks split between Core Switch 1 and Core Switch 2</em>.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-shield-alt text-[#4CAF50] mt-1 mr-3"></i>
+                                    <span><strong class="text-[#e6f1ff]">Fortinet FortiGate 200G HA Cluster:</strong> Configured in High Availability (Active-Passive with synchronized session tables) connected directly to both core switches with redundant trunk links.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-ethernet text-[#4CAF50] mt-1 mr-3"></i>
+                                    <span><strong class="text-[#e6f1ff]">Physical Cabling Matrix:</strong> RJ45 Cat6 patch leads for endpoint & PoE access, Direct Attach Copper (DAC) high-speed twinax cables for adjacent rack uplinks, and OM3/OM4 Duplex LC-LC Multimode Fiber for high-speed optical distribution.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="section-card p-8 rounded-xl" data-aos="fade-up">
+                    <div class="flex items-start space-x-4">
+                        <div class="step-number flex-shrink-0">03</div>
+                        <div class="space-y-3">
+                            <h2 class="text-2xl font-bold text-[#e6f1ff]">Physical Staging, Console Provisioning & Bench Assembly</h2>
+                            <p class="text-[#8892b0] leading-relaxed">
+                                Prior to rack deployment in the server room, the entire hardware fleet was unboxed and staged in the lab environment for baseline provisioning:
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                                <div class="bg-black/30 p-4 rounded-lg border border-white/5">
+                                    <div class="text-[#e6f1ff] font-semibold text-sm mb-1"><i class="fas fa-terminal text-[#4CAF50] mr-2"></i>Firmware & Base OS</div>
+                                    <p class="text-xs text-[#8892b0]">Unboxed Arista 720DP switches and FortiGate 200Gs, connected via serial consoles, upgraded EOS/FortiOS to target enterprise gold-star releases, and verified cryptographic signatures.</p>
+                                </div>
+                                <div class="bg-black/30 p-4 rounded-lg border border-white/5">
+                                    <div class="text-[#e6f1ff] font-semibold text-sm mb-1"><i class="fas fa-sliders text-[#00f7d9] mr-2"></i>VLANs & Link Aggregation</div>
+                                    <p class="text-xs text-[#8892b0]">Configured management IP subnets, 802.1Q VLAN trunking, LACP multi-chassis link aggregation, Spanning Tree Protocol (RSTP/MSTP) priorities, and port security.</p>
+                                </div>
+                                <div class="bg-black/30 p-4 rounded-lg border border-white/5">
+                                    <div class="text-[#e6f1ff] font-semibold text-sm mb-1"><i class="fas fa-heart-pulse text-[#4CAF50] mr-2"></i>HA Cluster Synchronization</div>
+                                    <p class="text-xs text-[#8892b0]">Paired the FortiGate 200G firewalls using dedicated heartbeat links, verified session state syncing, and confirmed active cluster health on the hardware status indicators.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="section-card p-8 rounded-xl border border-[#4CAF50]/30" data-aos="fade-up">
+                    <div class="flex items-start space-x-4">
+                        <div class="step-number flex-shrink-0 bg-[#4CAF50]/20 text-[#4CAF50]">04</div>
+                        <div class="space-y-3">
+                            <h2 class="text-2xl font-bold text-[#e6f1ff]">Live Failover Stress Testing (Cable-Pull Phase)</h2>
+                            <p class="text-[#8892b0] leading-relaxed">
+                                The most crucial validation step in the bench staging was physically stress-testing the redundancy mechanisms:
+                            </p>
+                            <div class="bg-black/40 p-5 rounded-lg border border-[#4CAF50]/20 text-sm space-y-3">
+                                <p class="text-[#cbd5e1]">
+                                    <strong class="text-[#4CAF50]"><i class="fas fa-plug-circle-xmark mr-2"></i>Simulated Primary Link Failure:</strong>
+                                    With active network traffic passing and sustained ICMP stream verification running across monitoring consoles (<code class="bg-black/60 px-2 py-0.5 rounded text-[#00f7d9]">ping 8.8.8.8 -t</code>), we systematically disconnected and removed each uplink cable connected to Core Switch 1.
+                                </p>
+                                <p class="text-[#cbd5e1]">
+                                    <strong class="text-[#00f7d9]"><i class="fas fa-rotate mr-2"></i>Automatic Dynamic Rerouting:</strong>
+                                    Traffic seamlessly traversed the secondary uplink to Core Switch 2 without packet drops, verifying instantaneous LACP failover and Spanning Tree convergence.
+                                </p>
+                                <p class="text-[#cbd5e1]">
+                                    <strong class="text-[#4CAF50]"><i class="fas fa-shield-virus mr-2"></i>Firewall Heartbeat Disruption:</strong>
+                                    Simulated primary firewall failure; the secondary FortiGate unit assumed active master state instantaneously with continuous stateful session retention.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Complete Photo Gallery (14 Images) -->
+            <div class="mb-16" data-aos="fade-up">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-[#e6f1ff] mb-2">Project Media & Photographic Gallery</h2>
+                        <p class="text-[#8892b0]">Comprehensive visual evidence of hardware unboxing, staging, bench testing, and HA validation (14 photos).</p>
+                    </div>
+                    <span class="text-sm font-mono text-[#4CAF50] mt-2 md:mt-0"><i class="fas fa-info-circle mr-1"></i> Click any photo to view in high resolution</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="gallery-grid">
+                    
+                    <!-- 1. SFP Transceiver -->
+                    <div class="gallery-item group" onclick="openLightbox(0)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260627_151257398.jpg" alt="Arista SFP-10G-T-RP Transceiver"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#00f7d9] block">Transceivers & Optics</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Arista SFP-10G-T-RP Module</h3>
+                        </div>
+                    </div>
+
+                    <!-- 2. Arista Switch & DAC -->
+                    <div class="gallery-item group" onclick="openLightbox(1)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260627_152653534.jpg" alt="Arista Switches and DAC Cables"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#4CAF50] block">Hardware Unboxing</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Arista 720DP & DAC Twinax</h3>
+                        </div>
+                    </div>
+
+                    <!-- 3. Arista AP-C460 -->
+                    <div class="gallery-item group" onclick="openLightbox(2)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260627_160937149.jpg" alt="Arista AP-C460 Wi-Fi 7"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#00f7d9] block">Wireless Infrastructure</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Arista AP-C460 Wi-Fi 7 AP</h3>
+                        </div>
+                    </div>
+
+                    <!-- 4. AP Packaging & Serial -->
+                    <div class="gallery-item group" onclick="openLightbox(3)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260627_160947067.jpg" alt="Access Point Verification"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#4CAF50] block">Wireless Verification</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Access Point Asset Tagging</h3>
+                        </div>
+                    </div>
+
+                    <!-- 5. Switch Staging Inspection -->
+                    <div class="gallery-item group" onclick="openLightbox(4)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260630_131634198.jpg" alt="Switch Hardware Staging"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#00f7d9] block">Core & Access Switching</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Hardware Staging Inspection</h3>
+                        </div>
+                    </div>
+
+                    <!-- 6. Rack Accessories -->
+                    <div class="gallery-item group" onclick="openLightbox(5)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260630_144211708.jpg" alt="Rack Mount Rails & Staging"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#4CAF50] block">Rack Mounting Hardware</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Mounting Rails & Power Staging</h3>
+                        </div>
+                    </div>
+
+                    <!-- 7. Main Bench Testing Setup -->
+                    <div class="gallery-item group" onclick="openLightbox(6)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260703_185033478.jpg" alt="Bench Testing Setup"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#00f7d9] block">Live Bench Testing</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Switch Stack & Continuous Ping</h3>
+                        </div>
+                    </div>
+
+                    <!-- 8. Dual-Homed Staging Bench -->
+                    <div class="gallery-item group" onclick="openLightbox(7)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260703_185037085.jpg" alt="Dual-Homed Staging Bench"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#4CAF50] block">Dual-Homed Topology</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Management Console & Interconnects</h3>
+                        </div>
+                    </div>
+
+                    <!-- 9. Console Configuration -->
+                    <div class="gallery-item group" onclick="openLightbox(8)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260703_185108832.jpg" alt="Console Port Allocation"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#00f7d9] block">Port Configuration</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Uplink Allocation & Trunking</h3>
+                        </div>
+                    </div>
+
+                    <!-- 10. Status LED Verification -->
+                    <div class="gallery-item group" onclick="openLightbox(9)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260703_185111085.jpg" alt="Port LED Verification"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#4CAF50] block">Health Diagnostics</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Port Link Status & Activity</h3>
+                        </div>
+                    </div>
+
+                    <!-- 11. Complete Bench Overview -->
+                    <div class="gallery-item group" onclick="openLightbox(10)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260703_185453901.jpg" alt="Complete Bench Overview"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#00f7d9] block">Topology Assembly</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Full 2 Core + 4 Access Topology</h3>
+                        </div>
+                    </div>
+
+                    <!-- 12. Cable Pull Test -->
+                    <div class="gallery-item group" onclick="openLightbox(11)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260703_185457020.jpg" alt="Live Cable Pull Stress Test"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#4CAF50] block">Stress Test Phase</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Live Uplink Disconnection Test</h3>
+                        </div>
+                    </div>
+
+                    <!-- 13. FortiGate 200G HA Cluster -->
+                    <div class="gallery-item group" onclick="openLightbox(12)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG_20260707_190222671.jpg" alt="Fortinet FortiGate 200G HA Cluster"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#00f7d9] block">Perimeter Security</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Dual FortiGate 200G HA Cluster</h3>
+                        </div>
+                    </div>
+
+                    <!-- 14. Fiber Optic Patch Cables -->
+                    <div class="gallery-item group" onclick="openLightbox(13)">
+                        <div class="h-52 overflow-hidden bg-black/40">
+                            <img src="Infraproject/IMG-20260725-WA0025.jpeg" alt="Multimode Fiber Optic Cables"
+                                class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-3 bg-gray-900/90">
+                            <span class="text-[11px] font-mono text-[#4CAF50] block">Optical Infrastructure</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">OM3/OM4 LC-LC Fiber Cables</h3>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Conclusion & Key Outcomes -->
+            <div class="section-card p-8 rounded-xl mb-12" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-[#e6f1ff] mb-4">Project Results & Engineering Highlights</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[#8892b0]">
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-[#4CAF50] mt-1 mr-3"></i>
+                            <span><strong class="text-[#e6f1ff]">Zero Packet Loss:</strong> Cable extraction stress tests produced zero drops during sustained ping verification, confirming robust MLAG / spanning-tree fast convergence.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-[#4CAF50] mt-1 mr-3"></i>
+                            <span><strong class="text-[#e6f1ff]">Complete Redundancy:</strong> Dual-homed cabling across Core 1 and Core 2 guarantees that an entire core chassis failure causes zero network downtime for access switches or Wi-Fi APs.</span>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-[#4CAF50] mt-1 mr-3"></i>
+                            <span><strong class="text-[#e6f1ff]">Enterprise Security:</strong> Dual FortiGate 200Gs maintain real-time session synchronization, providing instantaneous stateful firewall failover.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-[#4CAF50] mt-1 mr-3"></i>
+                            <span><strong class="text-[#e6f1ff]">Production Ready:</strong> Full documentation, cabling labeling scheme, and baseline configs delivered to the client for structured long-term administration.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Footer CTA -->
+            <div class="text-center pt-8 border-t border-white/10" data-aos="fade-up">
+                <a href="index.html#infrastructure"
+                    class="inline-flex items-center space-x-2 bg-[#4CAF50] text-[#0a0a0a] font-bold px-8 py-3 rounded-lg hover:bg-[#45a049] transition transform hover:-translate-y-1 shadow-lg shadow-[#4CAF50]/20">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Return to Portfolio</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 border-t border-white/10 text-center text-[#8892b0] text-sm">
+        <div class="container mx-auto px-6">
+            <p>&copy; 2024 Shijin P S. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal"
+        class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md items-center justify-center p-4">
+        <button onclick="closeLightbox()"
+            class="absolute top-6 right-6 text-white text-3xl hover:text-[#4CAF50] transition z-50 focus:outline-none">
+            <i class="fas fa-times"></i>
+        </button>
+        <button onclick="changeLightbox(-1)"
+            class="absolute left-4 md:left-8 text-white text-3xl hover:text-[#4CAF50] transition z-50 p-3 bg-black/50 rounded-full focus:outline-none">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button onclick="changeLightbox(1)"
+            class="absolute right-4 md:right-8 text-white text-3xl hover:text-[#4CAF50] transition z-50 p-3 bg-black/50 rounded-full focus:outline-none">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="max-w-4xl max-h-[85vh] flex flex-col items-center">
+            <img id="lightbox-img" src="" alt="Enlarged view"
+                class="max-h-[75vh] max-w-full rounded-lg shadow-2xl object-contain border border-white/10">
+            <p id="lightbox-caption" class="text-center text-[#e6f1ff] font-medium mt-4 text-sm md:text-base px-4"></p>
+            <span id="lightbox-counter" class="text-xs font-mono text-[#8892b0] mt-1"></span>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Theme Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const themeIcon = themeToggleBtn.querySelector('i');
+
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('light');
+            if (body.classList.contains('light')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Lightbox Gallery Logic
+        const galleryImages = [
+            { src: 'Infraproject/IMG_20260627_151257398.jpg', title: 'Arista SFP-10G-T-RP 10GBASE-T Transceiver Module' },
+            { src: 'Infraproject/IMG_20260627_152653534.jpg', title: 'Arista 720DP Enterprise Switches & Direct-Attach Copper (DAC) Cables Unboxing' },
+            { src: 'Infraproject/IMG_20260627_160937149.jpg', title: 'Arista AP-C460 Enterprise Wi-Fi 7 Access Point Specification Inspection' },
+            { src: 'Infraproject/IMG_20260627_160947067.jpg', title: 'Arista Access Point Asset Tagging & Packaging Inspection' },
+            { src: 'Infraproject/IMG_20260630_131634198.jpg', title: 'Enterprise Switching Hardware Staging & Port Inspection' },
+            { src: 'Infraproject/IMG_20260630_144211708.jpg', title: 'Rack Mounting Rails, Brackets & Power Accessory Staging' },
+            { src: 'Infraproject/IMG_20260703_185033478.jpg', title: 'Staging Bench: Core & Access Switches Interconnected with Continuous Ping Verification' },
+            { src: 'Infraproject/IMG_20260703_185037085.jpg', title: 'Dual-Homed Staging Bench: Management Console & Switch Interconnects' },
+            { src: 'Infraproject/IMG_20260703_185108832.jpg', title: 'Console Configuration & Uplink Port Allocation Verification' },
+            { src: 'Infraproject/IMG_20260703_185111085.jpg', title: 'Arista Switch Port Link Activity & Health Diagnostic LEDs' },
+            { src: 'Infraproject/IMG_20260703_185453901.jpg', title: 'Full Topology Bench Assembly: 2 Core Switches, 4 Access Switches & 2 AP Switches' },
+            { src: 'Infraproject/IMG_20260703_185457020.jpg', title: 'Live Cable-Pull Stress Testing: Dynamic Failover Verification' },
+            { src: 'Infraproject/IMG_20260707_190222671.jpg', title: 'Dual Fortinet FortiGate 200G Next-Gen Firewalls in Active-Passive HA Cluster' },
+            { src: 'Infraproject/IMG-20260725-WA0025.jpeg', title: 'OM3/OM4 Duplex LC-LC Multimode Fiber Optic Backbone Cables' }
+        ];
+
+        let currentIndex = 0;
+        const modal = document.getElementById('lightbox-modal');
+        const img = document.getElementById('lightbox-img');
+        const caption = document.getElementById('lightbox-caption');
+        const counter = document.getElementById('lightbox-counter');
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightbox();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function changeLightbox(delta) {
+            currentIndex = (currentIndex + delta + galleryImages.length) % galleryImages.length;
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            img.src = galleryImages[currentIndex].src;
+            caption.textContent = galleryImages[currentIndex].title;
+            counter.textContent = `${currentIndex + 1} of ${galleryImages.length}`;
+        }
+
+        // Close on ESC key or arrow navigation
+        window.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') changeLightbox(-1);
+            if (e.key === 'ArrowRight') changeLightbox(1);
+        });
+
+        // Close when clicking modal backdrop
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeLightbox();
+        });
+    </script>
+</body>
+
+</html>
