@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Network Architecture Design & GNS3 Virtual Lab - Case Study | Shijin P S</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-card: #0f172a;
+            --bg-header: rgba(10, 10, 10, 0.85);
+            --text-primary: #cbd5e1;
+            --text-headings: #e6f1ff;
+            --text-muted: #8892b0;
+            --accent-primary: #4CAF50;
+            --accent-secondary: #00f7d9;
+            --border-color: #1e293b;
+            --hero-btn-text: #0a0a0a;
+        }
+
+        body.light {
+            --bg-primary: #f0f2f5;
+            --bg-card: #ffffff;
+            --bg-header: rgba(255, 255, 255, 0.85);
+            --text-primary: #495057;
+            --text-headings: #1d2d35;
+            --text-muted: #6c757d;
+            --accent-primary: #28a745;
+            --accent-secondary: #17a2b8;
+            --border-color: #dee2e6;
+            --hero-btn-text: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header-link {
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+
+        .header-link:hover {
+            color: var(--accent-primary);
+        }
+
+        .logo-font {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.25rem;
+            color: var(--text-headings);
+        }
+
+        .logo-font .slash-color {
+            color: var(--accent-primary);
+        }
+
+        header {
+            background-color: var(--bg-header);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+        }
+
+        .badge-pill {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(76, 175, 80, 0.35);
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--accent-primary);
+        }
+
+        .badge-cyan {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(0, 247, 217, 0.35);
+            background: rgba(0, 247, 217, 0.1);
+            color: var(--accent-secondary);
+        }
+
+        .badge-amber {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .step-number {
+            font-family: 'Fira Code', monospace;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.15);
+            color: var(--accent-primary);
+            border: 1px solid var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .gallery-item {
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            background: #111827;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.2);
+        }
+
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.04);
+        }
+
+        /* Modal Lightbox */
+        #lightbox-modal {
+            display: none;
+        }
+
+        #lightbox-modal.active {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="logo-font flex items-center space-x-2">
+                <span>&lt;Shijin P S <span class="slash-color">/</span>&gt;</span>
+            </a>
+
+            <div class="flex items-center space-x-4">
+                <a href="index.html#infrastructure"
+                    class="header-link flex items-center space-x-2 font-mono text-sm hover:text-[#4CAF50] transition">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Portfolio</span>
+                </a>
+                <button id="theme-toggle" class="theme-toggle-btn" title="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-28 pb-20">
+        <div class="container mx-auto px-6 max-w-6xl">
+
+            <!-- Breadcrumbs -->
+            <nav class="text-sm font-mono text-[#8892b0] mb-6 flex items-center space-x-2" data-aos="fade-down">
+                <a href="index.html" class="hover:text-[#4CAF50]">Home</a>
+                <span>/</span>
+                <a href="index.html#infrastructure" class="hover:text-[#4CAF50]">Infrastructure Deployments</a>
+                <span>/</span>
+                <span class="text-[#e6f1ff]">Draw.io Architecture & GNS3 Virtual Lab</span>
+            </nav>
+
+            <!-- Case Study Hero -->
+            <div class="mb-12" data-aos="fade-up">
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="badge-cyan"><i class="fas fa-draw-polygon mr-1"></i> Draw.io (diagrams.net)</span>
+                    <span class="badge-pill"><i class="fas fa-network-wired mr-1"></i> GNS3 Virtual Lab</span>
+                    <span class="badge-pill"><i class="fas fa-shield-halved mr-1"></i> Fortinet FortiOS HA</span>
+                    <span class="badge-cyan"><i class="fas fa-layer-group mr-1"></i> Arista vEOS MLAG</span>
+                    <span class="badge-amber"><i class="fas fa-check-double mr-1"></i> Pre-Deployment Simulation</span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-[#e6f1ff] mb-4 tracking-tight leading-tight">
+                    Enterprise Network Architecture Blueprint & GNS3 Virtual Lab Simulation
+                </h1>
+                <p class="text-lg md:text-xl text-[#8892b0] max-w-3xl leading-relaxed">
+                    Translating client specifications into a comprehensive enterprise L2/L3 topology using the open-source platform <strong class="text-[#e6f1ff]">Draw.io (diagrams.net)</strong>, and executing full-scale pre-deployment emulation, configuration validation, and failover stress testing inside <strong class="text-[#e6f1ff]">GNS3 (Graphical Network Simulator-3)</strong>.
+                </p>
+            </div>
+
+            <!-- Key Metric Summary Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16" data-aos="fade-up" data-aos-delay="100">
+                <div class="section-card p-5 rounded-lg border-l-4 border-l-[#00f7d9]">
+                    <div class="text-xs font-mono uppercase text-[#8892b0] mb-1">Architecture Tool</div>
+                    <div class="text-xl md:text-2xl font-bold text-[#e6f1ff]">Draw.io</div>
+                    <div class="text-xs text-[#8892b0] mt-1">Open-Source diagrams.net</div>
+                </div>
+                <div class="section-card p-5 rounded-lg border-l-4 border-l-[#4CAF50]">
+                    <div class="text-xs font-mono uppercase text-[#8892b0] mb-1">Virtual Simulation</div>
+                    <div class="text-xl md:text-2xl font-bold text-[#e6f1ff]">GNS3 Lab</div>
+                    <div class="text-xs text-[#8892b0] mt-1">Full Virtual Appliance Nodes</div>
+                </div>
+                <div class="section-card p-5 rounded-lg border-l-4 border-l-[#00f7d9]">
+                    <div class="text-xs font-mono uppercase text-[#8892b0] mb-1">Topology Scope</div>
+                    <div class="text-xl md:text-2xl font-bold text-[#e6f1ff]">Dual Core + 8 Switches</div>
+                    <div class="text-xs text-[#8892b0] mt-1">Dual ISP + FortiGate HA</div>
+                </div>
+                <div class="section-card p-5 rounded-lg border-l-4 border-l-[#4CAF50]">
+                    <div class="text-xs font-mono uppercase text-[#8892b0] mb-1">Configuration Staging</div>
+                    <div class="text-xl md:text-2xl font-bold text-[#e6f1ff]">100% Pre-Validated</div>
+                    <div class="text-xs text-[#8892b0] mt-1">Zero Downtime Verified</div>
+                </div>
+            </div>
+
+            <!-- Engineering Workflow & Methodology -->
+            <div class="space-y-12 mb-16">
+
+                <!-- Phase 1: Architectural Blueprinting -->
+                <div class="section-card p-8 rounded-xl" data-aos="fade-up">
+                    <div class="flex items-start space-x-4">
+                        <div class="step-number flex-shrink-0">01</div>
+                        <div class="space-y-3">
+                            <span class="text-xs font-mono text-[#00f7d9] uppercase tracking-wider">Design & Topology Planning</span>
+                            <h2 class="text-2xl font-bold text-[#e6f1ff]">Enterprise Architecture Blueprint in Draw.io (diagrams.net)</h2>
+                            <p class="text-sm text-[#8892b0] leading-relaxed">
+                                Prior to ordering and unboxing expensive physical hardware, a complete architectural blueprint was drafted using the open-source tool <strong class="text-[#e6f1ff]">Draw.io (app.diagrams.net)</strong>. This blueprint served as the definitive technical source of truth for all stakeholders, cabling technicians, and network administrators.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 text-xs text-[#cbd5e1]">
+                                <div class="bg-black/30 p-4 rounded-lg border border-white/5 space-y-2">
+                                    <h4 class="font-bold text-[#00f7d9] font-mono text-sm flex items-center">
+                                        <i class="fas fa-layer-group mr-2"></i> WAN Edge & Perimeter Security
+                                    </h4>
+                                    <ul class="space-y-1.5 list-disc list-inside text-[#8892b0]">
+                                        <li><strong class="text-[#e6f1ff]">Dual ISP Connections:</strong> Leased line termination for primary (AIRTEL) and secondary (TATA) carriers through dedicated demarcation switch.</li>
+                                        <li><strong class="text-[#e6f1ff]">FortiGate HA Cluster:</strong> Active-Passive firewall pair (<code class="text-[#00f7d9]">FGT-FW-1</code> & <code class="text-[#00f7d9]">FGT-FW-2</code>) with dual heartbeat sync links for stateful session pickup.</li>
+                                        <li><strong class="text-[#e6f1ff]">Redundant WAN Handoffs:</strong> Independent links from each ISP to both firewalls, preventing upstream carrier single points of failure.</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-black/30 p-4 rounded-lg border border-white/5 space-y-2">
+                                    <h4 class="font-bold text-[#4CAF50] font-mono text-sm flex items-center">
+                                        <i class="fas fa-network-wired mr-2"></i> Core & Access Switching Hierarchy
+                                    </h4>
+                                    <ul class="space-y-1.5 list-disc list-inside text-[#8892b0]">
+                                        <li><strong class="text-[#e6f1ff]">Dual Arista Core Layer:</strong> <code class="text-[#4CAF50]">DCN-CORE-SW-1</code> and <code class="text-[#4CAF50]">DCN-CORE-SW-2</code> joined via high-speed Multi-Chassis Link Aggregation (MLAG).</li>
+                                        <li><strong class="text-[#e6f1ff]">Dual-Homed Uplinks:</strong> 6 Access Switches (<code class="text-[#cbd5e1]">DCN-ACC-SWITCH-1</code> through <code class="text-[#cbd5e1]">6</code>) and 2 Access Point switches each wired with dual uplinks split across Core 1 and Core 2.</li>
+                                        <li><strong class="text-[#e6f1ff]">Precision Port Matrix:</strong> Exact port designations, SFP+ optical assignments, transceiver specifications, and VLAN subnets visually documented.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2: GNS3 Virtual Lab Prototyping -->
+                <div class="section-card p-8 rounded-xl" data-aos="fade-up">
+                    <div class="flex items-start space-x-4">
+                        <div class="step-number flex-shrink-0">02</div>
+                        <div class="space-y-3">
+                            <span class="text-xs font-mono text-[#4CAF50] uppercase tracking-wider">Virtual Environment Emulation</span>
+                            <h2 class="text-2xl font-bold text-[#e6f1ff]">Complete Infrastructure Emulation in GNS3</h2>
+                            <p class="text-sm text-[#8892b0] leading-relaxed">
+                                To validate the Draw.io blueprint under real network operating conditions, the entire campus topology was replicated inside <strong class="text-[#e6f1ff]">GNS3 (Graphical Network Simulator-3)</strong>. By running actual virtualized network operating system images, this sandbox allowed full functional verification without touching physical hardware or risking live downtime.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-3 text-xs text-[#cbd5e1]">
+                                <div class="bg-black/30 p-4 rounded-lg border border-white/5">
+                                    <div class="text-[#00f7d9] font-mono font-bold text-sm mb-1.5 flex items-center">
+                                        <i class="fas fa-server mr-2"></i> Virtual Appliances
+                                    </div>
+                                    <p class="text-[#8892b0] leading-relaxed">
+                                        Deployed Fortinet FortiOS VM appliances for firewall routing and Arista vEOS virtual switches running actual Extensible Operating System (EOS) command line.
+                                    </p>
+                                </div>
+                                <div class="bg-black/30 p-4 rounded-lg border border-white/5">
+                                    <div class="text-[#4CAF50] font-mono font-bold text-sm mb-1.5 flex items-center">
+                                        <i class="fas fa-code-branch mr-2"></i> Virtual Cabling
+                                    </div>
+                                    <p class="text-[#8892b0] leading-relaxed">
+                                        Wired virtual ethernet interfaces mimicking real-world SFP+ transceivers, LACP trunks, FortiGate HA heartbeat links, and ISP upstream feeds.
+                                    </p>
+                                </div>
+                                <div class="bg-black/30 p-4 rounded-lg border border-white/5">
+                                    <div class="text-[#f59e0b] font-mono font-bold text-sm mb-1.5 flex items-center">
+                                        <i class="fas fa-desktop mr-2"></i> Test Endpoints
+                                    </div>
+                                    <p class="text-[#8892b0] leading-relaxed">
+                                        Attached VPCS (Virtual PC Simulator) and Linux test nodes across all simulated access switches to verify end-to-end routing, DHCP leasing, and packet flow.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3: Configuration Staging & Protocol Verification -->
+                <div class="section-card p-8 rounded-xl" data-aos="fade-up">
+                    <div class="flex items-start space-x-4">
+                        <div class="step-number flex-shrink-0">03</div>
+                        <div class="space-y-3">
+                            <span class="text-xs font-mono text-[#00f7d9] uppercase tracking-wider">Protocol Staging</span>
+                            <h2 class="text-2xl font-bold text-[#e6f1ff]">Configuration Demonstration & Multi-Chassis HA Validation</h2>
+                            <p class="text-sm text-[#8892b0] leading-relaxed">
+                                With the GNS3 topology online, all enterprise configuration sets were staged, demonstrated, and calibrated. This ensured zero syntax errors, protocol mismatches, or spanning tree loops before applying commands to the production Arista and Fortinet hardware.
+                            </p>
+                            <div class="space-y-3 pt-2 text-xs">
+                                <div class="p-3 bg-black/40 rounded border border-white/5 font-mono text-[#cbd5e1] space-y-1">
+                                    <div class="text-[#4CAF50] font-bold"># Arista vEOS MLAG & LACP Port-Channel Verification:</div>
+                                    <div class="text-[#8892b0]">mlag configuration: domain-id CAMPUS-CORE | heartbeat-interval 1000ms</div>
+                                    <div class="text-[#8892b0]">interface Port-Channel10 (MLAG Peer-Link): active-full, 2x 10G interfaces bonded</div>
+                                    <div class="text-[#8892b0]">interface Port-Channel1..6 (Access Downlinks): MLAG active-active to downstream switches</div>
+                                </div>
+                                <div class="p-3 bg-black/40 rounded border border-white/5 font-mono text-[#cbd5e1] space-y-1">
+                                    <div class="text-[#00f7d9] font-bold"># FortiGate Active-Passive Clustering (FGCP):</div>
+                                    <div class="text-[#8892b0]">config system ha: group-id 50 | mode a-p | hbdev port10 50 port9 50</div>
+                                    <div class="text-[#8892b0]">session-pickup enable | session-pickup-delay disable | ha-direct enable</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4: Chaos & Failover Simulation -->
+                <div class="section-card p-8 rounded-xl" data-aos="fade-up">
+                    <div class="flex items-start space-x-4">
+                        <div class="step-number flex-shrink-0">04</div>
+                        <div class="space-y-3">
+                            <span class="text-xs font-mono text-[#f59e0b] uppercase tracking-wider">Chaos & Stress Testing</span>
+                            <h2 class="text-2xl font-bold text-[#e6f1ff]">Simulated Disaster Recovery & Zero-Packet-Loss Failover</h2>
+                            <p class="text-sm text-[#8892b0] leading-relaxed">
+                                In GNS3, extreme failure scenarios were systematically induced while running high-frequency ICMP pings and active TCP streams across the virtual topology:
+                            </p>
+                            <ul class="space-y-2 text-xs text-[#cbd5e1] list-none">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-[#4CAF50] mt-0.5 mr-2"></i>
+                                    <span><strong>Simulated Uplink Link Cut:</strong> Disconnected one uplink leg from Access Switch 1. LACP dynamically routed 100% of packets via the surviving link to Core 2 with 0 packet drops.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-[#4CAF50] mt-0.5 mr-2"></i>
+                                    <span><strong>Simulated Core Switch Crash:</strong> Force-halted Core Switch 1. MLAG peer failover seamlessly diverted all campus access traffic across Core Switch 2 within milliseconds.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-[#4CAF50] mt-0.5 mr-2"></i>
+                                    <span><strong>Simulated Primary ISP Failure:</strong> Severed the Airtel WAN connection. FortiGate SD-WAN health checks immediately shifted outbound default routing to Tata leased line without session drops.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Photo & Blueprint Gallery Section -->
+            <div id="gallery-grid" class="mb-16" data-aos="fade-up">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-[#e6f1ff]">Architectural Blueprints & GNS3 Lab Gallery</h2>
+                        <p class="text-sm text-[#8892b0] mt-1">Click on any image to view high-resolution diagrams and live simulation captures.</p>
+                    </div>
+                    <span class="text-xs font-mono text-[#00f7d9] bg-[#00f7d9]/10 border border-[#00f7d9]/30 px-3 py-1.5 rounded-full hidden sm:inline-block">
+                        4 Verified Artifacts
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Image 1: Complete Draw.io Architecture Diagram -->
+                    <div class="gallery-item group" onclick="openLightbox(0)">
+                        <div class="h-64 sm:h-72 overflow-hidden bg-black/60 relative">
+                            <img src="diagram/IMG_20260813_160349825.jpg" alt="Enterprise Network Topology Diagram - Draw.io"
+                                class="w-full h-full object-cover object-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+                            <span class="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-[#00f7d9] text-[11px] font-mono px-2.5 py-1 rounded border border-[#00f7d9]/30">
+                                <i class="fas fa-draw-polygon mr-1"></i>Draw.io Blueprint
+                            </span>
+                            <div class="absolute bottom-3 right-3 text-white/80 text-xs bg-black/60 px-2.5 py-1 rounded-md backdrop-blur-sm group-hover:text-[#4CAF50] transition">
+                                <i class="fas fa-magnifying-glass-plus mr-1"></i>Click to Inspect
+                            </div>
+                        </div>
+                        <div class="p-4 bg-gray-900/90 border-t border-white/5">
+                            <span class="text-[11px] font-mono text-[#00f7d9] block mb-1">Architecture Blueprint</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff]">Full Enterprise High-Availability Topology (Draw.io)</h3>
+                            <p class="text-xs text-[#8892b0] mt-1 line-clamp-2">Dual ISP edge, FortiGate HA cluster, Arista dual-core MLAG switching, 6 access switches, and 2 AP switches.</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 2: Detailed Switching Hierarchy & Port Mapping -->
+                    <div class="gallery-item group" onclick="openLightbox(1)">
+                        <div class="h-64 sm:h-72 overflow-hidden bg-black/60 relative">
+                            <img src="diagram/IMG_20260813_160401265.jpg" alt="Core to Access Redundant Uplink Topology - Draw.io"
+                                class="w-full h-full object-cover object-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+                            <span class="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-[#00f7d9] text-[11px] font-mono px-2.5 py-1 rounded border border-[#00f7d9]/30">
+                                <i class="fas fa-network-wired mr-1"></i>Port & Uplink Detail
+                            </span>
+                            <div class="absolute bottom-3 right-3 text-white/80 text-xs bg-black/60 px-2.5 py-1 rounded-md backdrop-blur-sm group-hover:text-[#4CAF50] transition">
+                                <i class="fas fa-magnifying-glass-plus mr-1"></i>Click to Inspect
+                            </div>
+                        </div>
+                        <div class="p-4 bg-gray-900/90 border-t border-white/5">
+                            <span class="text-[11px] font-mono text-[#00f7d9] block mb-1">Cabling & Uplink Matrix</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff]">Core-to-Access Dual-Homed Uplinks & Trunk Allocations</h3>
+                            <p class="text-xs text-[#8892b0] mt-1 line-clamp-2">Detailed port mapping illustrating dual redundant uplinks connecting every access switch to both Core 1 and Core 2.</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 3: GNS3 Virtual Lab Emulation -->
+                    <div class="gallery-item group" onclick="openLightbox(2)">
+                        <div class="h-64 sm:h-72 overflow-hidden bg-black/60 relative">
+                            <img src="diagram/IMG_20260708_150815139.jpg" alt="GNS3 Enterprise Network Simulation Lab"
+                                class="w-full h-full object-cover object-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+                            <span class="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-[#4CAF50] text-[11px] font-mono px-2.5 py-1 rounded border border-[#4CAF50]/30">
+                                <i class="fas fa-flask mr-1"></i>GNS3 Simulation Lab
+                            </span>
+                            <div class="absolute bottom-3 right-3 text-white/80 text-xs bg-black/60 px-2.5 py-1 rounded-md backdrop-blur-sm group-hover:text-[#4CAF50] transition">
+                                <i class="fas fa-magnifying-glass-plus mr-1"></i>Click to Inspect
+                            </div>
+                        </div>
+                        <div class="p-4 bg-gray-900/90 border-t border-white/5">
+                            <span class="text-[11px] font-mono text-[#4CAF50] block mb-1">Pre-Deployment Emulation</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff]">Full Infrastructure Simulation in GNS3 Environment</h3>
+                            <p class="text-xs text-[#8892b0] mt-1 line-clamp-2">Simulating dual ISP leased lines (Airtel & Tata), media converter, FortiGate 7.2 HA pair, and Arista core MLAG.</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 4: GNS3 Live Canvas & Node State -->
+                    <div class="gallery-item group" onclick="openLightbox(3)">
+                        <div class="h-64 sm:h-72 overflow-hidden bg-black/60 relative">
+                            <img src="diagram/IMG_20260708_150900770.jpg" alt="GNS3 Virtual Lab Canvas and Active Node Interconnects"
+                                class="w-full h-full object-cover object-center">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+                            <span class="absolute top-3 left-3 bg-black/75 backdrop-blur-md text-[#4CAF50] text-[11px] font-mono px-2.5 py-1 rounded border border-[#4CAF50]/30">
+                                <i class="fas fa-microchip mr-1"></i>Active Topology Canvas
+                            </span>
+                            <div class="absolute bottom-3 right-3 text-white/80 text-xs bg-black/60 px-2.5 py-1 rounded-md backdrop-blur-sm group-hover:text-[#4CAF50] transition">
+                                <i class="fas fa-magnifying-glass-plus mr-1"></i>Click to Inspect
+                            </div>
+                        </div>
+                        <div class="p-4 bg-gray-900/90 border-t border-white/5">
+                            <span class="text-[11px] font-mono text-[#4CAF50] block mb-1">Live Simulation Canvas</span>
+                            <h3 class="text-sm font-semibold text-[#e6f1ff]">Live GNS3 Node States, Interfaces & Traffic Verification</h3>
+                            <p class="text-xs text-[#8892b0] mt-1 line-clamp-2">Close-up view of active virtualized nodes, interface bindings, and real-time packet transit indicators across the fabric.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Transition to Physical Deployment -->
+            <div class="section-card p-8 rounded-xl mb-12 border-l-4 border-l-[#4CAF50]" data-aos="fade-up">
+                <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                    <div class="space-y-2 max-w-3xl">
+                        <span class="text-xs font-mono text-[#4CAF50] uppercase tracking-wider">Next Engineering Phase</span>
+                        <h2 class="text-2xl font-bold text-[#e6f1ff]">From Virtual Simulation to Physical Hardware Staging</h2>
+                        <p class="text-sm text-[#8892b0] leading-relaxed">
+                            Following the flawless validation of routing protocols, MLAG synchronization, and failover pathways in GNS3, all baseline configurations and port mapping schemas were transitioned directly to the physical enterprise hardware: unboxing the <strong class="text-[#e6f1ff]">Arista 720DP switches</strong>, <strong class="text-[#e6f1ff]">Arista AP-C460 Wi-Fi 7 APs</strong>, and <strong class="text-[#e6f1ff]">Fortinet FortiGate 200G firewalls</strong>.
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="infra-project-arista.html"
+                            class="inline-flex items-center space-x-2 bg-[#4CAF50] hover:bg-[#45a049] text-[#0a0a0a] font-bold px-6 py-3.5 rounded-lg transition transform hover:-translate-y-1 shadow-lg shadow-[#4CAF50]/20 text-sm">
+                            <span>Explore Physical Staging</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Engineering Highlights -->
+            <div class="section-card p-8 rounded-xl mb-12" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-[#e6f1ff] mb-4">Key Accomplishments & Technical Competencies</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-[#8892b0]">
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-[#4CAF50] mt-1 mr-3"></i>
+                            <span><strong class="text-[#e6f1ff]">Vendor-Neutral Architecture Design:</strong> Built clear, standard-compliant blueprints using open-source Draw.io that bridged client business requirements with concrete engineering specifications.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-[#4CAF50] mt-1 mr-3"></i>
+                            <span><strong class="text-[#e6f1ff]">Zero-Risk Pre-Deployment Prototyping:</strong> Isolated configuration errors and validated complex MLAG peer protocols in GNS3 before hardware arrived on-site.</span>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-[#4CAF50] mt-1 mr-3"></i>
+                            <span><strong class="text-[#e6f1ff]">Comprehensive High Availability:</strong> Successfully demonstrated sub-second failover for dual WAN ISP links, active-passive FortiGate clusters, and Arista core MLAG.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check text-[#4CAF50] mt-1 mr-3"></i>
+                            <span><strong class="text-[#e6f1ff]">Rapid Physical Turnup:</strong> Because configs were pre-built and tested in GNS3, physical bench staging and client cutover proceeded with zero unexpected configuration rework.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Footer CTA -->
+            <div class="text-center pt-8 border-t border-white/10" data-aos="fade-up">
+                <a href="index.html#infrastructure"
+                    class="inline-flex items-center space-x-2 bg-[#4CAF50] text-[#0a0a0a] font-bold px-8 py-3 rounded-lg hover:bg-[#45a049] transition transform hover:-translate-y-1 shadow-lg shadow-[#4CAF50]/20">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Return to Portfolio</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 border-t border-white/10 text-center text-[#8892b0] text-sm">
+        <div class="container mx-auto px-6">
+            <p>&copy; 2024 Shijin P S. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal"
+        class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md items-center justify-center p-4">
+        <button onclick="closeLightbox()"
+            class="absolute top-6 right-6 text-white text-3xl hover:text-[#4CAF50] transition z-50 focus:outline-none"
+            aria-label="Close Lightbox">
+            <i class="fas fa-times"></i>
+        </button>
+        <button onclick="changeLightbox(-1)"
+            class="absolute left-4 md:left-8 text-white text-3xl hover:text-[#4CAF50] transition z-50 p-3 bg-black/50 rounded-full focus:outline-none"
+            aria-label="Previous image">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button onclick="changeLightbox(1)"
+            class="absolute right-4 md:right-8 text-white text-3xl hover:text-[#4CAF50] transition z-50 p-3 bg-black/50 rounded-full focus:outline-none"
+            aria-label="Next image">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="max-w-4xl max-h-[85vh] flex flex-col items-center">
+            <img id="lightbox-img" src="" alt="Enlarged view"
+                class="max-h-[75vh] max-w-full rounded-lg shadow-2xl object-contain border border-white/10">
+            <p id="lightbox-caption" class="text-center text-[#e6f1ff] font-medium mt-4 text-sm md:text-base px-4"></p>
+            <span id="lightbox-counter" class="text-xs font-mono text-[#8892b0] mt-1"></span>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Theme Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const themeIcon = themeToggleBtn.querySelector('i');
+
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('light');
+            if (body.classList.contains('light')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Lightbox Gallery Logic
+        const galleryImages = [
+            { src: 'diagram/IMG_20260813_160349825.jpg', title: 'Enterprise Network Topology Architecture Blueprint - Designed in Draw.io (diagrams.net)' },
+            { src: 'diagram/IMG_20260813_160401265.jpg', title: 'Core-to-Access Dual-Homed Uplinks, SFP+ Allocations & Trunk Schemas (Draw.io)' },
+            { src: 'diagram/IMG_20260708_150815139.jpg', title: 'GNS3 Virtual Lab: Dual ISP, FortiGate HA Cluster & Arista Core MLAG Emulation' },
+            { src: 'diagram/IMG_20260708_150900770.jpg', title: 'Live GNS3 Simulation Canvas: Active Virtual Appliances, Interface Interconnects & Verification' }
+        ];
+
+        let currentIndex = 0;
+        const modal = document.getElementById('lightbox-modal');
+        const img = document.getElementById('lightbox-img');
+        const caption = document.getElementById('lightbox-caption');
+        const counter = document.getElementById('lightbox-counter');
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightbox();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function changeLightbox(delta) {
+            currentIndex = (currentIndex + delta + galleryImages.length) % galleryImages.length;
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            img.src = galleryImages[currentIndex].src;
+            caption.textContent = galleryImages[currentIndex].title;
+            counter.textContent = `${currentIndex + 1} of ${galleryImages.length}`;
+        }
+
+        // Close on ESC key or arrow navigation
+        window.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') changeLightbox(-1);
+            if (e.key === 'ArrowRight') changeLightbox(1);
+        });
+
+        // Close when clicking modal backdrop
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeLightbox();
+        });
+    </script>
+</body>
+
+</html>

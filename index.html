@@ -1543,30 +1543,144 @@
                     </div>
                 </div>
 
-                <!-- Ready Slot: Network Diagram & Project Documentation -->
-                <div class="section-card p-6 md:p-8 rounded-2xl border-dashed border-2 border-white/15 bg-black/20 hover:border-[#4CAF50]/50 transition-all duration-300">
-                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                        <div class="space-y-2 max-w-2xl">
-                            <div class="flex items-center space-x-2">
-                                <span class="text-[#00f7d9] font-mono text-xs border border-[#00f7d9]/40 px-2 py-0.5 rounded bg-[#00f7d9]/10">
-                                    Architecture & Design
-                                </span>
-                                <span class="text-xs font-mono text-[#8892b0]">Comprehensive Blueprint</span>
+                <!-- Project 2: Network Architecture Blueprint & GNS3 Virtual Lab Simulation -->
+                <div class="section-card p-0 rounded-2xl overflow-hidden hover:border-[#00f7d9]/60 transition-all duration-300 shadow-2xl">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+
+                        <!-- Left: Interactive Image Carousel (4 Photos: Draw.io & GNS3) -->
+                        <div class="lg:col-span-7 relative bg-black/90 overflow-hidden flex flex-col justify-center group" id="diagram-carousel">
+                            <div class="relative w-full h-[360px] sm:h-[420px] md:h-[480px] overflow-hidden">
+
+                                <!-- Slide 1: Draw.io Architecture Blueprint -->
+                                <a href="infra-project-diagram-gns3.html" class="diagram-slide absolute inset-0 transition-opacity duration-700 opacity-100 block">
+                                    <img src="diagram/IMG_20260813_160349825.jpg" alt="Enterprise Network Topology Diagram in Draw.io"
+                                        class="w-full h-full object-cover object-center">
+                                </a>
+
+                                <!-- Slide 2: Draw.io Core & Access Detail -->
+                                <a href="infra-project-diagram-gns3.html" class="diagram-slide absolute inset-0 transition-opacity duration-700 opacity-0 pointer-events-none block">
+                                    <img src="diagram/IMG_20260813_160401265.jpg" alt="Core to Access Switching & Dual-Homed Uplinks in Draw.io"
+                                        class="w-full h-full object-cover object-center">
+                                </a>
+
+                                <!-- Slide 3: GNS3 Virtual Lab Setup -->
+                                <a href="infra-project-diagram-gns3.html" class="diagram-slide absolute inset-0 transition-opacity duration-700 opacity-0 pointer-events-none block">
+                                    <img src="diagram/IMG_20260708_150815139.jpg" alt="GNS3 Network Simulation Lab on Laptop"
+                                        class="w-full h-full object-cover object-center">
+                                </a>
+
+                                <!-- Slide 4: GNS3 Canvas Topology -->
+                                <a href="infra-project-diagram-gns3.html" class="diagram-slide absolute inset-0 transition-opacity duration-700 opacity-0 pointer-events-none block">
+                                    <img src="diagram/IMG_20260708_150900770.jpg" alt="Live GNS3 Emulation Canvas with Active Nodes"
+                                        class="w-full h-full object-cover object-center">
+                                </a>
+
+                                <!-- Overlay Top Badges -->
+                                <div class="absolute top-4 left-4 z-20">
+                                    <span class="bg-black/75 backdrop-blur-md text-[#00f7d9] text-xs font-mono font-bold px-3 py-1.5 rounded-md border border-[#00f7d9]/30 shadow-lg">
+                                        <i class="fas fa-draw-polygon mr-1.5"></i>Draw.io & GNS3 Lab
+                                    </span>
+                                </div>
+                                <div class="absolute top-4 right-4 z-20">
+                                    <span id="diagram-counter" class="bg-black/75 backdrop-blur-md text-[#00f7d9] text-xs font-mono px-3 py-1.5 rounded-md border border-white/10 shadow-lg">
+                                        1 / 4
+                                    </span>
+                                </div>
+
+                                <!-- Arrow Navigation -->
+                                <button onclick="prevDiagramSlide()" aria-label="Previous image"
+                                    class="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-[#00f7d9] text-white hover:text-black p-3 rounded-full transition duration-200 focus:outline-none backdrop-blur-sm">
+                                    <i class="fas fa-chevron-left text-sm"></i>
+                                </button>
+                                <button onclick="nextDiagramSlide()" aria-label="Next image"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-[#00f7d9] text-white hover:text-black p-3 rounded-full transition duration-200 focus:outline-none backdrop-blur-sm">
+                                    <i class="fas fa-chevron-right text-sm"></i>
+                                </button>
+
+                                <!-- Bottom Caption Overlay -->
+                                <div class="absolute bottom-3 left-3 right-3 z-20 bg-black/85 backdrop-blur-md p-3 rounded-lg border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <div class="truncate text-xs text-[#e6f1ff] font-medium" id="diagram-caption">
+                                        Enterprise Network Topology Architecture Blueprint (Draw.io / diagrams.net)
+                                    </div>
+                                    <a href="infra-project-diagram-gns3.html" class="text-xs font-mono text-[#00f7d9] hover:underline flex-shrink-0 flex items-center">
+                                        <span>Full Details</span>
+                                        <i class="fas fa-external-link-alt ml-1.5 text-[10px]"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <h3 class="text-xl md:text-2xl font-bold text-[#e6f1ff]">
-                                Enterprise Network Topology & Technical Documentation
-                            </h3>
-                            <p class="text-sm text-[#8892b0]">
-                                Detailed L2/L3 network topology diagram with VLAN segmentation, subnet allocations, routing policies, and structured technical documentation guide for the enterprise deployment.
-                            </p>
+
+                            <!-- Indicator Dots Bar -->
+                            <div class="bg-black/90 py-2.5 px-4 flex justify-center items-center space-x-1.5 overflow-x-auto z-10" id="diagram-dots">
+                                <!-- Dots rendered dynamically via JS -->
+                            </div>
                         </div>
-                        <div class="flex-shrink-0 flex items-center space-x-3">
-                            <a href="#contact"
-                                class="hero-btn-outline font-semibold text-sm px-5 py-2.5 rounded-lg flex items-center space-x-2">
-                                <i class="fas fa-file-lines text-[#4CAF50]"></i>
-                                <span>Documentation Ready</span>
-                            </a>
+
+                        <!-- Right: Detailed Implementation Context -->
+                        <div class="lg:col-span-5 p-6 md:p-8 flex flex-col justify-between space-y-6 bg-[#0f172a]">
+                            <div>
+                                <!-- Category & Badges -->
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="text-[#00f7d9] font-mono text-xs border border-[#00f7d9]/40 px-2 py-0.5 rounded bg-[#00f7d9]/10">
+                                        Draw.io (diagrams.net)
+                                    </span>
+                                    <span class="text-[#4CAF50] font-mono text-xs border border-[#4CAF50]/40 px-2 py-0.5 rounded bg-[#4CAF50]/10">
+                                        GNS3 Virtual Lab
+                                    </span>
+                                    <span class="text-[#8892b0] font-mono text-xs border border-white/10 px-2 py-0.5 rounded">
+                                        Pre-Deployment Staging
+                                    </span>
+                                </div>
+
+                                <h3 class="text-2xl font-bold text-[#e6f1ff] mb-2 leading-snug">
+                                    Enterprise Network Architecture Blueprint & GNS3 Virtual Lab Simulation
+                                </h3>
+                                <p class="text-sm text-[#00f7d9] font-mono mb-4">
+                                    Open-Source Diagramming & Full-Scale Virtual Topology Emulation
+                                </p>
+
+                                <div class="text-sm text-[#8892b0] space-y-3 leading-relaxed mb-6">
+                                    <p>
+                                        Architected the complete enterprise network blueprint using the open-source platform
+                                        <a href="https://app.diagrams.net/" target="_blank" rel="noopener noreferrer" class="text-[#00f7d9] hover:underline font-semibold">Draw.io (diagrams.net)</a>,
+                                        and built a full virtual simulation in
+                                        <strong class="text-[#e6f1ff]">GNS3</strong> to configure, test, and demonstrate all high-availability functions before physical deployment.
+                                    </p>
+                                    <ul class="space-y-2 text-xs text-[#cbd5e1] list-none">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#00f7d9] mt-0.5 mr-2"></i>
+                                            <span><strong>Draw.io Topology Blueprint:</strong> Comprehensive L2/L3 diagram depicting dual ISPs (Airtel & Tata), FortiGate HA cluster, dual Arista core MLAG, and 8 downstream switches (6 access + 2 AP switches).</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#00f7d9] mt-0.5 mr-2"></i>
+                                            <span><strong>GNS3 Virtual Appliances:</strong> Emulated FortiOS 7.2 firewalls and Arista vEOS switches running actual network operating system binaries for identical production fidelity.</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#00f7d9] mt-0.5 mr-2"></i>
+                                            <span><strong>Configuration Demonstration:</strong> Staged and verified FortiGate FGCP active-passive HA state sync, Arista MLAG peer-link, LACP trunks, and inter-VLAN routing tables.</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-[#00f7d9] mt-0.5 mr-2"></i>
+                                            <span><strong>Disaster Recovery Simulation:</strong> Tested simulated interface cut, core chassis shutdown, and ISP failover in GNS3 with sub-second convergence prior to physical staging.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Action CTAs -->
+                            <div class="pt-4 border-t border-white/10 flex flex-col sm:flex-row gap-3">
+                                <a href="infra-project-diagram-gns3.html"
+                                    class="hero-btn-primary text-center font-bold text-sm flex items-center justify-center space-x-2 py-3 px-5">
+                                    <span>Read Full Case Study</span>
+                                    <i class="fas fa-arrow-right text-xs"></i>
+                                </a>
+                                <a href="infra-project-diagram-gns3.html#gallery-grid"
+                                    class="hero-btn-outline text-center font-medium text-sm flex items-center justify-center space-x-2 py-3 px-4">
+                                    <i class="fas fa-images mr-1"></i>
+                                    <span>View Diagrams & Lab</span>
+                                </a>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -1944,6 +2058,93 @@
             aristaCarouselEl.addEventListener('mouseenter', stopAristaAuto);
             aristaCarouselEl.addEventListener('mouseleave', startAristaAuto);
             startAristaAuto();
+        }
+
+        // --- Draw.io & GNS3 Carousel ---
+        const diagramSlides = document.querySelectorAll('.diagram-slide');
+        const diagramCounter = document.getElementById('diagram-counter');
+        const diagramCaption = document.getElementById('diagram-caption');
+        const diagramDotsContainer = document.getElementById('diagram-dots');
+        let diagramCurrentIndex = 0;
+        let diagramInterval = null;
+
+        const diagramCaptions = [
+            "Enterprise Network Topology Architecture Blueprint (Draw.io / diagrams.net)",
+            "Core-to-Access Dual-Homed Uplinks, SFP+ Allocations & Trunk Schemas (Draw.io)",
+            "GNS3 Virtual Lab: Dual ISP, FortiGate HA Cluster & Arista Core MLAG Emulation",
+            "Live GNS3 Simulation Canvas: Active Virtual Appliances & Interface Interconnects"
+        ];
+
+        // Create indicator dots dynamically
+        if (diagramDotsContainer && diagramSlides.length > 0) {
+            diagramDotsContainer.innerHTML = '';
+            diagramSlides.forEach((_, idx) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.setAttribute('aria-label', `Go to slide ${idx + 1}`);
+                dot.className = `h-2 rounded-full transition-all duration-300 ${idx === 0 ? 'bg-[#00f7d9] w-6' : 'bg-white/40 w-2 hover:bg-white/70'}`;
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showDiagramSlide(idx);
+                });
+                diagramDotsContainer.appendChild(dot);
+            });
+        }
+
+        function showDiagramSlide(index) {
+            if (!diagramSlides || diagramSlides.length === 0) return;
+            diagramCurrentIndex = index;
+            diagramSlides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.remove('opacity-0', 'pointer-events-none');
+                    slide.classList.add('opacity-100');
+                } else {
+                    slide.classList.remove('opacity-100');
+                    slide.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+            if (diagramCounter) {
+                diagramCounter.textContent = `${index + 1} / ${diagramSlides.length}`;
+            }
+            if (diagramCaption) {
+                diagramCaption.textContent = diagramCaptions[index] || '';
+            }
+            if (diagramDotsContainer) {
+                const dots = diagramDotsContainer.querySelectorAll('button');
+                dots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.className = 'h-2 rounded-full transition-all duration-300 bg-[#00f7d9] w-6';
+                    } else {
+                        dot.className = 'h-2 rounded-full transition-all duration-300 bg-white/40 w-2 hover:bg-white/70';
+                    }
+                });
+            }
+        }
+
+        function nextDiagramSlide() {
+            if (!diagramSlides || diagramSlides.length === 0) return;
+            showDiagramSlide((diagramCurrentIndex + 1) % diagramSlides.length);
+        }
+
+        function prevDiagramSlide() {
+            if (!diagramSlides || diagramSlides.length === 0) return;
+            showDiagramSlide((diagramCurrentIndex - 1 + diagramSlides.length) % diagramSlides.length);
+        }
+
+        function startDiagramAuto() {
+            stopDiagramAuto();
+            diagramInterval = setInterval(nextDiagramSlide, 5000);
+        }
+
+        function stopDiagramAuto() {
+            if (diagramInterval) clearInterval(diagramInterval);
+        }
+
+        const diagramCarouselEl = document.getElementById('diagram-carousel');
+        if (diagramCarouselEl) {
+            diagramCarouselEl.addEventListener('mouseenter', stopDiagramAuto);
+            diagramCarouselEl.addEventListener('mouseleave', startDiagramAuto);
+            startDiagramAuto();
         }
 
         // --- Particle Canvas Animation ---
