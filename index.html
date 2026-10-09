@@ -60,6 +60,50 @@
             /* A distinct green for hover, similar to example */
         }
 
+        /* Navbar Item & Tooltip */
+        .nav-item-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-item-wrap .nav-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            background: rgba(15, 23, 42, 0.96);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: var(--accent-secondary);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 247, 217, 0.3);
+            white-space: nowrap;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            z-index: 60;
+        }
+
+        .nav-item-wrap:hover .nav-tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(8px);
+        }
+
+        body.light .nav-item-wrap .nav-tooltip {
+            background: #ffffff;
+            color: var(--accent-primary);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
         .accent-text {
             color: var(--accent-primary);
             /* Primary accent green */
@@ -631,16 +675,39 @@
             <!-- Right: Navigation and Theme Toggle -->
             <nav class="flex items-center space-x-6">
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center space-x-6">
-                    <a href="#about" class="header-link">About</a>
-                    <a href="#experience" class="header-link">Experience</a>
-                    <a href="#skills" class="header-link">Skills</a>
-                    <a href="#education" class="header-link">Education</a>
-                    <a href="#certifications" class="header-link">Certifications</a>
-                    <a href="#infrastructure" class="header-link">Deployments</a>
-                    <a href="#projects" class="header-link">Projects</a>
-                    <a href="#sessions" class="header-link">Sessions</a>
-                    <a href="#contact" class="header-link">Contact</a>
+                <div class="hidden md:flex items-center space-x-5 lg:space-x-6">
+                    <div class="nav-item-wrap">
+                        <a href="#about" class="header-link">About</a>
+                        <span class="nav-tooltip">About Me</span>
+                    </div>
+                    <div class="nav-item-wrap">
+                        <a href="#experience" class="header-link">Experience</a>
+                        <span class="nav-tooltip">Professional Experience</span>
+                    </div>
+                    <div class="nav-item-wrap">
+                        <a href="#skills" class="header-link">Arsenal</a>
+                        <span class="nav-tooltip">Technical Arsenal</span>
+                    </div>
+                    <div class="nav-item-wrap">
+                        <a href="#academics" class="header-link">Academics</a>
+                        <span class="nav-tooltip">Academics &amp; Certifications</span>
+                    </div>
+                    <div class="nav-item-wrap">
+                        <a href="#deployments" class="header-link">Deployments</a>
+                        <span class="nav-tooltip">Deployments</span>
+                    </div>
+                    <div class="nav-item-wrap">
+                        <a href="#research-projects" class="header-link">Research &amp; Projects</a>
+                        <span class="nav-tooltip">Research, Labs &amp; Projects</span>
+                    </div>
+                    <div class="nav-item-wrap">
+                        <a href="#sessions" class="header-link">Sessions</a>
+                        <span class="nav-tooltip">Sessions &amp; Workshops</span>
+                    </div>
+                    <div class="nav-item-wrap">
+                        <a href="#vision" class="header-link">Vision</a>
+                        <span class="nav-tooltip">Vision &amp; Aspirations</span>
+                    </div>
                 </div>
                 <!-- Theme Toggle Button -->
                 <button id="theme-toggle" class="theme-toggle-btn">
@@ -656,13 +723,12 @@
         <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 py-2">
             <a href="#about" class="block text-center py-3 px-6">About</a>
             <a href="#experience" class="block text-center py-3 px-6">Experience</a>
-            <a href="#skills" class="block text-center py-3 px-6">Skills</a>
-            <a href="#education" class="block text-center py-3 px-6">Education</a>
-            <a href="#certifications" class="block text-center py-3 px-6">Certifications</a>
-            <a href="#infrastructure" class="block text-center py-3 px-6">Deployments</a>
-            <a href="#projects" class="block text-center py-3 px-6">Projects</a>
-            <a href="#sessions" class="block text-center py-3 px-6">Sessions</a>
-            <a href="#contact" class="block text-center py-3 px-6">Contact</a>
+            <a href="#skills" class="block text-center py-3 px-6">Technical Arsenal</a>
+            <a href="#academics" class="block text-center py-3 px-6">Academics &amp; Certifications</a>
+            <a href="#deployments" class="block text-center py-3 px-6">Deployments</a>
+            <a href="#research-projects" class="block text-center py-3 px-6">Research, Labs &amp; Projects</a>
+            <a href="#sessions" class="block text-center py-3 px-6">Sessions &amp; Workshops</a>
+            <a href="#vision" class="block text-center py-3 px-6">Vision &amp; Aspirations</a>
         </div>
     </header>
 
@@ -897,164 +963,15 @@
             </div>
         </section>
 
-        <!-- Education Section -->
-        <section id="education" class="py-20 md:py-32" data-aos="fade-up">
-            <h2 class="section-title-exact">Education</h2>
-            <div class="max-w-4xl">
-                <div class="space-y-8">
-                    <!-- Masters -->
-                    <div class="section-card p-6 rounded-lg relative hover:transform hover:scale-[1.01] transition-transform duration-300"
-                        data-aos="fade-up" data-aos-delay="100">
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
-                            <h3 class="text-xl font-bold text-[#e6f1ff]">Masters Computer Applications (MCA)</h3>
-                            <span
-                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded mt-2 md:mt-0">2025</span>
-                        </div>
-                        <h4 class="text-lg text-[#ccd6f6] mb-1"><i
-                                class="fas fa-university mr-2 text-[#4CAF50]"></i>Uttaranchal University</h4>
-                        <p class="text-[#8892b0] ml-6">Dehradun, Uttarakhand, India</p>
-                    </div>
-
-                    <!-- Diploma -->
-                    <div class="section-card p-6 rounded-lg relative hover:transform hover:scale-[1.01] transition-transform duration-300"
-                        data-aos="fade-up" data-aos-delay="200">
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
-                            <h3 class="text-xl font-bold text-[#e6f1ff]">Diploma in Hardware & Network Engineering
-                                (DHNE)</h3>
-                            <span
-                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded mt-2 md:mt-0">2023</span>
-                        </div>
-                        <h4 class="text-lg text-[#ccd6f6] mb-1"><i
-                                class="fas fa-laptop-code mr-2 text-[#4CAF50]"></i>Kerala State Rutronix</h4>
-                        <p class="text-[#8892b0] ml-6">Thrissur, Kerala</p>
-                    </div>
-
-                    <!-- Bachelors -->
-                    <div class="section-card p-6 rounded-lg relative hover:transform hover:scale-[1.01] transition-transform duration-300"
-                        data-aos="fade-up" data-aos-delay="300">
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
-                            <h3 class="text-xl font-bold text-[#e6f1ff]">Bachelor of Commerce (B.Com)</h3>
-                            <span
-                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded mt-2 md:mt-0">2020</span>
-                        </div>
-                        <h4 class="text-lg text-[#ccd6f6] mb-1"><i
-                                class="fas fa-graduation-cap mr-2 text-[#4CAF50]"></i>Jyothis College of Advanced
-                            Studies</h4>
-                        <p class="text-[#8892b0] ml-6">Kerala</p>
-                    </div>
-
-                    <!-- Diploma C-DIT -->
-                    <div class="section-card p-6 rounded-lg relative hover:transform hover:scale-[1.01] transition-transform duration-300"
-                        data-aos="fade-up" data-aos-delay="400">
-                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
-                            <h3 class="text-xl font-bold text-[#e6f1ff]">Diploma of Education, Accounting and Finance
-                            </h3>
-                            <span
-                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded mt-2 md:mt-0">2022</span>
-                        </div>
-                        <h4 class="text-lg text-[#ccd6f6] mb-1"><i
-                                class="fas fa-book-reader mr-2 text-[#4CAF50]"></i>Centre for Development of Imaging
-                            Technology (C-DIT)</h4>
-                        <p class="text-[#8892b0] ml-6">Kerala</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Certifications Section -->
-        <section id="certifications" class="py-20 md:py-32" data-aos="fade-up">
-            <h2 class="section-title-exact">Certifications</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                <!-- CCNP -->
-                <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
-                    data-aos="zoom-in" data-aos-delay="100">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="text-4xl text-[#4CAF50]"><i class="fas fa-network-wired"></i></div>
-                        <i class="fas fa-check-circle text-[#4CAF50]"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">CCNP</h3>
-                    <p class="text-[#8892b0] mb-4 flex-grow">Cisco Certified Networking Professional</p>
-                    <div class="mt-auto pt-4 border-t border-[#1e293b]">
-                        <span class="text-xs font-mono text-[#4CAF50]">Cisco</span>
-                    </div>
-                </div>
-
-                <!-- CEH -->
-                <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
-                    data-aos="zoom-in" data-aos-delay="200">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="text-4xl text-[#4CAF50]"><i class="fas fa-user-secret"></i></div>
-                        <i class="fas fa-check-circle text-[#4CAF50]"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">CEH v12</h3>
-                    <p class="text-[#8892b0] mb-4 flex-grow">Certified Ethical Hacker</p>
-                    <div class="mt-auto pt-4 border-t border-[#1e293b] flex flex-col gap-1">
-                        <span class="text-xs text-[#8892b0]">EC-Council</span>
-                        <span class="text-xs font-mono text-[#4CAF50]">ID: ECC5978104362</span>
-                    </div>
-                </div>
-
-                <!-- CICSA -->
-                <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
-                    data-aos="zoom-in" data-aos-delay="300">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="text-4xl text-[#4CAF50]"><i class="fas fa-shield-virus"></i></div>
-                        <i class="fas fa-check-circle text-[#4CAF50]"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">CICSA</h3>
-                    <p class="text-[#8892b0] mb-4 flex-grow">Certified IT Infrastructure & Cyber SOC Analyst</p>
-                    <div class="mt-auto pt-4 border-t border-[#1e293b] flex flex-col gap-1">
-                        <span class="text-xs text-[#8892b0]">RedTeam Hacker Academy</span>
-                        <span class="text-xs font-mono text-[#4CAF50]">ID: RTXSTU11113</span>
-                    </div>
-                </div>
-
-                <!-- Python -->
-                <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
-                    data-aos="zoom-in" data-aos-delay="400">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="text-4xl text-[#4CAF50]"><i class="fab fa-python"></i></div>
-                        <i class="fas fa-check-circle text-[#4CAF50]"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">Proficiency Certificate in Python</h3>
-                    <p class="text-[#8892b0] mb-4 flex-grow">Programers</p>
-                    <div class="mt-auto pt-4 border-t border-[#1e293b]">
-                        <span class="text-xs font-mono text-[#4CAF50]">Issued Jan 2022</span>
-                    </div>
-                </div>
-
-                <!-- Tally -->
-                <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
-                    data-aos="zoom-in" data-aos-delay="500">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="text-4xl text-[#4CAF50]"><i class="fas fa-file-invoice"></i></div>
-                        <i class="fas fa-check-circle text-[#4CAF50]"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">Tally Certified</h3>
-                    <p class="text-[#8892b0] mb-4 flex-grow">Tally Solutions Pvt Ltd</p>
-                    <div class="mt-auto pt-4 border-t border-[#1e293b] flex flex-col gap-1">
-                        <span class="text-xs text-[#8892b0]">Issued Mar 2021</span>
-                        <span class="text-xs font-mono text-[#4CAF50]">ID: 908236494</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Blog Section -->
-        <section id="blog" class="py-20 md:py-32" data-aos="fade-up">
-            <h2 class="section-title-exact">Blog</h2>
-            <div class="max-w-4xl">
-                <p class="text-lg leading-relaxed">Blog posts go here.</p>
-            </div>
-        </section>
-
-
-        <!-- Skills Section -->
+        <!-- Technical Arsenal Section -->
         <section id="skills" class="py-20 md:py-32" data-aos="fade-up">
             <h2 class="section-title-exact">
-                Skills
+                Technical Arsenal
                 <span class="title-line"></span>
             </h2>
+            <p class="text-[#8892b0] max-w-3xl mb-12 -mt-6">
+                Core competencies across network infrastructure, offensive security, cloud administration, and the specialized tooling utilized in practice.
+            </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Security Expertise -->
@@ -1062,29 +979,25 @@
                     <h3 class="skill-title-exact"><i class="fas fa-shield-alt"></i> Security Expertise</h3>
                     <div class="space-y-4 mt-4">
                         <div>
-                            <div class="flex justify-between text-sm mb-1"><span>VA/PT
-                                    Assessments</span><span>90%</span></div>
+                            <div class="flex justify-between text-sm mb-1"><span>VA/PT Assessments</span><span>90%</span></div>
                             <div class="progress-track">
                                 <div class="progress-fill" style="width: 90%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1"><span>Secure Config
-                                    Reviews</span><span>85%</span></div>
+                            <div class="flex justify-between text-sm mb-1"><span>Secure Config Reviews</span><span>85%</span></div>
                             <div class="progress-track">
                                 <div class="progress-fill" style="width: 85%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1"><span>Vulnerability
-                                    Management</span><span>85%</span></div>
+                            <div class="flex justify-between text-sm mb-1"><span>Vulnerability Management</span><span>85%</span></div>
                             <div class="progress-track">
                                 <div class="progress-fill" style="width: 85%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1"><span>Incident Response &
-                                    Forensics</span><span>80%</span></div>
+                            <div class="flex justify-between text-sm mb-1"><span>Incident Response &amp; Forensics</span><span>80%</span></div>
                             <div class="progress-track">
                                 <div class="progress-fill" style="width: 80%"></div>
                             </div>
@@ -1092,34 +1005,30 @@
                     </div>
                 </div>
 
-                <!-- Web & Infrastructure (Mapped from Cloud Platforms) -->
+                <!-- Web & Infrastructure -->
                 <div class="skill-card-exact" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="skill-title-exact"><i class="fas fa-server"></i> Web & Cloud Mgmt</h3>
+                    <h3 class="skill-title-exact"><i class="fas fa-server"></i> Web &amp; Cloud Mgmt</h3>
                     <div class="space-y-4 mt-4">
                         <div>
-                            <div class="flex justify-between text-sm mb-1"><span>Oracle Cloud
-                                    Infrastructure</span><span>85%</span></div>
+                            <div class="flex justify-between text-sm mb-1"><span>Oracle Cloud Infrastructure</span><span>85%</span></div>
                             <div class="progress-track">
                                 <div class="progress-fill" style="width: 85%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1"><span>WHM & cPanel</span><span>90%</span>
-                            </div>
+                            <div class="flex justify-between text-sm mb-1"><span>WHM &amp; cPanel</span><span>90%</span></div>
                             <div class="progress-track">
                                 <div class="progress-fill" style="width: 90%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1"><span>Web App
-                                    Deployment</span><span>85%</span></div>
+                            <div class="flex justify-between text-sm mb-1"><span>Web App Deployment</span><span>85%</span></div>
                             <div class="progress-track">
                                 <div class="progress-fill" style="width: 85%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1"><span>PaaS Platform
-                                    Mgmt</span><span>80%</span></div>
+                            <div class="flex justify-between text-sm mb-1"><span>PaaS Platform Mgmt</span><span>80%</span></div>
                             <div class="progress-track">
                                 <div class="progress-fill" style="width: 80%"></div>
                             </div>
@@ -1127,34 +1036,30 @@
                     </div>
                 </div>
 
-                <!-- Hardware & Network (Mapped from Programming) -->
+                <!-- Hardware & Network -->
                 <div class="skill-card-exact" data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="skill-title-exact"><i class="fas fa-network-wired"></i> Hardware & Network</h3>
+                    <h3 class="skill-title-exact"><i class="fas fa-network-wired"></i> Hardware &amp; Network</h3>
                     <div class="space-y-4 mt-4">
                         <div>
-                            <div class="flex justify-between text-sm mb-1"><span>Network
-                                    Installation</span><span>90%</span></div>
+                            <div class="flex justify-between text-sm mb-1"><span>Network Installation</span><span>90%</span></div>
                             <div class="progress-track">
                                 <div class="progress-fill" style="width: 90%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1"><span>Routers &
-                                    Switches</span><span>85%</span></div>
+                            <div class="flex justify-between text-sm mb-1"><span>Routers &amp; Switches</span><span>85%</span></div>
                             <div class="progress-track">
                                 <div class="progress-fill" style="width: 85%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1"><span>Hardware
-                                    Assembly</span><span>90%</span></div>
+                            <div class="flex justify-between text-sm mb-1"><span>Hardware Assembly</span><span>90%</span></div>
                             <div class="progress-track">
                                 <div class="progress-fill" style="width: 90%"></div>
                             </div>
                         </div>
                         <div>
-                            <div class="flex justify-between text-sm mb-1"><span>Troubleshooting</span><span>95%</span>
-                            </div>
+                            <div class="flex justify-between text-sm mb-1"><span>Troubleshooting</span><span>95%</span></div>
                             <div class="progress-track">
                                 <div class="progress-fill" style="width: 95%"></div>
                             </div>
@@ -1164,7 +1069,7 @@
 
                 <!-- Protocols & Standards -->
                 <div class="skill-card-exact" data-aos="fade-up" data-aos-delay="400">
-                    <h3 class="skill-title-exact"><i class="fas fa-globe"></i> Protocols & Compliance</h3>
+                    <h3 class="skill-title-exact"><i class="fas fa-globe"></i> Protocols &amp; Compliance</h3>
                     <div class="flex flex-wrap gap-2 mt-4">
                         <span class="chip-exact"><i class="fas fa-check-circle"></i> ISO 27001</span>
                         <span class="chip-exact"><i class="fas fa-check-circle"></i> Compliance</span>
@@ -1175,170 +1080,366 @@
                     </div>
                 </div>
 
-                <!-- Certifications -->
+                <!-- Certifications Quick Overview -->
                 <div class="skill-card-exact" data-aos="fade-up" data-aos-delay="500">
-                    <h3 class="skill-title-exact"><i class="fas fa-award"></i> Certifications</h3>
-                    <ul class="list-exact mt-4">
-                        <li><i class="fas fa-check-circle"></i> CEH v12 (Certified Ethical Hacker)</li>
-                        <li><i class="fas fa-check-circle"></i> CICSA (RedTeam Academy)</li>
-                        <li><i class="fas fa-check-circle"></i> CCNP (In Progress)</li>
-                        <li><i class="fas fa-check-circle"></i> DHNE (Hardware & Networking)</li>
-                    </ul>
+                    <h3 class="skill-title-exact"><i class="fas fa-shield-virus"></i> SOC &amp; Threat Defense</h3>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> Threat Hunting</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> SIEM Alerting</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> Digital Forensics</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> Log Auditing</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> Incident Handling</span>
+                    </div>
                 </div>
 
                 <!-- Additional Skills -->
                 <div class="skill-card-exact" data-aos="fade-up" data-aos-delay="600">
-                    <h3 class="skill-title-exact"><i class="fas fa-wrench"></i> Tools & Methods</h3>
-                    <ul class="list-exact mt-4">
-                        <li><i class="fas fa-check-circle"></i> Burp Suite & Metasploit</li>
-                        <li><i class="fas fa-check-circle"></i> Wireshark Analysis</li>
-                        <li><i class="fas fa-check-circle"></i> Risk Mitigation</li>
-                        <li><i class="fas fa-check-circle"></i> Technical Support</li>
-                        <li><i class="fas fa-check-circle"></i> Asset Management</li>
-                    </ul>
+                    <h3 class="skill-title-exact"><i class="fas fa-wrench"></i> Systems &amp; Methods</h3>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> Linux / Ubuntu</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> Windows Server</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> Active Directory</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> Cable Staging</span>
+                        <span class="chip-exact"><i class="fas fa-check-circle"></i> Disaster Recovery</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integrated Tools Grid -->
+            <div class="mt-16 pt-12 border-t border-[#1e293b]" id="tools">
+                <div class="text-center md:text-left mb-8">
+                    <h3 class="text-xl md:text-2xl font-bold text-[#e6f1ff] mb-2 flex items-center justify-center md:justify-start">
+                        <i class="fas fa-toolbox text-[#4CAF50] mr-3"></i> Specialized Tools &amp; Technologies
+                    </h3>
+                    <p class="text-sm text-[#8892b0]">
+                        Industry-standard software, scanners, network emulators, and monitoring platforms utilized in lab setups and production environments.
+                    </p>
+                </div>
+                <div class="max-w-5xl mx-auto">
+                    <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-8 place-items-center">
+                        <!-- 1. Metasploit -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="50">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/metasploit.svg" alt="Metasploit Logo" loading="lazy">
+                            </div>
+                            <span>Metasploit</span>
+                        </div>
+
+                        <!-- 2. Wireshark -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/wireshark.svg" alt="Wireshark Logo" loading="lazy">
+                            </div>
+                            <span>Wireshark</span>
+                        </div>
+
+                        <!-- 3. Nessus -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="150">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/nessus.png" alt="Nessus Logo" loading="lazy">
+                            </div>
+                            <span>Nessus</span>
+                        </div>
+
+                        <!-- 4. Nikto -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/nikto.svg" alt="Nikto Logo" loading="lazy">
+                            </div>
+                            <span>Nikto</span>
+                        </div>
+
+                        <!-- 5. OWASP ZAP -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="250">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/owasp-zap.png" alt="OWASP ZAP Logo" loading="lazy">
+                            </div>
+                            <span>OWASP ZAP</span>
+                        </div>
+
+                        <!-- 6. Nmap -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/nmap.svg" alt="Nmap Logo" loading="lazy">
+                            </div>
+                            <span>Nmap</span>
+                        </div>
+
+                        <!-- 7. Burp Suite -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="350">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/burp-suite.svg" alt="Burp Suite Logo" loading="lazy">
+                            </div>
+                            <span>Burp Suite</span>
+                        </div>
+
+                        <!-- 8. Kali Linux -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="400">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/kali-linux.svg" alt="Kali Linux Logo" loading="lazy">
+                            </div>
+                            <span>Kali Linux</span>
+                        </div>
+
+                        <!-- 9. Elastic SIEM -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="450">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/elastic.svg" alt="Elastic SIEM Logo" loading="lazy">
+                            </div>
+                            <span>Elastic SIEM</span>
+                        </div>
+
+                        <!-- 10. Wazuh -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="500">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/wazuh.svg" alt="Wazuh Logo" loading="lazy">
+                            </div>
+                            <span>Wazuh</span>
+                        </div>
+
+                        <!-- 11. Splunk -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="550">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/splunk.svg" alt="Splunk Logo" loading="lazy">
+                            </div>
+                            <span>Splunk</span>
+                        </div>
+
+                        <!-- 12. GNS3 -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="600">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/gns3.png" alt="GNS3 Logo" loading="lazy">
+                            </div>
+                            <span>GNS3</span>
+                        </div>
+
+                        <!-- 13. Datadog -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="650">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/datadog.svg" alt="Datadog Logo" loading="lazy">
+                            </div>
+                            <span>Datadog</span>
+                        </div>
+
+                        <!-- 14. EVE-NG -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="700">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/eve-ng.png" alt="EVE-NG Logo" loading="lazy">
+                            </div>
+                            <span>EVE-NG</span>
+                        </div>
+
+                        <!-- 15. Zabbix -->
+                        <div class="tool-item" data-aos="zoom-in" data-aos-delay="750">
+                            <div class="tool-icon-circle">
+                                <img src="assets/images/tools/zabbix.svg" alt="Zabbix Logo" loading="lazy">
+                            </div>
+                            <span>Zabbix</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Tools Section -->
-        <section id="tools" class="py-20 md:py-32" data-aos="fade-up">
+        <!-- Academics & Certifications Section -->
+        <section id="academics" class="py-20 md:py-32" data-aos="fade-up">
+            <span id="certifications"></span>
+            <span id="education"></span>
             <h2 class="section-title-exact">
-                Some Tools I've Used and Learned
+                Academics &amp; Certifications
                 <span class="title-line"></span>
             </h2>
-            <div class="max-w-5xl mx-auto">
-                <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-8 place-items-center">
-                    <!-- 1. Metasploit -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="50">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/metasploit.svg" alt="Metasploit Logo" loading="lazy">
+            <p class="text-[#8892b0] max-w-3xl mb-12 -mt-6">
+                Official industry credentials, accredited academic qualifications, and recognized cybersecurity honors.
+            </p>
+
+            <!-- Subsection 1: Honors & Recognitions Spotlight -->
+            <div class="mb-14">
+                <h3 class="text-lg font-mono text-[#00f7d9] mb-4 flex items-center">
+                    <i class="fas fa-award mr-2.5 text-[#4CAF50] text-xl"></i> Honors &amp; Recognitions
+                </h3>
+                <div class="section-card p-6 md:p-8 rounded-xl border border-[#00f7d9]/30 bg-gradient-to-r from-[rgba(0,247,217,0.06)] to-transparent relative overflow-hidden group hover:border-[#00f7d9]/60 transition-all duration-300 shadow-xl" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-xl bg-[rgba(76,175,80,0.15)] border border-[#4CAF50]/30 flex items-center justify-center text-2xl text-[#4CAF50] flex-shrink-0 shadow-lg">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div>
+                                <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                                    <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-[rgba(0,247,217,0.1)] text-[#00f7d9] border border-[rgba(0,247,217,0.3)]">
+                                        Government Recognition
+                                    </span>
+                                    <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-[rgba(76,175,80,0.1)] text-[#4CAF50] border border-[rgba(76,175,80,0.3)]">
+                                        Hall of Fame
+                                    </span>
+                                </div>
+                                <h4 class="text-xl md:text-2xl font-bold text-[#e6f1ff]">NCIIPC Hall of Fame</h4>
+                                <p class="text-xs text-[#8892b0] mt-0.5 font-mono">National Critical Information Infrastructure Protection Centre (Govt. of India)</p>
+                                <p class="text-sm md:text-base text-[#cbd5e1] mt-3 leading-relaxed max-w-3xl">
+                                    Officially inducted and recognized for responsibly reporting critical security vulnerabilities across <strong class="text-[#e6f1ff]">30+ government websites</strong> and critical national cyber assets, supporting responsible disclosure and public infrastructure defense.
+                                </p>
+                            </div>
                         </div>
-                        <span>Metasploit</span>
+                        <div class="flex-shrink-0 self-start md:self-center">
+                            <span class="inline-flex items-center gap-2 text-xs font-mono text-[#00f7d9] bg-[#0f172a] border border-[#1e293b] px-4 py-2.5 rounded-lg shadow-md">
+                                <i class="fas fa-shield-alt text-[#4CAF50]"></i> Responsible Disclosure
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subsection 2: Professional Certifications -->
+            <div class="mb-14">
+                <h3 class="text-lg font-mono text-[#00f7d9] mb-6 flex items-center">
+                    <i class="fas fa-certificate mr-2.5 text-[#4CAF50]"></i> Industry Certifications
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    <!-- CCNP -->
+                    <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                        data-aos="zoom-in" data-aos-delay="100">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-4xl text-[#4CAF50]"><i class="fas fa-network-wired"></i></div>
+                            <i class="fas fa-check-circle text-[#4CAF50]"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-[#e6f1ff] mb-2">CCNP</h4>
+                        <p class="text-[#8892b0] mb-4 flex-grow">Cisco Certified Networking Professional</p>
+                        <div class="mt-auto pt-4 border-t border-[#1e293b]">
+                            <span class="text-xs font-mono text-[#4CAF50]">Cisco</span>
+                        </div>
                     </div>
 
-                    <!-- 2. Wireshark -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/wireshark.svg" alt="Wireshark Logo" loading="lazy">
+                    <!-- CEH -->
+                    <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                        data-aos="zoom-in" data-aos-delay="200">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-4xl text-[#4CAF50]"><i class="fas fa-user-secret"></i></div>
+                            <i class="fas fa-check-circle text-[#4CAF50]"></i>
                         </div>
-                        <span>Wireshark</span>
+                        <h4 class="text-xl font-bold text-[#e6f1ff] mb-2">CEH v12</h4>
+                        <p class="text-[#8892b0] mb-4 flex-grow">Certified Ethical Hacker</p>
+                        <div class="mt-auto pt-4 border-t border-[#1e293b] flex flex-col gap-1">
+                            <span class="text-xs text-[#8892b0]">EC-Council</span>
+                            <span class="text-xs font-mono text-[#4CAF50]">ID: ECC5978104362</span>
+                        </div>
                     </div>
 
-                    <!-- 3. Nessus -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="150">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/nessus.png" alt="Nessus Logo" loading="lazy">
+                    <!-- CICSA -->
+                    <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                        data-aos="zoom-in" data-aos-delay="300">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-4xl text-[#4CAF50]"><i class="fas fa-shield-virus"></i></div>
+                            <i class="fas fa-check-circle text-[#4CAF50]"></i>
                         </div>
-                        <span>Nessus</span>
+                        <h4 class="text-xl font-bold text-[#e6f1ff] mb-2">CICSA</h4>
+                        <p class="text-[#8892b0] mb-4 flex-grow">Certified IT Infrastructure &amp; Cyber SOC Analyst</p>
+                        <div class="mt-auto pt-4 border-t border-[#1e293b] flex flex-col gap-1">
+                            <span class="text-xs text-[#8892b0]">RedTeam Hacker Academy</span>
+                            <span class="text-xs font-mono text-[#4CAF50]">ID: RTXSTU11113</span>
+                        </div>
                     </div>
 
-                    <!-- 4. Nikto -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/nikto.svg" alt="Nikto Logo" loading="lazy">
+                    <!-- Python -->
+                    <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                        data-aos="zoom-in" data-aos-delay="400">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-4xl text-[#4CAF50]"><i class="fab fa-python"></i></div>
+                            <i class="fas fa-check-circle text-[#4CAF50]"></i>
                         </div>
-                        <span>Nikto</span>
+                        <h4 class="text-xl font-bold text-[#e6f1ff] mb-2">Proficiency Certificate in Python</h4>
+                        <p class="text-[#8892b0] mb-4 flex-grow">Programers</p>
+                        <div class="mt-auto pt-4 border-t border-[#1e293b]">
+                            <span class="text-xs font-mono text-[#4CAF50]">Issued Jan 2022</span>
+                        </div>
                     </div>
 
-                    <!-- 5. OWASP ZAP -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="250">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/owasp-zap.png" alt="OWASP ZAP Logo" loading="lazy">
+                    <!-- Tally -->
+                    <div class="section-card p-6 rounded-lg h-full flex flex-col hover:-translate-y-2 transition-transform duration-300"
+                        data-aos="zoom-in" data-aos-delay="500">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-4xl text-[#4CAF50]"><i class="fas fa-file-invoice"></i></div>
+                            <i class="fas fa-check-circle text-[#4CAF50]"></i>
                         </div>
-                        <span>OWASP ZAP</span>
+                        <h4 class="text-xl font-bold text-[#e6f1ff] mb-2">Tally Certified</h4>
+                        <p class="text-[#8892b0] mb-4 flex-grow">Tally Solutions Pvt Ltd</p>
+                        <div class="mt-auto pt-4 border-t border-[#1e293b] flex flex-col gap-1">
+                            <span class="text-xs text-[#8892b0]">Issued Mar 2021</span>
+                            <span class="text-xs font-mono text-[#4CAF50]">ID: 908236494</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subsection 3: Academic Degrees -->
+            <div>
+                <h3 class="text-lg font-mono text-[#00f7d9] mb-6 flex items-center">
+                    <i class="fas fa-graduation-cap mr-2.5 text-[#4CAF50]"></i> Academic Background
+                </h3>
+                <div class="max-w-4xl space-y-6">
+                    <!-- Masters -->
+                    <div class="section-card p-6 rounded-lg relative hover:transform hover:scale-[1.01] transition-transform duration-300"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
+                            <h4 class="text-xl font-bold text-[#e6f1ff]">Masters Computer Applications (MCA)</h4>
+                            <span
+                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded mt-2 md:mt-0">2025</span>
+                        </div>
+                        <h5 class="text-lg text-[#ccd6f6] mb-1"><i
+                                class="fas fa-university mr-2 text-[#4CAF50]"></i>Uttaranchal University</h5>
+                        <p class="text-[#8892b0] ml-6">Dehradun, Uttarakhand, India</p>
                     </div>
 
-                    <!-- 6. Nmap -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/nmap.svg" alt="Nmap Logo" loading="lazy">
+                    <!-- Diploma -->
+                    <div class="section-card p-6 rounded-lg relative hover:transform hover:scale-[1.01] transition-transform duration-300"
+                        data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
+                            <h4 class="text-xl font-bold text-[#e6f1ff]">Diploma in Hardware &amp; Network Engineering (DHNE)</h4>
+                            <span
+                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded mt-2 md:mt-0">2023</span>
                         </div>
-                        <span>Nmap</span>
+                        <h5 class="text-lg text-[#ccd6f6] mb-1"><i
+                                class="fas fa-laptop-code mr-2 text-[#4CAF50]"></i>Kerala State Rutronix</h5>
+                        <p class="text-[#8892b0] ml-6">Thrissur, Kerala</p>
                     </div>
 
-                    <!-- 7. Burp Suite -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="350">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/burp-suite.svg" alt="Burp Suite Logo" loading="lazy">
+                    <!-- Bachelors -->
+                    <div class="section-card p-6 rounded-lg relative hover:transform hover:scale-[1.01] transition-transform duration-300"
+                        data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
+                            <h4 class="text-xl font-bold text-[#e6f1ff]">Bachelor of Commerce (B.Com)</h4>
+                            <span
+                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded mt-2 md:mt-0">2020</span>
                         </div>
-                        <span>Burp Suite</span>
+                        <h5 class="text-lg text-[#ccd6f6] mb-1"><i
+                                class="fas fa-graduation-cap mr-2 text-[#4CAF50]"></i>Jyothis College of Advanced Studies</h5>
+                        <p class="text-[#8892b0] ml-6">Kerala</p>
                     </div>
 
-                    <!-- 8. Kali Linux -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/kali-linux.svg" alt="Kali Linux Logo" loading="lazy">
+                    <!-- Diploma C-DIT -->
+                    <div class="section-card p-6 rounded-lg relative hover:transform hover:scale-[1.01] transition-transform duration-300"
+                        data-aos="fade-up" data-aos-delay="400">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
+                            <h4 class="text-xl font-bold text-[#e6f1ff]">Diploma of Education, Accounting and Finance</h4>
+                            <span
+                                class="text-[#4CAF50] font-mono text-sm border border-[#4CAF50] px-2 py-1 rounded mt-2 md:mt-0">2022</span>
                         </div>
-                        <span>Kali Linux</span>
-                    </div>
-
-                    <!-- 9. Elastic SIEM -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="450">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/elastic.svg" alt="Elastic SIEM Logo" loading="lazy">
-                        </div>
-                        <span>Elastic SIEM</span>
-                    </div>
-
-                    <!-- 10. Wazuh -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="500">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/wazuh.svg" alt="Wazuh Logo" loading="lazy">
-                        </div>
-                        <span>Wazuh</span>
-                    </div>
-
-                    <!-- 11. Splunk -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="550">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/splunk.svg" alt="Splunk Logo" loading="lazy">
-                        </div>
-                        <span>Splunk</span>
-                    </div>
-
-                    <!-- 12. GNS3 -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="600">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/gns3.png" alt="GNS3 Logo" loading="lazy">
-                        </div>
-                        <span>GNS3</span>
-                    </div>
-
-                    <!-- 13. Datadog -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="650">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/datadog.svg" alt="Datadog Logo" loading="lazy">
-                        </div>
-                        <span>Datadog</span>
-                    </div>
-
-                    <!-- 14. EVE-NG -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="700">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/eve-ng.png" alt="EVE-NG Logo" loading="lazy">
-                        </div>
-                        <span>EVE-NG</span>
-                    </div>
-
-                    <!-- 15. Zabbix -->
-                    <div class="tool-item" data-aos="zoom-in" data-aos-delay="750">
-                        <div class="tool-icon-circle">
-                            <img src="assets/images/tools/zabbix.svg" alt="Zabbix Logo" loading="lazy">
-                        </div>
-                        <span>Zabbix</span>
+                        <h5 class="text-lg text-[#ccd6f6] mb-1"><i
+                                class="fas fa-book-reader mr-2 text-[#4CAF50]"></i>Centre for Development of Imaging Technology (C-DIT)</h5>
+                        <p class="text-[#8892b0] ml-6">Kerala</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Infrastructure Deployments & Hardware Labs -->
-        <section id="infrastructure" class="py-20 md:py-32" data-aos="fade-up">
+        <!-- Deployments Section -->
+        <section id="deployments" class="py-20 md:py-32" data-aos="fade-up">
+            <span id="infrastructure"></span>
             <h2 class="section-title-exact">
-                Infrastructure & Lab Deployments
+                Deployments
                 <span class="title-line"></span>
             </h2>
-            <p class="text-[#8892b0] max-w-3xl mb-12">
-                Hands-on enterprise network architecture, physical hardware unboxing & staging, and high-availability (HA) failover deployments.
+            <p class="text-[#8892b0] max-w-3xl mb-12 -mt-6">
+                Architectural blueprints, physical hardware staging, and high-availability implementations.
             </p>
 
             <div class="space-y-12">
@@ -1686,25 +1787,124 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-20 md:py-32" data-aos="fade-up">
-            <h2 class="section-title">Projects & Accomplishments</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="section-card p-6" data-aos="zoom-in-up" data-aos-delay="100">
-                    <div class="text-3xl text-[#4CAF50] mb-4"><i class="fas fa-award"></i></div>
-                    <h3 class="text-xl font-bold mb-2 text-[#ccd6f6]">NCIIPC Hall of Fame</h3>
-                    <p>Recognized for reporting security vulnerabilities in over 30+ government websites.</p>
+        <!-- Research, Labs & Projects Section -->
+        <section id="research-projects" class="py-20 md:py-32" data-aos="fade-up">
+            <span id="projects"></span>
+            <h2 class="section-title-exact">
+                Research, Labs &amp; Projects
+                <span class="title-line"></span>
+            </h2>
+            <p class="text-[#8892b0] max-w-3xl mb-12 -mt-6">
+                Hands-on security assessments, practical lab environments, and independent technical investigations.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
+                <!-- Project 1: Web App Pentesting -->
+                <div class="section-card p-6 md:p-8 rounded-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between border border-[#1e293b] hover:border-[#4CAF50]/60 shadow-xl"
+                    data-aos="zoom-in-up" data-aos-delay="100">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-[rgba(76,175,80,0.12)] border border-[#4CAF50]/30 flex items-center justify-center text-2xl text-[#4CAF50]">
+                                <i class="fas fa-bug-slash"></i>
+                            </div>
+                            <span class="text-xs font-mono px-3 py-1 rounded bg-[rgba(76,175,80,0.1)] text-[#4CAF50] border border-[rgba(76,175,80,0.25)]">
+                                Security Assessment
+                            </span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-3 text-[#e6f1ff]">Web Application Penetration Testing</h3>
+                        <p class="text-sm md:text-base text-[#cbd5e1] leading-relaxed mb-6">
+                            Conducted rigorous black-box and grey-box security assessments on live commercial websites, including <em>Lamasia</em> and <em>bismideal.com</em>. Uncovered authentication bypass flaws, SQL injection risks, and sensitive data leakage, providing remediation reports mapped to OWASP Top 10 standards.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-[#1e293b]">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">OWASP Top 10</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">Burp Suite Pro</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">VAPT Reporting</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">SQLi / XSS</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="section-card p-6" data-aos="zoom-in-up" data-aos-delay="200">
-                    <div class="text-3xl text-[#4CAF50] mb-4"><i class="fas fa-bug-slash"></i></div>
-                    <h3 class="text-xl font-bold mb-2 text-[#ccd6f6]">Web App Pentesting</h3>
-                    <p>Conducted in-depth penetration tests for commercial websites like 'Lamasia' and 'bismideal.com'.
-                    </p>
+
+                <!-- Project 2: CTF Labs & Exploitation -->
+                <div class="section-card p-6 md:p-8 rounded-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between border border-[#1e293b] hover:border-[#00f7d9]/60 shadow-xl"
+                    data-aos="zoom-in-up" data-aos-delay="200">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-[rgba(0,247,217,0.12)] border border-[#00f7d9]/30 flex items-center justify-center text-2xl text-[#00f7d9]">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                            <span class="text-xs font-mono px-3 py-1 rounded bg-[rgba(0,247,217,0.1)] text-[#00f7d9] border border-[rgba(0,247,217,0.25)]">
+                                Hands-On CTF
+                            </span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-3 text-[#e6f1ff]">VulnHub CTF Exploitation Labs</h3>
+                        <p class="text-sm md:text-base text-[#cbd5e1] leading-relaxed mb-6">
+                            Executed complete offensive penetration cycles and documented detailed proof-of-concept writeups for vulnerable Linux virtual machines (DC-1, Biohazard, etc.). Performed initial port enumeration, service exploitation, CMS vulnerability abuse, and privilege escalation to root.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-[#1e293b]">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">VulnHub / CTF</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">Privilege Escalation</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">Metasploit</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">Linux Forensics</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="section-card p-6" data-aos="zoom-in-up" data-aos-delay="300">
-                    <div class="text-3xl text-[#4CAF50] mb-4"><i class="fas fa-laptop-code"></i></div>
-                    <h3 class="text-xl font-bold mb-2 text-[#ccd6f6]">Vulnhub Challenges</h3>
-                    <p>Successfully completed and documented numerous CTF challenges (Dc-1, Biohazard, etc.).</p>
+
+                <!-- Project 3: Python Automation & Tools -->
+                <div class="section-card p-6 md:p-8 rounded-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between border border-[#1e293b] hover:border-[#4CAF50]/60 shadow-xl"
+                    data-aos="zoom-in-up" data-aos-delay="300">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-[rgba(76,175,80,0.12)] border border-[#4CAF50]/30 flex items-center justify-center text-2xl text-[#4CAF50]">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <span class="text-xs font-mono px-3 py-1 rounded bg-[rgba(76,175,80,0.1)] text-[#4CAF50] border border-[rgba(76,175,80,0.25)]">
+                                Automation Scripts
+                            </span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-3 text-[#e6f1ff]">Network &amp; Security Automation Tools</h3>
+                        <p class="text-sm md:text-base text-[#cbd5e1] leading-relaxed mb-6">
+                            Developed custom Python scripts and shell utilities to automate routine engineering workflows: multithreaded port checkers, subnet IP allocators, automated banner grabbers, and log auditing parsers designed to speed up reconnaissance and troubleshooting.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-[#1e293b]">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">Python 3</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">Socket Programming</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">Bash Scripting</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">Recon Automation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Protocol & High-Availability Labs -->
+                <div class="section-card p-6 md:p-8 rounded-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between border border-[#1e293b] hover:border-[#00f7d9]/60 shadow-xl"
+                    data-aos="zoom-in-up" data-aos-delay="400">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-[rgba(0,247,217,0.12)] border border-[#00f7d9]/30 flex items-center justify-center text-2xl text-[#00f7d9]">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <span class="text-xs font-mono px-3 py-1 rounded bg-[rgba(0,247,217,0.1)] text-[#00f7d9] border border-[rgba(0,247,217,0.25)]">
+                                Protocol Research
+                            </span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-3 text-[#e6f1ff]">High-Availability &amp; Failover Research</h3>
+                        <p class="text-sm md:text-base text-[#cbd5e1] leading-relaxed mb-6">
+                            Investigated sub-second convergence behaviors in virtual emulations using GNS3 and EVE-NG. Simulated dual-ISP BGP multihoming, FortiGate FGCP active-passive state sync, Arista MLAG peer-link failure scenarios, and OSPF fast-reroute mechanisms under traffic load.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-[#1e293b]">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">GNS3 / EVE-NG</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">FortiGate FGCP</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">Arista MLAG</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">Failover Simulation</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1870,6 +2070,82 @@
                             Thrissur</p>
                         <p class="text-[#8892b0]">Participated in Cyber Shield 2.0 to engage with industry experts and
                             enhance knowledge in advanced cybersecurity practices.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision & Aspirations Section -->
+        <section id="vision" class="py-20 md:py-32" data-aos="fade-up">
+            <h2 class="section-title-exact">
+                Vision &amp; Aspirations
+                <span class="title-line"></span>
+            </h2>
+            <p class="text-[#8892b0] max-w-3xl mb-12 -mt-6">
+                Targeted technical milestones, upcoming specializations, and forward-looking domains of growth.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto">
+                <!-- Pillar 1: Elite Certification Path -->
+                <div class="section-card p-6 md:p-8 rounded-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between border border-[#1e293b] hover:border-[#4CAF50]/60 shadow-xl"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-[rgba(76,175,80,0.12)] border border-[#4CAF50]/30 flex items-center justify-center text-2xl text-[#4CAF50] mb-6">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#e6f1ff] mb-3">Elite Certification Path</h3>
+                        <p class="text-sm text-[#cbd5e1] leading-relaxed mb-6">
+                            Actively working toward <strong class="text-[#e6f1ff]">CCIE Enterprise Infrastructure</strong> and advanced defensive/offensive credentials, aiming to master deep enterprise-scale routing, multi-vendor switching, and resilient security posture.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-[#1e293b]">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">CCIE Enterprise</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">Advanced VAPT</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">Security Architecture</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pillar 2: Zero Trust & Cloud Security -->
+                <div class="section-card p-6 md:p-8 rounded-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between border border-[#1e293b] hover:border-[#00f7d9]/60 shadow-xl"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-[rgba(0,247,217,0.12)] border border-[#00f7d9]/30 flex items-center justify-center text-2xl text-[#00f7d9] mb-6">
+                            <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#e6f1ff] mb-3">Zero Trust &amp; Cloud Security</h3>
+                        <p class="text-sm text-[#cbd5e1] leading-relaxed mb-6">
+                            Transitioning architecture designs toward modern <strong class="text-[#e6f1ff]">Zero Trust Network Access (ZTNA)</strong>, micro-segmentation, and Cloud Security Posture Management (CSPM) across multi-cloud environments (AWS / OCI).
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-[#1e293b]">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">Zero Trust (ZTNA)</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">Multi-Cloud Security</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">CSPM &amp; Micro-seg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pillar 3: Automation & AI Security -->
+                <div class="section-card p-6 md:p-8 rounded-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between border border-[#1e293b] hover:border-[#4CAF50]/60 shadow-xl"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <div>
+                        <div class="w-12 h-12 rounded-lg bg-[rgba(76,175,80,0.12)] border border-[#4CAF50]/30 flex items-center justify-center text-2xl text-[#4CAF50] mb-6">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[#e6f1ff] mb-3">Automation &amp; AI Security</h3>
+                        <p class="text-sm text-[#cbd5e1] leading-relaxed mb-6">
+                            Exploring the convergence of <strong class="text-[#e6f1ff]">AI in automated threat detection</strong>, Security Orchestration, Automation, and Response (SOAR), and Infrastructure-as-Code (IaC) network configuration using Python and Ansible.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-[#1e293b]">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">Python &amp; Ansible</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">SOAR Workflows</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">AI Threat Analytics</span>
+                        </div>
                     </div>
                 </div>
             </div>
