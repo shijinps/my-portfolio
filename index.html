@@ -745,7 +745,7 @@
                     and Cloud Security Specialist
                     specializing in identifying vulnerabilities and protecting digital infrastructures. My passion lies
                     in the continuous pursuit of securing the digital world.</p>
-                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <div class="flex flex-wrap justify-center items-center gap-3 md:gap-4">
                     <a href="mailto:shijinps101010@gmail.com" class="hero-btn-primary">
                         <i class="fas fa-envelope mr-2"></i> Get In Touch
                     </a>
@@ -757,6 +757,12 @@
                         class="hero-btn-outline">
                         <i class="fab fa-github mr-2"></i> GitHub
                     </a>
+                    <button type="button" onclick="copyDiscord(this)"
+                        class="hero-btn-outline flex items-center group cursor-pointer"
+                        title="Click to copy Discord ID: shijinps13 & open Discord">
+                        <i class="fab fa-discord mr-2 text-[#5865F2] group-hover:scale-110 transition-transform"></i>
+                        <span class="btn-text">Discord: <strong class="font-mono text-[#00f7d9]">shijinps13</strong></span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -2669,25 +2675,47 @@
         <!-- Contact Section -->
         <section id="contact" class="py-20 md:py-32 text-center" data-aos="fade-up">
             <h2 class="text-4xl md:text-5xl font-bold text-[#ccd6f6] mb-4">Get In Touch</h2>
-            <p class="max-w-xl mx-auto mb-8">I'm always open to discussing new projects, creative ideas, or
-                opportunities to be part of your vision. Whether you have a question or just want to say hi, I'll try my
-                best to get back to you!</p>
-            <a href="mailto:shijinps101010@gmail.com" class="hero-btn-primary font-bold text-lg">
-                Say Hello
-            </a>
+            <p class="max-w-xl mx-auto mb-8 text-[#8892b0]">
+                I'm always open to discussing new projects, technical research, or opportunities to collaborate. Whether you have a question, want to connect on Discord, or just want to say hi, feel free to reach out!
+            </p>
+            <div class="flex flex-wrap justify-center items-center gap-3 md:gap-4 max-w-2xl mx-auto mb-10">
+                <a href="mailto:shijinps101010@gmail.com" class="hero-btn-primary font-bold text-sm md:text-base flex items-center">
+                    <i class="fas fa-envelope mr-2"></i> Say Hello
+                </a>
+                <a href="https://www.linkedin.com/in/shijinps/" target="_blank" rel="noopener noreferrer"
+                    class="hero-btn-outline font-medium text-sm md:text-base flex items-center">
+                    <i class="fab fa-linkedin-in mr-2"></i> LinkedIn
+                </a>
+                <a href="https://github.com/shijinps" target="_blank" rel="noopener noreferrer"
+                    class="hero-btn-outline font-medium text-sm md:text-base flex items-center">
+                    <i class="fab fa-github mr-2"></i> GitHub
+                </a>
+                <button type="button" onclick="copyDiscord(this)"
+                    class="hero-btn-outline font-medium text-sm md:text-base flex items-center group cursor-pointer"
+                    title="Click to copy Discord ID: shijinps13 & open Discord">
+                    <i class="fab fa-discord mr-2 text-[#5865F2] group-hover:scale-110 transition-transform"></i>
+                    <span class="btn-text">Discord: <strong class="font-mono text-[#00f7d9]">shijinps13</strong></span>
+                </button>
+            </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="py-6">
+    <footer class="py-8 border-t border-white/10">
         <div class="container mx-auto px-6 text-center text-[#8892b0] text-sm">
-            <div class="flex justify-center space-x-6 mb-4 md:hidden">
-                <a href="https://www.linkedin.com/in/shijinps/" target="_blank" rel="noopener noreferrer"
-                    class="hover:text-[#4CAF50] text-2xl"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/shijinps" target="_blank" rel="noopener noreferrer"
-                    class="hover:text-[#4CAF50] text-2xl"><i class="fab fa-github"></i></a>
+            <div class="flex justify-center items-center space-x-6 mb-4">
+                <a href="mailto:shijinps101010@gmail.com" title="Email: shijinps101010@gmail.com"
+                    class="hover:text-[#4CAF50] text-2xl transition-colors"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/shijinps/" target="_blank" rel="noopener noreferrer" title="LinkedIn: /in/shijinps"
+                    class="hover:text-[#4CAF50] text-2xl transition-colors"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/shijinps" target="_blank" rel="noopener noreferrer" title="GitHub: /shijinps"
+                    class="hover:text-[#4CAF50] text-2xl transition-colors"><i class="fab fa-github"></i></a>
+                <button type="button" onclick="copyDiscord(this)" title="Discord: shijinps13 (Click to copy &amp; open)"
+                    class="hover:text-[#5865F2] text-2xl transition-colors cursor-pointer focus:outline-none">
+                    <i class="fab fa-discord"></i>
+                </button>
             </div>
-            <p>&copy; 2024 Shijin P S. All Rights Reserved.</p>
+            <p>&copy; 2026 Shijin P S. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -3198,6 +3226,66 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
         animateParticles();
+
+        // --- Discord Copy & Launch Handler ---
+        function copyDiscord(btn) {
+            const discordId = 'shijinps13';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(discordId).catch(() => fallbackCopy(discordId));
+            } else {
+                fallbackCopy(discordId);
+            }
+
+            // Visual feedback on the button
+            if (btn) {
+                const textSpan = btn.querySelector('.btn-text');
+                if (textSpan && !btn.dataset.origText) {
+                    btn.dataset.origText = textSpan.innerHTML;
+                    textSpan.innerHTML = '<span class="text-[#4CAF50] font-mono"><i class="fas fa-check mr-1"></i> Copied: shijinps13</span>';
+                    setTimeout(() => {
+                        if (btn.dataset.origText) {
+                            textSpan.innerHTML = btn.dataset.origText;
+                            delete btn.dataset.origText;
+                        }
+                    }, 2500);
+                }
+            }
+
+            showDiscordToast('Copied to clipboard! Launching Discord...');
+
+            // Open Discord user link in a new tab
+            setTimeout(() => {
+                window.open('https://discord.com/users/shijinps13', '_blank', 'noopener,noreferrer');
+            }, 350);
+        }
+
+        function fallbackCopy(text) {
+            const temp = document.createElement('textarea');
+            temp.value = text;
+            temp.style.position = 'fixed';
+            temp.style.opacity = '0';
+            document.body.appendChild(temp);
+            temp.select();
+            try { document.execCommand('copy'); } catch (e) { }
+            document.body.removeChild(temp);
+        }
+
+        function showDiscordToast(msg) {
+            let toast = document.getElementById('discord-toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'discord-toast';
+                toast.className = 'fixed bottom-6 right-6 z-50 bg-[#0f172a] text-[#e6f1ff] border border-[#5865F2]/50 shadow-2xl px-5 py-3 rounded-xl flex items-center space-x-3 transition-all duration-300 transform translate-y-12 opacity-0 font-mono text-xs';
+                document.body.appendChild(toast);
+            }
+            toast.innerHTML = `<i class="fab fa-discord text-[#5865F2] text-xl"></i><div><div class="font-bold text-white">Discord: shijinps13</div><div class="text-[#8892b0] text-[11px]">${msg}</div></div>`;
+            toast.classList.remove('translate-y-12', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-12', 'opacity-0');
+            }, 3500);
+        }
     </script>
 </body>
 
