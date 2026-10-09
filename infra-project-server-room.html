@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Server Room Commissioning & Arista CloudVision Rollout | Shijin P S</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-card: #0f172a;
+            --bg-header: rgba(10, 10, 10, 0.85);
+            --text-primary: #cbd5e1;
+            --text-headings: #e6f1ff;
+            --text-muted: #8892b0;
+            --accent-primary: #4CAF50;
+            --accent-secondary: #00f7d9;
+            --border-color: #1e293b;
+            --hero-btn-text: #0a0a0a;
+        }
+
+        body.light {
+            --bg-primary: #f0f2f5;
+            --bg-card: #ffffff;
+            --bg-header: rgba(255, 255, 255, 0.85);
+            --text-primary: #495057;
+            --text-headings: #1d2d35;
+            --text-muted: #6c757d;
+            --accent-primary: #28a745;
+            --accent-secondary: #17a2b8;
+            --border-color: #dee2e6;
+            --hero-btn-text: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header-link {
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+
+        .header-link:hover {
+            color: var(--accent-primary);
+        }
+
+        .logo-font {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.25rem;
+            color: var(--text-headings);
+        }
+
+        .logo-font .slash-color {
+            color: var(--accent-primary);
+        }
+
+        header {
+            background-color: var(--bg-header);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+        }
+
+        .badge-pill {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(76, 175, 80, 0.35);
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--accent-primary);
+        }
+
+        .badge-cyan {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(0, 247, 217, 0.35);
+            background: rgba(0, 247, 217, 0.1);
+            color: var(--accent-secondary);
+        }
+
+        .badge-amber {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .badge-purple {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            background: rgba(168, 85, 247, 0.1);
+            color: #c084fc;
+        }
+
+        .step-number {
+            font-family: 'Fira Code', monospace;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(0, 247, 217, 0.15);
+            color: var(--accent-secondary);
+            border: 1px solid var(--accent-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .gallery-item {
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            background: #111827;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-secondary);
+            box-shadow: 0 10px 25px -5px rgba(0, 247, 217, 0.3);
+        }
+
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Top Navigation Header -->
+    <header class="fixed w-full top-0 z-50 transition-colors">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="logo-font font-bold">
+                shijin<span class="slash-color">/</span>ps
+            </a>
+            <div class="flex items-center space-x-6">
+                <a href="index.html#deployments" class="header-link text-sm font-medium flex items-center space-x-2">
+                    <i class="fas fa-arrow-left text-xs"></i>
+                    <span>Back to Deployments</span>
+                </a>
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 pt-28 pb-16 max-w-6xl">
+
+        <!-- Breadcrumb & Top Badges -->
+        <div class="flex flex-wrap items-center gap-2 mb-6" data-aos="fade-down">
+            <a href="index.html" class="text-xs font-mono text-[#8892b0] hover:text-[#4CAF50]">Home</a>
+            <span class="text-[#8892b0] text-xs">/</span>
+            <a href="index.html#deployments" class="text-xs font-mono text-[#8892b0] hover:text-[#4CAF50]">Deployments</a>
+            <span class="text-[#8892b0] text-xs">/</span>
+            <span class="text-xs font-mono text-[#00f7d9]">Production Server Room Commissioning</span>
+        </div>
+
+        <!-- Project Hero Banner -->
+        <div class="section-card p-8 md:p-12 rounded-2xl mb-12 relative overflow-hidden" data-aos="fade-up">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="badge-pill"><i class="fas fa-server mr-1.5"></i>Production Commissioning</span>
+                <span class="badge-cyan"><i class="fas fa-cloud mr-1.5"></i>Arista CloudVision Cognitive Mode</span>
+                <span class="badge-amber"><i class="fas fa-plug-circle-bolt mr-1.5"></i>Dual PDU &amp; UPS Redundancy</span>
+                <span class="badge-purple"><i class="fas fa-id-card-clip mr-1.5"></i>eSSL Access Control &amp; Dual AC</span>
+            </div>
+
+            <h1 class="text-3xl md:text-5xl font-extrabold text-[#e6f1ff] mb-4 leading-tight">
+                Enterprise Server Room Commissioning &amp; Arista CloudVision Rollout
+            </h1>
+
+            <p class="text-base md:text-lg text-[#8892b0] max-w-4xl leading-relaxed mb-8">
+                Post-staging physical rack mounting and full facility commissioning inside the enterprise server room. Integrated
+                <strong class="text-[#e6f1ff]">dual PDU power cord failover</strong>, verified electrical rack earthing, enforced perimeter defense with
+                <strong class="text-[#00f7d9]">eSSL biometric access &amp; visitor logging</strong>, validated dual-AC climate stability, and onboarded all Core, Access, and AP switches into
+                <strong class="text-[#4CAF50]">Arista CloudVision Portal (Cognitive Mode)</strong> with live dual-PoE failover testing.
+            </p>
+
+            <!-- Project Quick Metadata Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-[#1e293b] text-xs font-mono">
+                <div>
+                    <span class="text-[#8892b0] block mb-1">Switching &amp; Security</span>
+                    <span class="text-[#e6f1ff] font-semibold">Arista 720DP &amp; FortiGate 200G</span>
+                </div>
+                <div>
+                    <span class="text-[#8892b0] block mb-1">Management Portal</span>
+                    <span class="text-[#00f7d9] font-semibold">CloudVision Cognitive Campus</span>
+                </div>
+                <div>
+                    <span class="text-[#8892b0] block mb-1">Power Architecture</span>
+                    <span class="text-[#4CAF50] font-semibold">Dual PDU + UPS Battery Backup</span>
+                </div>
+                <div>
+                    <span class="text-[#8892b0] block mb-1">Physical Security</span>
+                    <span class="text-[#c084fc] font-semibold">eSSL Biometric/RFID Access</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Physical Rack Mounting & Dual PDU Redundancy -->
+        <div class="section-card p-8 rounded-xl mb-10" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0">1</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">Physical Rack Mounting &amp; Dual PDU Power Failover</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">Eliminating single points of failure at the power distribution and chassis level.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <p>
+                    Following successful bench staging, all network hardware was permanently rack-mounted into the 42U server cabinet. The chassis layout was planned for optimal thermal airflow (front-to-back cold-aisle / hot-aisle) and balanced weight distribution:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4 font-mono text-xs">
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-[#00f7d9] font-bold mb-2">Chassis Allocation</div>
+                        <ul class="space-y-1.5 text-[#8892b0]">
+                            <li>&bull; Dual FortiGate 200G (HA Pair)</li>
+                            <li>&bull; Dual Arista 720DP Core Switches</li>
+                            <li>&bull; 4&times; Arista Access Switches</li>
+                            <li>&bull; 2&times; Dedicated Arista AP Switches</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-[#4CAF50] font-bold mb-2">Dual PDU Power Architecture</div>
+                        <ul class="space-y-1.5 text-[#8892b0]">
+                            <li>&bull; PSU-1 wired to PDU Feed A</li>
+                            <li>&bull; PSU-2 wired to PDU Feed B</li>
+                            <li>&bull; Dual C13/C14 power cords per box</li>
+                            <li>&bull; Independent electrical branch circuits</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-[#f59e0b] font-bold mb-2">Live UPS Failover Test</div>
+                        <ul class="space-y-1.5 text-[#8892b0]">
+                            <li>&bull; Simulated grid power failure</li>
+                            <li>&bull; UPS online battery switchover: 0ms</li>
+                            <li>&bull; Zero chassis reboot or flap</li>
+                            <li>&bull; Continuous load runtime verified</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-xs text-[#8892b0]">
+                    Both switches and firewalls are equipped with dual internal hot-swappable power supplies. Pulling either power feed during active packet forwarding resulted in zero packet drop and seamless power transfer.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 2: Structured Cabling Dressing, Grounding & Labeling -->
+        <div class="section-card p-8 rounded-xl mb-10" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0">2</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">Structured Cabling Dressing, Rack Earthing &amp; Alphanumeric Labeling</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">High-density patch management adhering to enterprise data center standards.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <p>
+                    Clean cable management directly protects against accidental unplugging, signal crosstalk, and thermal air dams:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <h4 class="text-sm font-bold text-[#4CAF50] mb-2 flex items-center">
+                            <i class="fas fa-layer-group mr-2"></i> Cable Comb Routing &amp; Velcro Ties
+                        </h4>
+                        <p class="text-xs text-[#8892b0] leading-relaxed">
+                            Yellow Cat6 patch cables were bundled using specialized cable combs to keep individual runs parallel and strain-free. Reusable hook-and-loop velcro straps were used exclusively instead of plastic zip-ties to prevent crushing internal copper twists.
+                        </p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <h4 class="text-sm font-bold text-[#00f7d9] mb-2 flex items-center">
+                            <i class="fas fa-tag mr-2"></i> Alphanumeric Aligned Port Labeling
+                        </h4>
+                        <p class="text-xs text-[#8892b0] leading-relaxed">
+                            Every single patch run received printed heat-shrink and wrap-around labels matching destination patch panels: <code class="text-[#00f7d9]">D01-D120</code> for client workstations, <code class="text-[#4CAF50]">RD01-RD48</code> for redundancy links, and <code class="text-[#f59e0b]">WF01-WF12</code> for wireless access points.
+                        </p>
+                    </div>
+                </div>
+                <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b] text-xs font-mono">
+                    <div class="text-[#e6f1ff] font-bold mb-1"><i class="fas fa-bolt text-[#f59e0b] mr-2"></i>Rack Earthing &amp; Grounding Verification</div>
+                    <div class="text-[#8892b0]">
+                        The 42U steel cabinet was bonded to the main data center copper ground busbar using low-impedance 6 AWG green/yellow grounding conductors. Resistance to ground was tested to verify less than 1&Omega; of ground loop impedance, protecting sensitive ASIC silicon from static and surge damage.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Facility Hardening: Dual-AC Cooling & eSSL Access Security -->
+        <div class="section-card p-8 rounded-xl mb-10" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0">3</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">Facility Defense: eSSL Biometric Security &amp; Dual-AC Climate Stability</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">Protecting physical assets with biometric perimeter controls and thermal redundancy.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-5 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-xl text-[#c084fc] mb-2"><i class="fas fa-fingerprint"></i></div>
+                        <h4 class="text-base font-bold text-[#e6f1ff] mb-2">eSSL Biometric / RFID Access Control</h4>
+                        <p class="text-xs text-[#8892b0] leading-relaxed mb-3">
+                            Installed and configured an <strong class="text-[#e6f1ff]">eSSL smart access control system</strong> on the server room security door with electromagnetic locks. Only pre-authorized engineering personnel can enter via verified biometric fingerprint or RFID smart badge.
+                        </p>
+                        <div class="text-[11px] font-mono text-[#00f7d9] bg-black/60 p-2.5 rounded border border-white/5">
+                            &bull; Real-time timestamped ingress/egress logging<br>
+                            &bull; Door held-open alarm &amp; forced-entry prevention
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-xl text-[#00f7d9] mb-2"><i class="fas fa-snowflake"></i></div>
+                        <h4 class="text-base font-bold text-[#e6f1ff] mb-2">Dual Precision AC Climate Redundancy</h4>
+                        <p class="text-xs text-[#8892b0] leading-relaxed mb-3">
+                            Server room temperature is managed by <strong class="text-[#e6f1ff]">dual redundant air conditioning units</strong> configured in an active-cycling configuration. Tested auto-switching to verify that if one AC unit fails or trips, the secondary unit immediately compensates.
+                        </p>
+                        <div class="text-[11px] font-mono text-[#4CAF50] bg-black/60 p-2.5 rounded border border-white/5">
+                            &bull; Ambient room temperature maintained at 20&deg;C &plusmn; 2&deg;C<br>
+                            &bull; Relative humidity stabilized between 45% &ndash; 55%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Arista CloudVision Portal & Cognitive Telemetry -->
+        <div class="section-card p-8 rounded-xl mb-10 border-l-4 border-l-[#00f7d9]" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0">4</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">Arista CloudVision Portal Management &amp; Cognitive Campus Telemetry</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">Single-pane-of-glass management, continuous telemetry, and zero packet loss validation.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <p>
+                    Every Arista device in the infrastructure—including Core 1, Core 2, all 4 Access switches, and both AP switches—was onboarded into <strong class="text-[#00f7d9]">Arista CloudVision Portal (CVP)</strong>:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4 font-mono text-xs">
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b] space-y-2">
+                        <div class="text-[#00f7d9] font-bold uppercase mb-1">CloudVision Capabilities</div>
+                        <div>&bull; <strong class="text-[#e6f1ff]">State Streaming Telemetry:</strong> Real-time streaming of interface statistics, memory, CPU, and link states.</div>
+                        <div>&bull; <strong class="text-[#e6f1ff]">Configlet Version Control:</strong> Centralized push and rollback of VLAN definitions, MLAG states, and ACLs.</div>
+                        <div>&bull; <strong class="text-[#e6f1ff]">Compliance Auditing:</strong> Automated compliance checks against company security baselines.</div>
+                    </div>
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b] space-y-2">
+                        <div class="text-[#4CAF50] font-bold uppercase mb-1">Cognitive Campus Telemetry</div>
+                        <div>&bull; <strong class="text-[#e6f1ff]">Cognitive Mode AP View:</strong> Monitored connected APs, channel shifts, RF interference, and association health.</div>
+                        <div>&bull; <strong class="text-[#e6f1ff]">Live Ping Verification:</strong> Executed sustained <code class="text-[#00f7d9]">ping -t</code> tests across access layers with zero loss.</div>
+                        <div>&bull; <strong class="text-[#e6f1ff]">Proactive Health Baselines:</strong> Automated anomaly detection alerting prior to user degradation.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Wi-Fi 7 APs & Dual-PoE Link-Failure Resilience -->
+        <div class="section-card p-8 rounded-xl mb-12 border-l-4 border-l-[#4CAF50]" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0" style="color: #4CAF50; border-color: #4CAF50; background: rgba(76, 175, 80, 0.15);">5</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">Arista AP-C460 Wi-Fi 7 &amp; Dual-PoE Power Failure Resilience</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">Testing real-world failover when pulling PoE power lines under live client traffic.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <p>
+                    The enterprise deployed next-generation <strong class="text-[#e6f1ff]">Arista AP-C460 Wi-Fi 7 Access Points</strong>. To guarantee zero wireless dropouts for executive and campus users, APs were dual-homed across two separate AP switches with dual 802.3bt/at Power over Ethernet (PoE) drops:
+                </p>
+                <div class="p-5 rounded-lg bg-black/40 border border-[#1e293b] font-mono text-xs space-y-3">
+                    <div class="text-[#4CAF50] font-bold flex items-center">
+                        <i class="fas fa-vial mr-2"></i> LIVE PoE LINK-PULL EXPERIMENTAL VALIDATION:
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1.5 text-[#cbd5e1]">
+                            <div><strong class="text-[#e6f1ff]">Test Step 1:</strong> Connected active clients streaming high-bandwidth data through AP-C460.</div>
+                            <div><strong class="text-[#e6f1ff]">Test Step 2:</strong> Physically unplugged PoE line 1 from AP Switch 1.</div>
+                            <div><strong class="text-[#e6f1ff]">Test Step 3:</strong> Evaluated instantaneous client throughput and ICMP ping status.</div>
+                        </div>
+                        <div class="space-y-1.5 text-[#4CAF50]">
+                            <div><strong class="text-[#e6f1ff]">Observed Result 1:</strong> AP-C460 instantaneously drew power from PoE line 2 with zero reboot.</div>
+                            <div><strong class="text-[#e6f1ff]">Observed Result 2:</strong> Continuous <code class="text-[#00f7d9]">ping -t</code> verified 0 dropped packets.</div>
+                            <div><strong class="text-[#e6f1ff]">Observed Result 3:</strong> Zero Wi-Fi speed reduction; no connected client disconnected.</div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-xs text-[#8892b0]">
+                    Prior to AP deployment, every single ceiling drop and AP patch link was verified through Fluke DSX-5000 certification tests, confirming wiremap continuity, pin pairing, and maximum PoE loop resistance compliance.
+                </p>
+            </div>
+        </div>
+
+        <!-- Interactive Photo Gallery Grid -->
+        <div class="mb-14" id="gallery-grid" data-aos="fade-up">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff] flex items-center">
+                        <i class="fas fa-images mr-3 text-[#00f7d9]"></i> Commissioned Server Room Gallery
+                    </h2>
+                    <p class="text-xs text-[#8892b0] mt-1 font-mono">High-resolution production photography of the commissioned server room</p>
+                </div>
+                <span class="text-xs font-mono text-[#00f7d9] px-3 py-1 rounded bg-[#00f7d9]/10 border border-[#00f7d9]/30 self-start sm:self-auto">
+                    4 High-Resolution Captures
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                <!-- 1. Close Rack Detailed View -->
+                <div class="gallery-item group" onclick="openLightbox(0)">
+                    <div class="h-80 overflow-hidden bg-black/40">
+                        <img src="completed-implementation/IMG_20260715_131314343.jpg" alt="Production Server Rack Front Profile"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 bg-gray-900/90">
+                        <span class="text-xs font-mono text-[#4CAF50] block">Production Rack</span>
+                        <h3 class="text-base font-semibold text-[#e6f1ff]">Structured Cabling, FortiGate 200G HA &amp; Arista Core Stack</h3>
+                        <p class="text-xs text-[#8892b0] mt-1">Dressed yellow patch cords, labeled patch panels, DAC twinax, and duplex multimode fiber cords.</p>
+                    </div>
+                </div>
+
+                <!-- 2. Full Rack Cabinet View -->
+                <div class="gallery-item group" onclick="openLightbox(1)">
+                    <div class="h-80 overflow-hidden bg-black/40">
+                        <img src="completed-implementation/IMG_20260725_184802883.jpg" alt="Full Server Room Cabinet"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 bg-gray-900/90">
+                        <span class="text-xs font-mono text-[#00f7d9] block">Cabinet Profile</span>
+                        <h3 class="text-base font-semibold text-[#e6f1ff]">Dual PDU Feeds, Rack Earthing &amp; Cable Routing</h3>
+                        <p class="text-xs text-[#8892b0] mt-1">Server room cabinet open view showing vertical cable distribution, earthing, and lower equipment shelves.</p>
+                    </div>
+                </div>
+
+                <!-- 3. Vertical Rack Integration -->
+                <div class="gallery-item group" onclick="openLightbox(2)">
+                    <div class="h-80 overflow-hidden bg-black/40">
+                        <img src="completed-implementation/IMG_20260725_184809549.jpg" alt="Vertical Rack Integration Profile"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 bg-gray-900/90">
+                        <span class="text-xs font-mono text-[#f59e0b] block">Vertical Profile</span>
+                        <h3 class="text-base font-semibold text-[#e6f1ff]">Complete 42U Vertical Rack Infrastructure</h3>
+                        <p class="text-xs text-[#8892b0] mt-1">From overhead cable ladder down to bottom UPS integration, showing high-density yellow patch bundles.</p>
+                    </div>
+                </div>
+
+                <!-- 4. Commissioned Server Room Atmosphere -->
+                <div class="gallery-item group" onclick="openLightbox(3)">
+                    <div class="h-80 overflow-hidden bg-black/40">
+                        <img src="completed-implementation/IMG_20260725_184812427.jpg" alt="Server Room Environment"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 bg-gray-900/90">
+                        <span class="text-xs font-mono text-[#c084fc] block">Facility Environment</span>
+                        <h3 class="text-base font-semibold text-[#e6f1ff]">Commissioned Server Room with Dual AC &amp; eSSL Control</h3>
+                        <p class="text-xs text-[#8892b0] mt-1">Climate controlled server room environment with active dual AC cooling and secure access enforcement.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Return / Bottom Navigation CTA -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-[#1e293b]" data-aos="fade-up">
+            <a href="index.html#deployments" class="text-sm font-mono text-[#4CAF50] hover:underline flex items-center space-x-2">
+                <i class="fas fa-arrow-left text-xs"></i>
+                <span>Return to All Deployments</span>
+            </a>
+            <div class="flex flex-wrap gap-3">
+                <a href="infra-project-fluke.html" class="text-xs font-mono text-[#00f7d9] hover:underline px-3 py-1.5 rounded bg-black/30 border border-[#1e293b]">
+                    Fluke Cable Certification &rarr;
+                </a>
+                <a href="infra-project-arista.html" class="text-xs font-mono text-[#00f7d9] hover:underline px-3 py-1.5 rounded bg-black/30 border border-[#1e293b]">
+                    Arista Campus Staging &rarr;
+                </a>
+                <a href="infra-project-diagram-gns3.html" class="text-xs font-mono text-[#00f7d9] hover:underline px-3 py-1.5 rounded bg-black/30 border border-[#1e293b]">
+                    Architecture &amp; GNS3 Lab &rarr;
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal Lightbox Dialog -->
+    <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white/80 hover:text-white text-3xl focus:outline-none z-50">
+            <i class="fas fa-times"></i>
+        </button>
+        <button onclick="changeLightbox(-1)" class="absolute left-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-3xl focus:outline-none p-3 bg-black/50 rounded-full z-50">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button onclick="changeLightbox(1)" class="absolute right-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-3xl focus:outline-none p-3 bg-black/50 rounded-full z-50">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="max-w-4xl max-h-[85vh] p-4 flex flex-col items-center">
+            <img id="lightbox-img" src="" alt="" class="max-h-[75vh] max-w-full object-contain rounded-lg shadow-2xl">
+            <h3 id="lightbox-caption" class="text-center text-sm md:text-base font-medium text-[#e6f1ff] mt-4 font-mono"></h3>
+            <span id="lightbox-counter" class="text-xs font-mono text-[#8892b0] mt-1"></span>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Theme Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const themeIcon = themeToggleBtn.querySelector('i');
+
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('light');
+            if (body.classList.contains('light')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Lightbox Gallery Logic
+        const galleryImages = [
+            { src: 'completed-implementation/IMG_20260715_131314343.jpg', title: 'Commissioned Production Rack: FortiGate 200G HA Cluster & Arista Core Switches' },
+            { src: 'completed-implementation/IMG_20260725_184802883.jpg', title: 'Server Room Cabinet Profile: Dual PDU Feeds, Rack Earthing & Cable Management' },
+            { src: 'completed-implementation/IMG_20260725_184809549.jpg', title: 'Vertical Rack Profile: High-Density Labeled Patch Panels, Fiber Management & UPS Integration' },
+            { src: 'completed-implementation/IMG_20260725_184812427.jpg', title: 'Commissioned Server Room Environment: Dual-AC Climate Cooling & eSSL Biometric Security' }
+        ];
+
+        let currentIndex = 0;
+        const modal = document.getElementById('lightbox-modal');
+        const img = document.getElementById('lightbox-img');
+        const caption = document.getElementById('lightbox-caption');
+        const counter = document.getElementById('lightbox-counter');
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightbox();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function changeLightbox(delta) {
+            currentIndex = (currentIndex + delta + galleryImages.length) % galleryImages.length;
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            img.src = galleryImages[currentIndex].src;
+            caption.textContent = galleryImages[currentIndex].title;
+            counter.textContent = `${currentIndex + 1} of ${galleryImages.length}`;
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') changeLightbox(-1);
+            if (e.key === 'ArrowRight') changeLightbox(1);
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeLightbox();
+        });
+    </script>
+</body>
+
+</html>

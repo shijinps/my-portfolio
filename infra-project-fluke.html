@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluke Networks Versiv 2 Structured Cabling Certification & Fault Remediation | Shijin P S</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-card: #0f172a;
+            --bg-header: rgba(10, 10, 10, 0.85);
+            --text-primary: #cbd5e1;
+            --text-headings: #e6f1ff;
+            --text-muted: #8892b0;
+            --accent-primary: #4CAF50;
+            --accent-secondary: #00f7d9;
+            --border-color: #1e293b;
+            --hero-btn-text: #0a0a0a;
+        }
+
+        body.light {
+            --bg-primary: #f0f2f5;
+            --bg-card: #ffffff;
+            --bg-header: rgba(255, 255, 255, 0.85);
+            --text-primary: #495057;
+            --text-headings: #1d2d35;
+            --text-muted: #6c757d;
+            --accent-primary: #28a745;
+            --accent-secondary: #17a2b8;
+            --border-color: #dee2e6;
+            --hero-btn-text: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header-link {
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+
+        .header-link:hover {
+            color: var(--accent-primary);
+        }
+
+        .logo-font {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.25rem;
+            color: var(--text-headings);
+        }
+
+        .logo-font .slash-color {
+            color: var(--accent-primary);
+        }
+
+        header {
+            background-color: var(--bg-header);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+        }
+
+        .badge-pill {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(76, 175, 80, 0.35);
+            background: rgba(76, 175, 80, 0.1);
+            color: var(--accent-primary);
+        }
+
+        .badge-cyan {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(0, 247, 217, 0.35);
+            background: rgba(0, 247, 217, 0.1);
+            color: var(--accent-secondary);
+        }
+
+        .badge-amber {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .badge-purple {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(168, 85, 247, 0.35);
+            background: rgba(168, 85, 247, 0.1);
+            color: #c084fc;
+        }
+
+        .step-number {
+            font-family: 'Fira Code', monospace;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.15);
+            color: var(--accent-primary);
+            border: 1px solid var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .gallery-item {
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            background: #111827;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 25px -5px rgba(76, 175, 80, 0.3);
+        }
+
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Top Navigation Header -->
+    <header class="fixed w-full top-0 z-50 transition-colors">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="logo-font font-bold">
+                shijin<span class="slash-color">/</span>ps
+            </a>
+            <div class="flex items-center space-x-6">
+                <a href="index.html#deployments" class="header-link text-sm font-medium flex items-center space-x-2">
+                    <i class="fas fa-arrow-left text-xs"></i>
+                    <span>Back to Deployments</span>
+                </a>
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 pt-28 pb-16 max-w-6xl">
+
+        <!-- Breadcrumb & Top Badges -->
+        <div class="flex flex-wrap items-center gap-2 mb-6" data-aos="fade-down">
+            <a href="index.html" class="text-xs font-mono text-[#8892b0] hover:text-[#4CAF50]">Home</a>
+            <span class="text-[#8892b0] text-xs">/</span>
+            <a href="index.html#deployments" class="text-xs font-mono text-[#8892b0] hover:text-[#4CAF50]">Deployments</a>
+            <span class="text-[#8892b0] text-xs">/</span>
+            <span class="text-xs font-mono text-[#00f7d9]">Fluke Cable Certification</span>
+        </div>
+
+        <!-- Project Hero Banner -->
+        <div class="section-card p-8 md:p-12 rounded-2xl mb-12 relative overflow-hidden" data-aos="fade-up">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="badge-pill"><i class="fas fa-check-double mr-1.5"></i>Fluke Versiv 2 / DSX-5000</span>
+                <span class="badge-cyan"><i class="fas fa-network-wired mr-1.5"></i>TIA Cat 6 Channel Certification</span>
+                <span class="badge-amber"><i class="fas fa-tools mr-1.5"></i>Fault Diagnostics & Remediation</span>
+                <span class="badge-purple"><i class="fas fa-handshake mr-1.5"></i>GKS Infotech Collaboration</span>
+            </div>
+
+            <h1 class="text-3xl md:text-5xl font-extrabold text-[#e6f1ff] mb-4 leading-tight">
+                Fluke Networks Versiv 2 Structured Cabling Certification & Fault Remediation
+            </h1>
+
+            <p class="text-base md:text-lg text-[#8892b0] max-w-4xl leading-relaxed mb-8">
+                Comprehensive physical-layer validation of enterprise campus structured cabling using the industry-gold-standard
+                <strong class="text-[#e6f1ff]">Fluke Networks Versiv 2 DSX-5000 CableAnalyzer</strong>. Verified factory calibration,
+                diagnosed pin-level termination defects (including Pin 1 Open faults), re-punched keystones, and achieved 100% contract-compliant
+                <strong class="text-[#4CAF50]">TIA Cat 6 Channel PASS</strong> results.
+            </p>
+
+            <!-- Project Quick Metadata Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-[#1e293b] text-xs font-mono">
+                <div>
+                    <span class="text-[#8892b0] block mb-1">Testing Hardware</span>
+                    <span class="text-[#e6f1ff] font-semibold">Fluke Versiv 2 / DSX-5000</span>
+                </div>
+                <div>
+                    <span class="text-[#8892b0] block mb-1">Adapter Module</span>
+                    <span class="text-[#00f7d9] font-semibold">DSX-CHA004 Cat 6A / Class Ea</span>
+                </div>
+                <div>
+                    <span class="text-[#8892b0] block mb-1">Standard Tested</span>
+                    <span class="text-[#4CAF50] font-semibold">TIA Cat 6 Channel (T568B)</span>
+                </div>
+                <div>
+                    <span class="text-[#8892b0] block mb-1">Collaborating Team</span>
+                    <span class="text-[#c084fc] font-semibold">GKS Infotech Pvt. Ltd.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Pre-Testing Calibration & Equipment Verification -->
+        <div class="section-card p-8 rounded-xl mb-10" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0">1</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">Factory Calibration & Precision Verification</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">Pre-testing instrument audit to ensure legally certifiable measurement accuracy.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <p>
+                    Before any physical link was tested, the instrument's certification state was verified directly on the mainframe display. Fluke CableAnalyzers undergo rigorous annual factory calibrations to ensure internal time-domain reflectometry (TDR) and high-frequency analog circuits operate within ISO/IEC and ANSI/TIA tolerances.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4 p-4 rounded-lg bg-black/40 border border-[#1e293b] font-mono text-xs">
+                    <div class="space-y-2">
+                        <div class="text-[#00f7d9] font-bold uppercase tracking-wider mb-2">Analyzer Specifications</div>
+                        <div><strong class="text-[#e6f1ff]">Model:</strong> Fluke Networks DSX-5000 CableAnalyzer</div>
+                        <div><strong class="text-[#e6f1ff]">Mainframe:</strong> Versiv 2 Platform</div>
+                        <div><strong class="text-[#e6f1ff]">Serial Number:</strong> 25520059</div>
+                        <div><strong class="text-[#e6f1ff]">Software Version:</strong> 1.55 | Hardware: 6</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="text-[#4CAF50] font-bold uppercase tracking-wider mb-2">Calibration Audit</div>
+                        <div><strong class="text-[#e6f1ff]">Factory Calibration Date:</strong> 26/02/2026</div>
+                        <div><strong class="text-[#e6f1ff]">Calibration Start Date:</strong> 28/03/2026</div>
+                        <div><strong class="text-[#e6f1ff]">Status:</strong> <span class="text-[#4CAF50] font-bold">VALID &amp; CERTIFIED</span></div>
+                        <div><strong class="text-[#e6f1ff]">Adapter Attached:</strong> DSX-CHA004 Cat 6A / Class Ea</div>
+                    </div>
+                </div>
+                <p class="text-xs text-[#8892b0]">
+                    By verifying that the equipment was operating under active factory calibration, all generated test records met stringent client handover requirements, warranty criteria, and commercial engineering standards.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 2: Channel Testing Standards & Electrical Measurements -->
+        <div class="section-card p-8 rounded-xl mb-10" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0">2</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">TIA Cat 6 Channel Testing Methodology</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">Full spectrum RF parameter verification across horizontal UTP cable runs.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <p>
+                    Testing was configured for <strong class="text-[#e6f1ff]">TIA Cat 6 Channel</strong> specifications following the <strong class="text-[#00f7d9]">T568B pinout standard</strong>. Unlike basic continuity testers that merely check voltage on pins, the Fluke DSX-5000 executes comprehensive multi-frequency sweeps up to 500 MHz, analyzing:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-[#4CAF50] font-mono font-bold text-sm mb-1"><i class="fas fa-wave-square mr-2"></i>Wire Map &amp; Length</div>
+                        <p class="text-xs text-[#8892b0]">Verifies 1-to-1 continuity on all 8 conductors and calculates physical link length (e.g. 47.8m on Link RD-10) using cable propagation velocity.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-[#00f7d9] font-mono font-bold text-sm mb-1"><i class="fas fa-arrows-alt-v mr-2"></i>Insertion &amp; Return Loss</div>
+                        <p class="text-xs text-[#8892b0]">Quantifies signal attenuation over distance (Insertion Loss: 18.0 dB) and reflections caused by impedance variations (Return Loss: 4.9 dB margin).</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-[#c084fc] font-mono font-bold text-sm mb-1"><i class="fas fa-compress-arrows-alt mr-2"></i>NEXT &amp; PS-NEXT</div>
+                        <p class="text-xs text-[#8892b0]">Near-End Crosstalk (7.7 dB margin) and Power Sum NEXT (10.1 dB margin), confirming wire twists were maintained right up to the termination point.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Diagnostic Fault Isolation & Remediation -->
+        <div class="section-card p-8 rounded-xl mb-10 border-l-4 border-l-[#f59e0b]" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0" style="color: #f59e0b; border-color: #f59e0b; background: rgba(245, 158, 11, 0.15);">3</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">Field Fault Detection, Re-Termination &amp; 100% Retest PASS</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">Real-world troubleshooting: pinpointing defective connections and re-testing to perfection.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <p>
+                    During testing of link <strong class="text-[#f59e0b] font-mono">D-164</strong>, the Versiv 2 analyzer immediately flagged a <strong class="text-red-400 font-bold">FAIL</strong> on the T568B Wire Map:
+                </p>
+                <div class="p-4 rounded-lg bg-red-950/20 border border-red-500/30 text-xs font-mono space-y-2">
+                    <div class="text-red-400 font-bold flex items-center">
+                        <i class="fas fa-exclamation-triangle mr-2"></i> DIAGNOSTIC WIRE MAP RESULT: FAIL (Link D-164)
+                    </div>
+                    <div><span class="text-[#8892b0]">Pin 1 (White-Orange):</span> <strong class="text-red-400">OPEN at 30.8 meters</strong> (Discontinuity detected)</div>
+                    <div><span class="text-[#8892b0]">Pin 2 through 8:</span> Continuous and correctly paired</div>
+                    <div><span class="text-[#8892b0]">Root Cause:</span> Incomplete IDC punch-down contact inside the user-end keystone jack.</div>
+                </div>
+                <p>
+                    Using the exact 30.8-meter distance calculation provided by the Fluke TDR, the field team was dispatched directly to the exact workstation drop. The keystone was de-punched, re-stripped, and re-terminated using a calibrated impact punch-down tool with the jacket maintained within 0.5 inches of the terminal block.
+                </p>
+                <div class="p-4 rounded-lg bg-green-950/20 border border-green-500/30 text-xs font-mono space-y-1">
+                    <div class="text-[#4CAF50] font-bold flex items-center">
+                        <i class="fas fa-check-circle mr-2"></i> POST-REMEDIATION RETEST: PASS* (Link D-119 / D-164)
+                    </div>
+                    <div class="text-[#cbd5e1]">All 8 conductors verified intact: Pair 1-2, Pair 3-6, Pair 4-5, Pair 7-8 verified in full compliance with T568B.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Team Acknowledgement -->
+        <div class="section-card p-8 rounded-xl mb-12 border-l-4 border-l-[#c084fc]" data-aos="fade-up">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl bg-[rgba(168,85,247,0.15)] border border-[#c084fc]/30 flex items-center justify-center text-2xl text-[#c084fc] flex-shrink-0">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-[#e6f1ff] mb-2">Special Acknowledgement: GKS Infotech Team</h3>
+                    <p class="text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                        A sincere and heartfelt note of gratitude to the <strong class="text-[#e6f1ff]">GKS Infotech</strong> engineering team for their invaluable mentorship, professional camaraderie, and for placing their trust in me to carry out this comprehensive structured cabling testing and physical verification. Working alongside seasoned infrastructure specialists with industry-leading diagnostic instruments was an enriching, career-defining experience.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Photo Gallery Grid -->
+        <div class="mb-14" id="gallery-grid" data-aos="fade-up">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff] flex items-center">
+                        <i class="fas fa-images mr-3 text-[#4CAF50]"></i> Field Certification Gallery
+                    </h2>
+                    <p class="text-xs text-[#8892b0] mt-1 font-mono">Click any photo to view full-resolution capture with technical details</p>
+                </div>
+                <span class="text-xs font-mono text-[#00f7d9] px-3 py-1 rounded bg-[#00f7d9]/10 border border-[#00f7d9]/30 self-start sm:self-auto">
+                    9 High-Resolution Captures
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+                <!-- 1. Side by side Versiv 2 -->
+                <div class="gallery-item group" onclick="openLightbox(0)">
+                    <div class="h-56 overflow-hidden bg-black/40">
+                        <img src="fluke test/IMG_20260726_142455291.jpg" alt="Fluke Versiv 2 Main & Remote Units"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-3 bg-gray-900/90">
+                        <span class="text-[11px] font-mono text-[#00f7d9] block">Hardware Audit</span>
+                        <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Versiv 2 Main &amp; Remote Set</h3>
+                    </div>
+                </div>
+
+                <!-- 2. Version Information Screen -->
+                <div class="gallery-item group" onclick="openLightbox(1)">
+                    <div class="h-56 overflow-hidden bg-black/40">
+                        <img src="fluke test/IMG-20260726-WA0023(1).jpg" alt="Calibration Status Screen"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-3 bg-gray-900/90">
+                        <span class="text-[11px] font-mono text-[#4CAF50] block">Calibration Check</span>
+                        <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">DSX-5000 S/N 25520059 Certified</h3>
+                    </div>
+                </div>
+
+                <!-- 3. Cat 6A Channel Adapter -->
+                <div class="gallery-item group" onclick="openLightbox(2)">
+                    <div class="h-56 overflow-hidden bg-black/40">
+                        <img src="fluke test/IMG_20260726_161251218.jpg" alt="DSX-CHA004 Channel Adapter"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-3 bg-gray-900/90">
+                        <span class="text-[11px] font-mono text-[#00f7d9] block">Adapter Module</span>
+                        <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">DSX-CHA004 Cat 6A Adapter</h3>
+                    </div>
+                </div>
+
+                <!-- 4. Versiv 2 Remote Unit -->
+                <div class="gallery-item group" onclick="openLightbox(3)">
+                    <div class="h-56 overflow-hidden bg-black/40">
+                        <img src="fluke test/IMG_20260726_165839527.jpg" alt="Versiv 2 Remote Unit"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-3 bg-gray-900/90">
+                        <span class="text-[11px] font-mono text-[#4CAF50] block">Remote Endpoint</span>
+                        <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Versiv 2 Far-End Remote Jack</h3>
+                    </div>
+                </div>
+
+                <!-- 5. Wire Map Fail -->
+                <div class="gallery-item group" onclick="openLightbox(4)">
+                    <div class="h-56 overflow-hidden bg-black/40">
+                        <img src="fluke test/IMG-20260726-WA0037.jpg" alt="Wiremap Fail Screen"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-3 bg-gray-900/90">
+                        <span class="text-[11px] font-mono text-red-400 block">Fault Isolation</span>
+                        <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Pin 1 Open Defect at 30.8m (FAIL)</h3>
+                    </div>
+                </div>
+
+                <!-- 6. Wire Map Pass -->
+                <div class="gallery-item group" onclick="openLightbox(5)">
+                    <div class="h-56 overflow-hidden bg-black/40">
+                        <img src="fluke test/IMG-20260726-WA0048.jpg" alt="Wiremap Retest Pass"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-3 bg-gray-900/90">
+                        <span class="text-[11px] font-mono text-[#4CAF50] block">Remediation Retest</span>
+                        <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Link D-119 T568B Wire Map PASS*</h3>
+                    </div>
+                </div>
+
+                <!-- 7. Full Performance Pass -->
+                <div class="gallery-item group" onclick="openLightbox(6)">
+                    <div class="h-56 overflow-hidden bg-black/40">
+                        <img src="fluke test/IMG-20260726-WA0021.jpg" alt="Performance Pass RD-10"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-3 bg-gray-900/90">
+                        <span class="text-[11px] font-mono text-[#00f7d9] block">TIA Cat 6 Channel</span>
+                        <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Link RD-10 Full Performance PASS</h3>
+                    </div>
+                </div>
+
+                <!-- 8. Fluke on Server Rack -->
+                <div class="gallery-item group" onclick="openLightbox(7)">
+                    <div class="h-56 overflow-hidden bg-black/40">
+                        <img src="fluke test/IMG-20260726-WA0031.jpg" alt="Fluke Rack Testing Setup"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-3 bg-gray-900/90">
+                        <span class="text-[11px] font-mono text-[#4CAF50] block">Rack Integration</span>
+                        <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">Live Patch Panel Certification</h3>
+                    </div>
+                </div>
+
+                <!-- 9. Field Execution -->
+                <div class="gallery-item group" onclick="openLightbox(8)">
+                    <div class="h-56 overflow-hidden bg-black/40">
+                        <img src="fluke test/IMG-20260726-WA0032(1).jpg" alt="Technician Testing at Rack"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-3 bg-gray-900/90">
+                        <span class="text-[11px] font-mono text-[#00f7d9] block">Field Execution</span>
+                        <h3 class="text-sm font-semibold text-[#e6f1ff] truncate">On-Site Cable Validation</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Return / Bottom Navigation CTA -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-[#1e293b]" data-aos="fade-up">
+            <a href="index.html#deployments" class="text-sm font-mono text-[#4CAF50] hover:underline flex items-center space-x-2">
+                <i class="fas fa-arrow-left text-xs"></i>
+                <span>Return to All Deployments</span>
+            </a>
+            <div class="flex flex-wrap gap-3">
+                <a href="infra-project-arista.html" class="text-xs font-mono text-[#00f7d9] hover:underline px-3 py-1.5 rounded bg-black/30 border border-[#1e293b]">
+                    Arista Campus Staging &rarr;
+                </a>
+                <a href="infra-project-diagram-gns3.html" class="text-xs font-mono text-[#00f7d9] hover:underline px-3 py-1.5 rounded bg-black/30 border border-[#1e293b]">
+                    Architecture &amp; GNS3 Lab &rarr;
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal Lightbox Dialog -->
+    <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white/80 hover:text-white text-3xl focus:outline-none z-50">
+            <i class="fas fa-times"></i>
+        </button>
+        <button onclick="changeLightbox(-1)" class="absolute left-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-3xl focus:outline-none p-3 bg-black/50 rounded-full z-50">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button onclick="changeLightbox(1)" class="absolute right-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-3xl focus:outline-none p-3 bg-black/50 rounded-full z-50">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="max-w-4xl max-h-[85vh] p-4 flex flex-col items-center">
+            <img id="lightbox-img" src="" alt="" class="max-h-[75vh] max-w-full object-contain rounded-lg shadow-2xl">
+            <h3 id="lightbox-caption" class="text-center text-sm md:text-base font-medium text-[#e6f1ff] mt-4 font-mono"></h3>
+            <span id="lightbox-counter" class="text-xs font-mono text-[#8892b0] mt-1"></span>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Theme Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const themeIcon = themeToggleBtn.querySelector('i');
+
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('light');
+            if (body.classList.contains('light')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Lightbox Gallery Logic
+        const galleryImages = [
+            { src: 'fluke test/IMG_20260726_142455291.jpg', title: 'Fluke Versiv 2 Main Frame & Remote Unit Side-by-Side System Audit' },
+            { src: 'fluke test/IMG-20260726-WA0023(1).jpg', title: 'DSX-5000 CableAnalyzer Version & Factory Calibration Verification (S/N 25520059 - Certified)' },
+            { src: 'fluke test/IMG_20260726_161251218.jpg', title: 'Fluke Networks DSX-CHA004 Cat 6A / Class Ea Channel Adapter' },
+            { src: 'fluke test/IMG_20260726_165839527.jpg', title: 'Fluke Versiv 2 Remote Unit Connected to User Endpoint Keystone Jack' },
+            { src: 'fluke test/IMG-20260726-WA0037.jpg', title: 'Diagnostic Wire Map Fault Detection: Pin 1 Open Defect at 30.8m on Link D-164 (FAIL)' },
+            { src: 'fluke test/IMG-20260726-WA0048.jpg', title: 'Post-Remediation Verification: Re-Punched & Terminated Cable Retest PASS* (Link D-119)' },
+            { src: 'fluke test/IMG-20260726-WA0021.jpg', title: 'Full TIA Cat 6 Channel Performance Certification PASS: Insertion/Return Loss, NEXT & PS-NEXT (Link RD-10)' },
+            { src: 'fluke test/IMG-20260726-WA0031.jpg', title: 'Live Channel Certification in Progress at Production Server Rack with Fluke Analyzer' },
+            { src: 'fluke test/IMG-20260726-WA0032(1).jpg', title: 'On-Site Patch Panel Wiremap & Speed Certification Execution' }
+        ];
+
+        let currentIndex = 0;
+        const modal = document.getElementById('lightbox-modal');
+        const img = document.getElementById('lightbox-img');
+        const caption = document.getElementById('lightbox-caption');
+        const counter = document.getElementById('lightbox-counter');
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightbox();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function changeLightbox(delta) {
+            currentIndex = (currentIndex + delta + galleryImages.length) % galleryImages.length;
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            img.src = galleryImages[currentIndex].src;
+            caption.textContent = galleryImages[currentIndex].title;
+            counter.textContent = `${currentIndex + 1} of ${galleryImages.length}`;
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') changeLightbox(-1);
+            if (e.key === 'ArrowRight') changeLightbox(1);
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeLightbox();
+        });
+    </script>
+</body>
+
+</html>
