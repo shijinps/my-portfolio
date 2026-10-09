@@ -631,10 +631,11 @@
                     class="hover:text-[#4CAF50] text-xl transition-colors"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/shijinps" target="_blank" rel="noopener noreferrer" title="GitHub: /shijinps"
                     class="hover:text-[#4CAF50] text-xl transition-colors"><i class="fab fa-github"></i></a>
-                <button type="button" onclick="copyDiscord()" title="Discord: shijinps13 (Click to copy &amp; open)"
+                <a href="https://discord.com/users/1218902686791897218" target="_blank" rel="noopener noreferrer"
+                    onclick="copyDiscordTag()" title="Discord"
                     class="hover:text-[#5865F2] text-xl transition-colors cursor-pointer focus:outline-none">
                     <i class="fab fa-discord"></i>
-                </button>
+                </a>
             </div>
             <p>&copy; 2026 Shijin P S. All Rights Reserved.</p>
         </div>
@@ -752,14 +753,12 @@
             if (e.target === modal) closeLightbox();
         });
 
-        // --- Discord Copy & Launch Handler ---
-        function copyDiscord() {
+        // --- Discord Background Copy Handler ---
+        function copyDiscordTag() {
             const discordId = 'shijinps13';
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(discordId).catch(() => {});
             }
-            alert('Discord ID copied: shijinps13\nOpening Discord profile...');
-            window.open('https://discord.com/users/shijinps13', '_blank', 'noopener,noreferrer');
         }
     </script>
 </body>

@@ -757,12 +757,13 @@
                         class="hero-btn-outline">
                         <i class="fab fa-github mr-2"></i> GitHub
                     </a>
-                    <button type="button" onclick="copyDiscord(this)"
+                    <a href="https://discord.com/users/1218902686791897218" target="_blank" rel="noopener noreferrer"
+                        onclick="copyDiscordTag()"
                         class="hero-btn-outline flex items-center group cursor-pointer"
-                        title="Click to copy Discord ID: shijinps13 & open Discord">
+                        title="Connect on Discord">
                         <i class="fab fa-discord mr-2 text-[#5865F2] group-hover:scale-110 transition-transform"></i>
-                        <span class="btn-text">Discord: <strong class="font-mono text-[#00f7d9]">shijinps13</strong></span>
-                    </button>
+                        <span>Discord</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -2690,12 +2691,13 @@
                     class="hero-btn-outline font-medium text-sm md:text-base flex items-center">
                     <i class="fab fa-github mr-2"></i> GitHub
                 </a>
-                <button type="button" onclick="copyDiscord(this)"
+                <a href="https://discord.com/users/1218902686791897218" target="_blank" rel="noopener noreferrer"
+                    onclick="copyDiscordTag()"
                     class="hero-btn-outline font-medium text-sm md:text-base flex items-center group cursor-pointer"
-                    title="Click to copy Discord ID: shijinps13 & open Discord">
+                    title="Connect on Discord">
                     <i class="fab fa-discord mr-2 text-[#5865F2] group-hover:scale-110 transition-transform"></i>
-                    <span class="btn-text">Discord: <strong class="font-mono text-[#00f7d9]">shijinps13</strong></span>
-                </button>
+                    <span>Discord</span>
+                </a>
             </div>
         </section>
     </main>
@@ -2710,10 +2712,11 @@
                     class="hover:text-[#4CAF50] text-2xl transition-colors"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/shijinps" target="_blank" rel="noopener noreferrer" title="GitHub: /shijinps"
                     class="hover:text-[#4CAF50] text-2xl transition-colors"><i class="fab fa-github"></i></a>
-                <button type="button" onclick="copyDiscord(this)" title="Discord: shijinps13 (Click to copy &amp; open)"
+                <a href="https://discord.com/users/1218902686791897218" target="_blank" rel="noopener noreferrer"
+                    onclick="copyDiscordTag()" title="Discord"
                     class="hover:text-[#5865F2] text-2xl transition-colors cursor-pointer focus:outline-none">
                     <i class="fab fa-discord"></i>
-                </button>
+                </a>
             </div>
             <p>&copy; 2026 Shijin P S. All Rights Reserved.</p>
         </div>
@@ -3227,64 +3230,12 @@
         resizeCanvas();
         animateParticles();
 
-        // --- Discord Copy & Launch Handler ---
-        function copyDiscord(btn) {
+        // --- Discord Background Copy Handler ---
+        function copyDiscordTag() {
             const discordId = 'shijinps13';
             if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(discordId).catch(() => fallbackCopy(discordId));
-            } else {
-                fallbackCopy(discordId);
+                navigator.clipboard.writeText(discordId).catch(() => {});
             }
-
-            // Visual feedback on the button
-            if (btn) {
-                const textSpan = btn.querySelector('.btn-text');
-                if (textSpan && !btn.dataset.origText) {
-                    btn.dataset.origText = textSpan.innerHTML;
-                    textSpan.innerHTML = '<span class="text-[#4CAF50] font-mono"><i class="fas fa-check mr-1"></i> Copied: shijinps13</span>';
-                    setTimeout(() => {
-                        if (btn.dataset.origText) {
-                            textSpan.innerHTML = btn.dataset.origText;
-                            delete btn.dataset.origText;
-                        }
-                    }, 2500);
-                }
-            }
-
-            showDiscordToast('Copied to clipboard! Launching Discord...');
-
-            // Open Discord user link in a new tab
-            setTimeout(() => {
-                window.open('https://discord.com/users/shijinps13', '_blank', 'noopener,noreferrer');
-            }, 350);
-        }
-
-        function fallbackCopy(text) {
-            const temp = document.createElement('textarea');
-            temp.value = text;
-            temp.style.position = 'fixed';
-            temp.style.opacity = '0';
-            document.body.appendChild(temp);
-            temp.select();
-            try { document.execCommand('copy'); } catch (e) { }
-            document.body.removeChild(temp);
-        }
-
-        function showDiscordToast(msg) {
-            let toast = document.getElementById('discord-toast');
-            if (!toast) {
-                toast = document.createElement('div');
-                toast.id = 'discord-toast';
-                toast.className = 'fixed bottom-6 right-6 z-50 bg-[#0f172a] text-[#e6f1ff] border border-[#5865F2]/50 shadow-2xl px-5 py-3 rounded-xl flex items-center space-x-3 transition-all duration-300 transform translate-y-12 opacity-0 font-mono text-xs';
-                document.body.appendChild(toast);
-            }
-            toast.innerHTML = `<i class="fab fa-discord text-[#5865F2] text-xl"></i><div><div class="font-bold text-white">Discord: shijinps13</div><div class="text-[#8892b0] text-[11px]">${msg}</div></div>`;
-            toast.classList.remove('translate-y-12', 'opacity-0');
-            toast.classList.add('translate-y-0', 'opacity-100');
-            setTimeout(() => {
-                toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('translate-y-12', 'opacity-0');
-            }, 3500);
         }
     </script>
 </body>
