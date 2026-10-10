@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sophos XG 210 Next-Gen Firewall Commissioning & Security Policies | Shijin P S</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-card: #0f172a;
+            --bg-header: rgba(10, 10, 10, 0.85);
+            --text-primary: #cbd5e1;
+            --text-headings: #e6f1ff;
+            --text-muted: #8892b0;
+            --accent-primary: #0088cc;
+            --accent-secondary: #00f7d9;
+            --border-color: #1e293b;
+            --hero-btn-text: #0a0a0a;
+        }
+
+        body.light {
+            --bg-primary: #f0f2f5;
+            --bg-card: #ffffff;
+            --bg-header: rgba(255, 255, 255, 0.85);
+            --text-primary: #495057;
+            --text-headings: #1d2d35;
+            --text-muted: #6c757d;
+            --accent-primary: #0088cc;
+            --accent-secondary: #17a2b8;
+            --border-color: #dee2e6;
+            --hero-btn-text: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .header-link {
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+
+        .header-link:hover {
+            color: var(--accent-primary);
+        }
+
+        .logo-font {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.25rem;
+            color: var(--text-headings);
+        }
+
+        .logo-font .slash-color {
+            color: var(--accent-primary);
+        }
+
+        header {
+            background-color: var(--bg-header);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle-btn:hover {
+            color: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+        }
+
+        .badge-pill {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(0, 136, 204, 0.3);
+            background: rgba(0, 136, 204, 0.1);
+            color: #0088cc;
+        }
+
+        .badge-cyan {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(0, 247, 217, 0.3);
+            background: rgba(0, 247, 217, 0.1);
+            color: #00f7d9;
+        }
+
+        .badge-green {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        .badge-amber {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .step-number {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            background: rgba(0, 136, 204, 0.15);
+            border: 2px solid #0088cc;
+            color: #0088cc;
+        }
+
+        .gallery-item {
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            background: #111827;
+            position: relative;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            border-color: #0088cc;
+            box-shadow: 0 10px 25px -5px rgba(0, 136, 204, 0.3);
+        }
+
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Top Navigation Header -->
+    <header class="fixed w-full top-0 z-50 transition-colors">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="logo-font font-bold">
+                shijin<span class="slash-color">/</span>ps
+            </a>
+            <div class="flex items-center space-x-6">
+                <a href="index.html#deployments" class="header-link text-sm font-medium flex items-center space-x-2">
+                    <i class="fas fa-arrow-left text-xs"></i>
+                    <span>Back to Deployments</span>
+                </a>
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 pt-28 pb-16 max-w-6xl">
+
+        <!-- Breadcrumb & Top Badges -->
+        <div class="flex flex-wrap items-center gap-2 mb-6" data-aos="fade-down">
+            <a href="index.html" class="text-xs font-mono text-[#8892b0] hover:text-[#0088cc]">Home</a>
+            <span class="text-[#8892b0] text-xs">/</span>
+            <a href="index.html#deployments" class="text-xs font-mono text-[#8892b0] hover:text-[#0088cc]">Deployments</a>
+            <span class="text-[#8892b0] text-xs">/</span>
+            <span class="text-xs font-mono text-[#0088cc]">Sophos XG 210 Firewall Commissioning</span>
+        </div>
+
+        <!-- Project Hero Banner -->
+        <div class="section-card p-8 md:p-12 rounded-2xl mb-12 relative overflow-hidden" data-aos="fade-up">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="badge-pill"><i class="fas fa-shield-halved mr-1.5"></i>Sophos XG 210 Rev.3</span>
+                <span class="badge-cyan"><i class="fas fa-microchip mr-1.5"></i>SFOS 20.0.3 MR-3</span>
+                <span class="badge-green"><i class="fas fa-network-wired mr-1.5"></i>Network Zone &amp; IPv4 /24</span>
+                <span class="badge-amber"><i class="fas fa-lock mr-1.5"></i>Security &amp; IPS Policies</span>
+            </div>
+
+            <h1 class="text-3xl md:text-5xl font-extrabold text-[#e6f1ff] mb-4 leading-tight">
+                Sophos XG 210 Next-Generation Firewall Commissioning &amp; Security Policy Deployment
+            </h1>
+
+            <p class="text-base md:text-lg text-[#8892b0] max-w-4xl leading-relaxed mb-8">
+                Physical rack staging, administrative out-of-band commissioning, and comprehensive perimeter defense on an enterprise
+                <strong class="text-[#e6f1ff]">Sophos XG 210 Next-Generation Firewall</strong> running
+                <strong class="text-[#0088cc]">SFOS 20.0.3 MR-3</strong>. Implemented granular network zone segmentation, static IPv4 interface mappings on Port4 for trusted LAN enclaves, stateful firewall rules, Intrusion Prevention (IPS), and web/application filtering under administrative control (<strong class="text-[#00f7d9]">admin - UAE Exchange</strong>).
+            </p>
+
+            <!-- Project Quick Metadata Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-[#1e293b] text-xs font-mono">
+                <div>
+                    <span class="text-[#8892b0] block mb-1">Firewall Appliance</span>
+                    <span class="text-[#e6f1ff] font-semibold">Sophos XG 210 (1U Rack)</span>
+                </div>
+                <div>
+                    <span class="text-[#8892b0] block mb-1">Operating System</span>
+                    <span class="text-[#0088cc] font-semibold">SFOS 20.0.3 MR-3</span>
+                </div>
+                <div>
+                    <span class="text-[#8892b0] block mb-1">WebAdmin Console</span>
+                    <span class="text-[#00f7d9] font-semibold">HTTPS 172.16.16.16:4444</span>
+                </div>
+                <div>
+                    <span class="text-[#8892b0] block mb-1">Interface Provisioning</span>
+                    <span class="text-[#4CAF50] font-semibold">Port4 LAN (Static /24)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1: Physical Hardware Staging & LCD Diagnostic Inspection -->
+        <div class="section-card p-8 rounded-xl mb-10" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0">1</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">Physical Hardware Staging &amp; Front LCD Diagnostic Verification</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">Appliance inspection, port allocation, and firmware boot validation on Sophos XG 210.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <p>
+                    Staged the enterprise 1U rackmount <strong class="text-[#e6f1ff]">Sophos XG 210 (Rev.3)</strong> next-generation firewall on the staging bench. The appliance features high-throughput multi-core processing, multi-gigabit hardware acceleration, and modular connectivity for enterprise edge deployment:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4 text-xs font-mono">
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-[#0088cc] font-bold mb-2">Firmware Verification</div>
+                        <ul class="space-y-1.5 text-[#8892b0]">
+                            <li>&bull; SFOS 20.0.3 MR-3 validated</li>
+                            <li>&bull; Backlit front LCD panel active</li>
+                            <li>&bull; Hardware keypad navigation (Enter/Esc)</li>
+                            <li>&bull; Self-test diagnostics passed 100%</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-[#00f7d9] font-bold mb-2">Physical Interfaces</div>
+                        <ul class="space-y-1.5 text-[#8892b0]">
+                            <li>&bull; Port 1: LAN (GbE Copper RJ-45)</li>
+                            <li>&bull; Port 2: WAN &bull; Port 3: DMZ</li>
+                            <li>&bull; Ports 4, 5, 6: GbE Switched Copper</li>
+                            <li>&bull; Dual SFP 1GbE Optical Fiber Slots</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-[#4CAF50] font-bold mb-2">Console &amp; Out-of-Band</div>
+                        <ul class="space-y-1.5 text-[#8892b0]">
+                            <li>&bull; RJ-45 Serial COM Console</li>
+                            <li>&bull; Micro-USB Direct Console port</li>
+                            <li>&bull; USB 3.0 Diagnostic &amp; Backup ports</li>
+                            <li>&bull; Internal hardware monitoring sensors</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-xs text-[#8892b0]">
+                    Connected the primary staging workstation to Port 1 using an unshielded twisted pair Cat6 patch cable with link/activity LED confirmation (solid green 1 Gbps link negotiation).
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 2: Out-of-Band WebAdmin Initial Commissioning -->
+        <div class="section-card p-8 rounded-xl mb-10" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0">2</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">Out-of-Band WebAdmin Initial Commissioning &amp; Administrative Hardening</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">Establishing encrypted administrative access via HTTPS port 4444 and credential governance.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <p>
+                    Accessed the Sophos WebAdmin console at <code class="text-[#00f7d9]">https://172.16.16.16:4444/webconsole/</code> over a hardened browser connection. Initialized the administrative profile under session identity <strong class="text-[#e6f1ff]">admin - UAE Exchange</strong>:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <h4 class="text-sm font-bold text-[#0088cc] mb-2 flex items-center">
+                            <i class="fas fa-user-shield mr-2"></i> Role-Based Access Control (RBAC)
+                        </h4>
+                        <p class="text-xs text-[#8892b0] leading-relaxed">
+                            Configured administrative credential authentication, enforcing complex password parameters, administrator lockout thresholds against brute-force attacks, and session idle timeout restrictions.
+                        </p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <h4 class="text-sm font-bold text-[#00f7d9] mb-2 flex items-center">
+                            <i class="fas fa-certificate mr-2"></i> Management Service Isolation
+                        </h4>
+                        <p class="text-xs text-[#8892b0] leading-relaxed">
+                            Restricted WebAdmin console, SSH, and SNMP management access strictly to designated internal management subnets, completely disabling administrative exposure to the untrusted WAN zone.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Interface Addressing & Network Zone Segmentation -->
+        <div class="section-card p-8 rounded-xl mb-10" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0">3</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">Interface Addressing, Zone Segmentation &amp; Port4 LAN Provisioning</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">Dividing physical hardware into logical security enclaves with static IPv4 addressing.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <p>
+                    Under the <strong class="text-[#e6f1ff]">Network &rarr; Interfaces</strong> configuration tab, mapped physical hardware interfaces to discrete security zones:
+                </p>
+                <div class="p-5 rounded-lg bg-black/40 border border-[#1e293b] font-mono text-xs space-y-3">
+                    <div class="text-[#0088cc] font-bold flex items-center">
+                        <i class="fas fa-sliders mr-2"></i> PORT4 INTERFACE GENERAL SETTINGS MAPPING:
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1.5 text-[#cbd5e1]">
+                            <div><strong class="text-[#e6f1ff]">Interface Name:</strong> <code>LAN</code></div>
+                            <div><strong class="text-[#e6f1ff]">Hardware Port:</strong> <code>Port4</code> (GbE Copper)</div>
+                            <div><strong class="text-[#e6f1ff]">Network Zone:</strong> <code>LAN</code> (Trusted Enclave)</div>
+                        </div>
+                        <div class="space-y-1.5 text-[#00f7d9]">
+                            <div><strong class="text-[#e6f1ff]">IPv4 Configuration:</strong> Enabled (Checked)</div>
+                            <div><strong class="text-[#e6f1ff]">IP Assignment Mode:</strong> <code>Static</code> (Fixed Subnet)</div>
+                            <div><strong class="text-[#e6f1ff]">Subnet Netmask:</strong> <code>/24 (255.255.255.0)</code></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4 text-xs font-mono">
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-[#4CAF50] font-bold mb-1">LAN Zone (Trusted)</div>
+                        <p class="text-[#8892b0]">Internal enterprise endpoints, workstations, access switches, and management systems.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-[#f59e0b] font-bold mb-1">DMZ Zone (Isolated)</div>
+                        <p class="text-[#8892b0]">Public-facing services and staging servers segregated from sensitive internal assets.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <div class="text-[#0088cc] font-bold mb-1">WAN Zone (Untrusted)</div>
+                        <p class="text-[#8892b0]">External ISP uplinks managed via WAN Link Manager with automatic health check monitoring.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Firewall Access Control Rules, NAT & Policy Orchestration -->
+        <div class="section-card p-8 rounded-xl mb-10" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0">4</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">Firewall Access Control Rules, NAT &amp; Application Filtering</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">Orchestrating stateful packet inspection, network address translation, and protocol hygiene.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <p>
+                    Under <strong class="text-[#e6f1ff]">Rules and Policies</strong>, defined bidirectional traffic rules implementing the principle of least privilege:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <h4 class="text-sm font-bold text-[#4CAF50] mb-2 flex items-center">
+                            <i class="fas fa-route mr-2"></i> NAT &amp; Source Masquerading
+                        </h4>
+                        <p class="text-xs text-[#8892b0] leading-relaxed">
+                            Constructed Source NAT (SNAT) masquerade policies translating private RFC 1918 addresses from LAN/Port4 to egress public WAN interfaces, masking internal topology from external reconnaissance.
+                        </p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-black/40 border border-[#1e293b]">
+                        <h4 class="text-sm font-bold text-[#00f7d9] mb-2 flex items-center">
+                            <i class="fas fa-filter mr-2"></i> Web &amp; Application Filtering
+                        </h4>
+                        <p class="text-xs text-[#8892b0] leading-relaxed">
+                            Applied categorization engines to block phishing, malware distribution points, command-and-control (C2) domains, and bandwidth-draining peer-to-peer protocols across user subnets.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Intrusion Prevention (IPS) & Active Threat Protection -->
+        <div class="section-card p-8 rounded-xl mb-12 border-l-4 border-l-[#0088cc]" data-aos="fade-up">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="step-number flex-shrink-0">5</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff]">Intrusion Prevention System (IPS) &amp; Active Threat Defense</h2>
+                    <p class="text-sm text-[#8892b0] mt-1">Deep packet inspection and real-time perimeter defense against network exploits.</p>
+                </div>
+            </div>
+            <div class="space-y-4 text-sm md:text-base text-[#cbd5e1] leading-relaxed">
+                <p>
+                    Leveraged the dedicated Deep Packet Inspection (DPI) engine built into Sophos SFOS 20:
+                </p>
+                <div class="p-5 rounded-lg bg-black/40 border border-[#1e293b] font-mono text-xs space-y-3">
+                    <div class="text-[#0088cc] font-bold flex items-center">
+                        <i class="fas fa-shield-virus mr-2"></i> ACTIVE THREAT PROTECTION MEASURES:
+                    </div>
+                    <ul class="space-y-2 text-[#cbd5e1] list-none">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-[#0088cc] mt-0.5 mr-2 flex-shrink-0"></i>
+                            <span><strong>IPS Signature Filtering:</strong> Bound tailored IPS sensor profiles protecting against common CVE vulnerabilities, buffer overflows, and remote code execution (RCE) attempts.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-[#00f7d9] mt-0.5 mr-2 flex-shrink-0"></i>
+                            <span><strong>Active Threat Response:</strong> Configured automated threat isolation to instantly revoke network egress for compromised hosts exhibiting anomalous beaconing behavior.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-[#4CAF50] mt-0.5 mr-2 flex-shrink-0"></i>
+                            <span><strong>Live Connection Tracking:</strong> Monitored concurrent TCP sessions, state table utilization, and drop statistics directly inside the Log Viewer for rapid anomaly diagnosis.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Photo Gallery Grid -->
+        <div class="mb-14" id="gallery-grid" data-aos="fade-up">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-[#e6f1ff] flex items-center">
+                        <i class="fas fa-images mr-3 text-[#0088cc]"></i> Sophos Firewall Staging Gallery
+                    </h2>
+                    <p class="text-xs text-[#8892b0] mt-1 font-mono">High-resolution physical appliance photography &amp; WebAdmin console configuration</p>
+                </div>
+                <span class="text-xs font-mono text-[#0088cc] px-3 py-1 rounded bg-[#0088cc]/10 border border-[#0088cc]/30 self-start sm:self-auto">
+                    2 High-Resolution Captures
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                <!-- 1. Sophos XG 210 Hardware Appliance -->
+                <div class="gallery-item group" onclick="openLightbox(0)">
+                    <div class="h-80 overflow-hidden bg-black/40">
+                        <img src="assets/images/sophos/sophos-xg210-hardware.jpg" alt="Sophos XG 210 Hardware Firewall Appliance"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 bg-gray-900/90">
+                        <span class="text-xs font-mono text-[#0088cc] block">Hardware Staging</span>
+                        <h3 class="text-base font-semibold text-[#e6f1ff]">Sophos XG 210 Appliance &amp; SFOS 20.0.3 MR-3 LCD Display</h3>
+                        <p class="text-xs text-[#8892b0] mt-1">1U rackmount chassis, front backlit LCD diagnostic status, Gigabit Ethernet interfaces, SFP optical slots, and management cabling.</p>
+                    </div>
+                </div>
+
+                <!-- 2. Sophos WebAdmin Console -->
+                <div class="gallery-item group" onclick="openLightbox(1)">
+                    <div class="h-80 overflow-hidden bg-black/40">
+                        <img src="assets/images/sophos/sophos-webadmin-network-policies.jpg" alt="Sophos Firewall WebAdmin Console"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4 bg-gray-900/90">
+                        <span class="text-xs font-mono text-[#00f7d9] block">WebAdmin Console</span>
+                        <h3 class="text-base font-semibold text-[#e6f1ff]">Network Interface Configuration: Port4 Static IPv4 /24 LAN</h3>
+                        <p class="text-xs text-[#8892b0] mt-1">WebAdmin management at 172.16.16.16:4444, configuring hardware Port4 on LAN zone with static IPv4 /24 subnet, rules, and policies.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Return / Bottom Navigation CTA -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-[#1e293b]" data-aos="fade-up">
+            <a href="index.html#deployments" class="text-sm font-mono text-[#0088cc] hover:underline flex items-center space-x-2">
+                <i class="fas fa-arrow-left text-xs"></i>
+                <span>Return to All Deployments</span>
+            </a>
+            <div class="flex flex-wrap gap-3">
+                <a href="infra-project-server-room.html" class="text-xs font-mono text-[#00f7d9] hover:underline px-3 py-1.5 rounded bg-black/30 border border-[#1e293b]">
+                    Server Room Commissioning &rarr;
+                </a>
+                <a href="infra-project-fluke.html" class="text-xs font-mono text-[#00f7d9] hover:underline px-3 py-1.5 rounded bg-black/30 border border-[#1e293b]">
+                    Fluke Cable Certification &rarr;
+                </a>
+                <a href="infra-project-arista.html" class="text-xs font-mono text-[#00f7d9] hover:underline px-3 py-1.5 rounded bg-black/30 border border-[#1e293b]">
+                    Arista Campus Staging &rarr;
+                </a>
+                <a href="infra-project-diagram-gns3.html" class="text-xs font-mono text-[#00f7d9] hover:underline px-3 py-1.5 rounded bg-black/30 border border-[#1e293b]">
+                    Architecture &amp; GNS3 Lab &rarr;
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-white/10 text-center text-[#8892b0] text-sm">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center items-center space-x-6 mb-4">
+                <a href="mailto:shijinps101010@gmail.com" title="Email: shijinps101010@gmail.com"
+                    class="hover:text-[#0088cc] text-xl transition-colors"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/shijinps/" target="_blank" rel="noopener noreferrer" title="LinkedIn: /in/shijinps"
+                    class="hover:text-[#0088cc] text-xl transition-colors"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/shijinps" target="_blank" rel="noopener noreferrer" title="GitHub: /shijinps"
+                    class="hover:text-[#0088cc] text-xl transition-colors"><i class="fab fa-github"></i></a>
+                <a href="https://discord.com/users/1218902686791897218" target="_blank" rel="noopener noreferrer"
+                    onclick="copyDiscordTag()" title="Discord"
+                    class="hover:text-[#5865F2] text-xl transition-colors cursor-pointer focus:outline-none">
+                    <i class="fab fa-discord"></i>
+                </a>
+            </div>
+            <p>&copy; 2026 Shijin P S. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Lightbox Dialog -->
+    <div id="lightbox-modal" class="lightbox-modal" role="dialog" aria-modal="true">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white/80 hover:text-white text-3xl focus:outline-none z-50">
+            <i class="fas fa-times"></i>
+        </button>
+        <button onclick="changeLightbox(-1)" class="absolute left-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-3xl focus:outline-none p-3 bg-black/50 rounded-full z-50">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button onclick="changeLightbox(1)" class="absolute right-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-3xl focus:outline-none p-3 bg-black/50 rounded-full z-50">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="max-w-4xl max-h-[85vh] p-4 flex flex-col items-center">
+            <img id="lightbox-img" src="" alt="" class="max-h-[75vh] max-w-full object-contain rounded-lg shadow-2xl">
+            <h3 id="lightbox-caption" class="text-center text-sm md:text-base font-medium text-[#e6f1ff] mt-4 font-mono"></h3>
+            <span id="lightbox-counter" class="text-xs font-mono text-[#8892b0] mt-1"></span>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Theme Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+        const themeIcon = themeToggleBtn.querySelector('i');
+
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('light');
+            if (body.classList.contains('light')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Lightbox Gallery Logic
+        const galleryImages = [
+            { src: 'assets/images/sophos/sophos-xg210-hardware.jpg', title: 'Sophos XG 210 Hardware Firewall Appliance Staging & SFOS 20.0.3 MR-3 LCD Status' },
+            { src: 'assets/images/sophos/sophos-webadmin-network-policies.jpg', title: 'Sophos Firewall WebAdmin Console: Network Interfaces, Zone Mapping & Port4 Static IPv4 Configuration' }
+        ];
+
+        let currentIndex = 0;
+        const modal = document.getElementById('lightbox-modal');
+        const img = document.getElementById('lightbox-img');
+        const caption = document.getElementById('lightbox-caption');
+        const counter = document.getElementById('lightbox-counter');
+
+        function openLightbox(index) {
+            currentIndex = index;
+            updateLightbox();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function changeLightbox(delta) {
+            currentIndex = (currentIndex + delta + galleryImages.length) % galleryImages.length;
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            img.src = galleryImages[currentIndex].src;
+            caption.textContent = galleryImages[currentIndex].title;
+            counter.textContent = `${currentIndex + 1} of ${galleryImages.length}`;
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') changeLightbox(-1);
+            if (e.key === 'ArrowRight') changeLightbox(1);
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeLightbox();
+        });
+
+        // --- Discord Background Copy Handler ---
+        function copyDiscordTag() {
+            const discordId = 'shijinps13';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(discordId).catch(() => {});
+            }
+        }
+    </script>
+</body>
+
+</html>
