@@ -605,71 +605,33 @@
             color: var(--text-headings);
         }
 
-        /* Daily Inspirational Quote Card & Animations */
+        /* Daily Inspirational Quote (Minimal & Subtle) */
         #daily-quote-card {
-            background-color: rgba(15, 23, 42, 0.75);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: opacity 0.3s ease;
         }
 
-        body.light #daily-quote-card {
-            background-color: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        body.light #daily-quote-card p {
+            color: #495057;
         }
 
-        body.light #quote-text {
-            color: #1d2d35;
-        }
-
-        body.light #quote-author {
-            color: #6c757d;
-        }
-
-        body.light #daily-quote-card .border-t {
-            border-color: rgba(0, 0, 0, 0.06);
-        }
-
-        body.light #prev-quote-btn,
-        body.light #next-quote-btn {
-            color: #6c757d;
-        }
-
-        body.light #prev-quote-btn:hover,
-        body.light #next-quote-btn:hover {
+        body.light #quote-author-name {
             color: #17a2b8;
-            background-color: rgba(0, 0, 0, 0.05);
         }
 
         body.light #quote-dots-container button:not(.bg-\[\#00f7d9\]) {
             background-color: rgba(0, 0, 0, 0.2);
         }
 
-        body.light #quote-category {
-            color: #6c757d;
-        }
-
-        .quote-anim-out-next {
+        .quote-fade-out {
             opacity: 0 !important;
-            transform: translateY(-14px) !important;
-            filter: blur(4px);
+            transform: translateY(-6px);
+            filter: blur(2px);
         }
 
-        .quote-anim-in-next {
+        .quote-fade-in {
             opacity: 0;
-            transform: translateY(14px);
-            filter: blur(4px);
-        }
-
-        .quote-anim-out-prev {
-            opacity: 0 !important;
-            transform: translateY(14px) !important;
-            filter: blur(4px);
-        }
-
-        .quote-anim-in-prev {
-            opacity: 0;
-            transform: translateY(-14px);
-            filter: blur(4px);
+            transform: translateY(6px);
+            filter: blur(2px);
         }
     </style>
     <script type="application/ld+json">
@@ -2773,60 +2735,19 @@
     <footer class="py-12 border-t border-white/10 relative overflow-hidden">
         <div class="container mx-auto px-6 text-center text-[#8892b0] text-sm">
 
-            <!-- Daily Inspirational Quote Section -->
-            <div class="max-w-3xl mx-auto mb-10" data-aos="fade-up">
-                <div id="daily-quote-card"
-                    class="relative rounded-2xl p-6 md:p-8 backdrop-blur-md shadow-[0_10px_35px_rgba(0,0,0,0.4)] overflow-hidden group transition-all duration-300 hover:border-[#00f7d9]/30">
-                    
-                    <!-- Ambient Glow Effects -->
-                    <div class="absolute -top-24 -left-24 w-48 h-48 bg-[#00f7d9]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#00f7d9]/20 transition-all duration-700"></div>
-                    <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-[#4CAF50]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#4CAF50]/20 transition-all duration-700"></div>
-
-                    <!-- Header: Badge & Category Tag -->
-                    <div class="flex items-center justify-between mb-4 relative z-10">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider text-[#00f7d9] bg-[#00f7d9]/10 border border-[#00f7d9]/25">
-                            <i class="fas fa-sparkles text-[11px] animate-pulse"></i>
-                            <span>Daily Motivation</span>
-                        </div>
-                        <div class="flex items-center gap-2 text-xs font-mono text-[#8892b0]">
-                            <span class="inline-block w-2 h-2 rounded-full bg-[#00f7d9] animate-pulse"></span>
-                            <span id="quote-category" class="uppercase tracking-wider">Wisdom</span>
-                        </div>
-                    </div>
-
-                    <!-- Quote Text & Author -->
-                    <div class="relative min-h-[110px] md:min-h-[90px] flex flex-col justify-center items-center my-3 relative z-10">
-                        <div id="quote-content-box" class="w-full text-center transition-all duration-500 ease-out transform">
-                            <div class="flex justify-center mb-2">
-                                <i class="fas fa-quote-left text-xl md:text-2xl text-[#00f7d9]/40"></i>
-                            </div>
-                            <blockquote id="quote-text" class="text-lg md:text-xl font-medium text-[#e6f1ff] italic leading-relaxed tracking-wide mb-3 max-w-2xl mx-auto">
-                                "Hard work beats talent when talent doesn’t work hard."
-                            </blockquote>
-                            <p id="quote-author" class="text-sm md:text-base font-mono text-[#8892b0]">
-                                — <span id="quote-author-name" class="text-[#00f7d9] font-semibold">Tim Notke</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Bottom Controls: Prev, Dots, Next -->
-                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-white/5 relative z-10">
-                        <button id="prev-quote-btn" type="button" aria-label="Previous quote"
-                            class="text-[#8892b0] hover:text-[#00f7d9] transition-colors p-2 rounded-lg hover:bg-white/5 text-sm focus:outline-none"
-                            title="Previous quote">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-
-                        <div id="quote-dots-container" class="flex items-center gap-2">
-                            <!-- Populated dynamically -->
-                        </div>
-
-                        <button id="next-quote-btn" type="button" aria-label="Next quote"
-                            class="text-[#8892b0] hover:text-[#00f7d9] transition-colors p-2 rounded-lg hover:bg-white/5 text-sm focus:outline-none"
-                            title="Next quote">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
+            <!-- Daily Inspirational Quote (Minimal & Subtle) -->
+            <div id="daily-quote-card" class="max-w-2xl mx-auto mb-6 px-4" data-aos="fade-up">
+                <div id="quote-content-box" class="transition-all duration-500 ease-out min-h-[48px] flex flex-col items-center justify-center">
+                    <p class="text-xs md:text-sm text-[#cbd5e1] italic font-light leading-relaxed tracking-wide">
+                        “<span id="quote-text">Hard work beats talent when talent doesn’t work hard.</span>”
+                    </p>
+                    <p class="text-[11px] md:text-xs font-mono text-[#00f7d9] mt-1.5 tracking-wider opacity-90">
+                        — <span id="quote-author-name">Tim Notke</span>
+                    </p>
+                </div>
+                <!-- 4 subtle indicator dots -->
+                <div id="quote-dots-container" class="flex justify-center items-center gap-1.5 mt-2.5">
+                    <!-- Populated dynamically -->
                 </div>
             </div>
 
@@ -3367,23 +3288,19 @@
         const quotesPool = [
             {
                 quote: "Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.",
-                author: "Christian D. Larson",
-                category: "Self-Belief"
+                author: "Christian D. Larson"
             },
             {
                 quote: "Hard work beats talent when talent doesn’t work hard.",
-                author: "Tim Notke",
-                category: "Dedication"
+                author: "Tim Notke"
             },
             {
                 quote: "In the end, passion and hard work beat out natural talent.",
-                author: "Pete Docter",
-                category: "Perseverance"
+                author: "Pete Docter"
             },
             {
                 quote: "Passion is the side effect of mastery.",
-                author: "Cal Newport",
-                category: "Mastery"
+                author: "Cal Newport"
             }
         ];
 
@@ -3415,10 +3332,7 @@
         const quoteBoxEl = document.getElementById('quote-content-box');
         const quoteTextEl = document.getElementById('quote-text');
         const quoteAuthorEl = document.getElementById('quote-author-name');
-        const quoteCategoryEl = document.getElementById('quote-category');
         const quoteDotsContainer = document.getElementById('quote-dots-container');
-        const prevQuoteBtn = document.getElementById('prev-quote-btn');
-        const nextQuoteBtn = document.getElementById('next-quote-btn');
 
         function initQuoteDots() {
             if (!quoteDotsContainer) return;
@@ -3428,11 +3342,11 @@
                 dot.type = 'button';
                 dot.setAttribute('aria-label', `Go to quote ${idx + 1}`);
                 dot.className = idx === 0
-                    ? 'h-2 rounded-full transition-all duration-300 bg-[#00f7d9] w-6 shadow-[0_0_8px_rgba(0,247,217,0.5)]'
-                    : 'h-2 rounded-full transition-all duration-300 bg-white/20 hover:bg-white/60 w-2';
+                    ? 'h-1 rounded-full transition-all duration-300 bg-[#00f7d9] w-4'
+                    : 'h-1 rounded-full transition-all duration-300 bg-white/20 hover:bg-white/50 w-1.5';
                 dot.addEventListener('click', () => {
                     if (idx !== currentQuoteIndex) {
-                        goToQuote(idx, idx > currentQuoteIndex ? 'next' : 'prev');
+                        goToQuote(idx);
                         resetQuoteTimer();
                     }
                 });
@@ -3445,54 +3359,45 @@
             const dots = quoteDotsContainer.querySelectorAll('button');
             dots.forEach((dot, idx) => {
                 if (idx === activeIndex) {
-                    dot.className = 'h-2 rounded-full transition-all duration-300 bg-[#00f7d9] w-6 shadow-[0_0_8px_rgba(0,247,217,0.5)]';
+                    dot.className = 'h-1 rounded-full transition-all duration-300 bg-[#00f7d9] w-4';
                 } else {
-                    dot.className = 'h-2 rounded-full transition-all duration-300 bg-white/20 hover:bg-white/60 w-2';
+                    dot.className = 'h-1 rounded-full transition-all duration-300 bg-white/20 hover:bg-white/50 w-1.5';
                 }
             });
         }
 
         function renderQuoteData(index) {
             const item = activeQuotes[index];
-            if (quoteTextEl) quoteTextEl.textContent = `"${item.quote}"`;
+            if (quoteTextEl) quoteTextEl.textContent = item.quote;
             if (quoteAuthorEl) quoteAuthorEl.textContent = item.author;
-            if (quoteCategoryEl) quoteCategoryEl.textContent = item.category;
             updateQuoteDots(index);
         }
 
-        function goToQuote(newIndex, direction = 'next') {
+        function goToQuote(newIndex) {
             if (isQuoteTransitioning || !quoteBoxEl) return;
             isQuoteTransitioning = true;
 
-            const outClass = direction === 'next' ? 'quote-anim-out-next' : 'quote-anim-out-prev';
-            const inClass = direction === 'next' ? 'quote-anim-in-next' : 'quote-anim-in-prev';
-
-            quoteBoxEl.classList.add(outClass);
+            quoteBoxEl.classList.add('quote-fade-out');
 
             setTimeout(() => {
                 currentQuoteIndex = (newIndex + activeQuotes.length) % activeQuotes.length;
                 renderQuoteData(currentQuoteIndex);
 
-                quoteBoxEl.classList.remove(outClass);
-                quoteBoxEl.classList.add(inClass);
+                quoteBoxEl.classList.remove('quote-fade-out');
+                quoteBoxEl.classList.add('quote-fade-in');
 
-                // Force layout reflow
                 void quoteBoxEl.offsetWidth;
 
-                quoteBoxEl.classList.remove(inClass);
+                quoteBoxEl.classList.remove('quote-fade-in');
 
                 setTimeout(() => {
                     isQuoteTransitioning = false;
-                }, 500);
-            }, 350);
+                }, 400);
+            }, 300);
         }
 
         function nextQuote() {
-            goToQuote(currentQuoteIndex + 1, 'next');
-        }
-
-        function prevQuote() {
-            goToQuote(currentQuoteIndex - 1, 'prev');
+            goToQuote(currentQuoteIndex + 1);
         }
 
         function startQuoteTimer() {
@@ -3520,20 +3425,6 @@
             // Pause on mouse hover for comfortable reading
             quoteCardEl.addEventListener('mouseenter', stopQuoteTimer);
             quoteCardEl.addEventListener('mouseleave', startQuoteTimer);
-
-            if (nextQuoteBtn) {
-                nextQuoteBtn.addEventListener('click', () => {
-                    nextQuote();
-                    resetQuoteTimer();
-                });
-            }
-
-            if (prevQuoteBtn) {
-                prevQuoteBtn.addEventListener('click', () => {
-                    prevQuote();
-                    resetQuoteTimer();
-                });
-            }
         }
     </script>
 </body>
