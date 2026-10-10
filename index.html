@@ -604,6 +604,73 @@
         #tools h2 {
             color: var(--text-headings);
         }
+
+        /* Daily Inspirational Quote Card & Animations */
+        #daily-quote-card {
+            background-color: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        body.light #daily-quote-card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        body.light #quote-text {
+            color: #1d2d35;
+        }
+
+        body.light #quote-author {
+            color: #6c757d;
+        }
+
+        body.light #daily-quote-card .border-t {
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        body.light #prev-quote-btn,
+        body.light #next-quote-btn {
+            color: #6c757d;
+        }
+
+        body.light #prev-quote-btn:hover,
+        body.light #next-quote-btn:hover {
+            color: #17a2b8;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light #quote-dots-container button:not(.bg-\[\#00f7d9\]) {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        body.light #quote-category {
+            color: #6c757d;
+        }
+
+        .quote-anim-out-next {
+            opacity: 0 !important;
+            transform: translateY(-14px) !important;
+            filter: blur(4px);
+        }
+
+        .quote-anim-in-next {
+            opacity: 0;
+            transform: translateY(14px);
+            filter: blur(4px);
+        }
+
+        .quote-anim-out-prev {
+            opacity: 0 !important;
+            transform: translateY(14px) !important;
+            filter: blur(4px);
+        }
+
+        .quote-anim-in-prev {
+            opacity: 0;
+            transform: translateY(-14px);
+            filter: blur(4px);
+        }
     </style>
     <script type="application/ld+json">
     {
@@ -2703,8 +2770,66 @@
     </main>
 
     <!-- Footer -->
-    <footer class="py-8 border-t border-white/10">
+    <footer class="py-12 border-t border-white/10 relative overflow-hidden">
         <div class="container mx-auto px-6 text-center text-[#8892b0] text-sm">
+
+            <!-- Daily Inspirational Quote Section -->
+            <div class="max-w-3xl mx-auto mb-10" data-aos="fade-up">
+                <div id="daily-quote-card"
+                    class="relative rounded-2xl p-6 md:p-8 backdrop-blur-md shadow-[0_10px_35px_rgba(0,0,0,0.4)] overflow-hidden group transition-all duration-300 hover:border-[#00f7d9]/30">
+                    
+                    <!-- Ambient Glow Effects -->
+                    <div class="absolute -top-24 -left-24 w-48 h-48 bg-[#00f7d9]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#00f7d9]/20 transition-all duration-700"></div>
+                    <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-[#4CAF50]/10 rounded-full blur-3xl pointer-events-none group-hover:bg-[#4CAF50]/20 transition-all duration-700"></div>
+
+                    <!-- Header: Badge & Category Tag -->
+                    <div class="flex items-center justify-between mb-4 relative z-10">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-wider text-[#00f7d9] bg-[#00f7d9]/10 border border-[#00f7d9]/25">
+                            <i class="fas fa-sparkles text-[11px] animate-pulse"></i>
+                            <span>Daily Motivation</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-mono text-[#8892b0]">
+                            <span class="inline-block w-2 h-2 rounded-full bg-[#00f7d9] animate-pulse"></span>
+                            <span id="quote-category" class="uppercase tracking-wider">Wisdom</span>
+                        </div>
+                    </div>
+
+                    <!-- Quote Text & Author -->
+                    <div class="relative min-h-[110px] md:min-h-[90px] flex flex-col justify-center items-center my-3 relative z-10">
+                        <div id="quote-content-box" class="w-full text-center transition-all duration-500 ease-out transform">
+                            <div class="flex justify-center mb-2">
+                                <i class="fas fa-quote-left text-xl md:text-2xl text-[#00f7d9]/40"></i>
+                            </div>
+                            <blockquote id="quote-text" class="text-lg md:text-xl font-medium text-[#e6f1ff] italic leading-relaxed tracking-wide mb-3 max-w-2xl mx-auto">
+                                "Hard work beats talent when talent doesn’t work hard."
+                            </blockquote>
+                            <p id="quote-author" class="text-sm md:text-base font-mono text-[#8892b0]">
+                                — <span id="quote-author-name" class="text-[#00f7d9] font-semibold">Tim Notke</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Controls: Prev, Dots, Next -->
+                    <div class="flex items-center justify-between mt-4 pt-4 border-t border-white/5 relative z-10">
+                        <button id="prev-quote-btn" type="button" aria-label="Previous quote"
+                            class="text-[#8892b0] hover:text-[#00f7d9] transition-colors p-2 rounded-lg hover:bg-white/5 text-sm focus:outline-none"
+                            title="Previous quote">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+
+                        <div id="quote-dots-container" class="flex items-center gap-2">
+                            <!-- Populated dynamically -->
+                        </div>
+
+                        <button id="next-quote-btn" type="button" aria-label="Next quote"
+                            class="text-[#8892b0] hover:text-[#00f7d9] transition-colors p-2 rounded-lg hover:bg-white/5 text-sm focus:outline-none"
+                            title="Next quote">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="flex justify-center items-center space-x-6 mb-4">
                 <a href="mailto:shijinps101010@gmail.com" title="Email: shijinps101010@gmail.com"
                     class="hover:text-[#4CAF50] text-2xl transition-colors"><i class="fas fa-envelope"></i></a>
@@ -3235,6 +3360,179 @@
             const discordId = 'shijinps13';
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(discordId).catch(() => {});
+            }
+        }
+
+        // --- Daily Inspirational Quotes System ---
+        const quotesPool = [
+            {
+                quote: "Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.",
+                author: "Christian D. Larson",
+                category: "Self-Belief"
+            },
+            {
+                quote: "Hard work beats talent when talent doesn’t work hard.",
+                author: "Tim Notke",
+                category: "Dedication"
+            },
+            {
+                quote: "In the end, passion and hard work beat out natural talent.",
+                author: "Pete Docter",
+                category: "Perseverance"
+            },
+            {
+                quote: "Passion is the side effect of mastery.",
+                author: "Cal Newport",
+                category: "Mastery"
+            }
+        ];
+
+        // Shuffle uniquely each day based on current calendar date
+        function getDailyShuffledQuotes(list) {
+            const now = new Date();
+            // Seed calculated from YYYYMMDD to guarantee deterministic daily shuffle
+            const seed = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+            let state = seed;
+            function seededRandom() {
+                state = (state * 9301 + 49297) % 233280;
+                return state / 233280;
+            }
+
+            const shuffled = [...list];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(seededRandom() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        const activeQuotes = getDailyShuffledQuotes(quotesPool);
+        let currentQuoteIndex = 0;
+        let quoteInterval = null;
+        let isQuoteTransitioning = false;
+
+        const quoteCardEl = document.getElementById('daily-quote-card');
+        const quoteBoxEl = document.getElementById('quote-content-box');
+        const quoteTextEl = document.getElementById('quote-text');
+        const quoteAuthorEl = document.getElementById('quote-author-name');
+        const quoteCategoryEl = document.getElementById('quote-category');
+        const quoteDotsContainer = document.getElementById('quote-dots-container');
+        const prevQuoteBtn = document.getElementById('prev-quote-btn');
+        const nextQuoteBtn = document.getElementById('next-quote-btn');
+
+        function initQuoteDots() {
+            if (!quoteDotsContainer) return;
+            quoteDotsContainer.innerHTML = '';
+            activeQuotes.forEach((_, idx) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.setAttribute('aria-label', `Go to quote ${idx + 1}`);
+                dot.className = idx === 0
+                    ? 'h-2 rounded-full transition-all duration-300 bg-[#00f7d9] w-6 shadow-[0_0_8px_rgba(0,247,217,0.5)]'
+                    : 'h-2 rounded-full transition-all duration-300 bg-white/20 hover:bg-white/60 w-2';
+                dot.addEventListener('click', () => {
+                    if (idx !== currentQuoteIndex) {
+                        goToQuote(idx, idx > currentQuoteIndex ? 'next' : 'prev');
+                        resetQuoteTimer();
+                    }
+                });
+                quoteDotsContainer.appendChild(dot);
+            });
+        }
+
+        function updateQuoteDots(activeIndex) {
+            if (!quoteDotsContainer) return;
+            const dots = quoteDotsContainer.querySelectorAll('button');
+            dots.forEach((dot, idx) => {
+                if (idx === activeIndex) {
+                    dot.className = 'h-2 rounded-full transition-all duration-300 bg-[#00f7d9] w-6 shadow-[0_0_8px_rgba(0,247,217,0.5)]';
+                } else {
+                    dot.className = 'h-2 rounded-full transition-all duration-300 bg-white/20 hover:bg-white/60 w-2';
+                }
+            });
+        }
+
+        function renderQuoteData(index) {
+            const item = activeQuotes[index];
+            if (quoteTextEl) quoteTextEl.textContent = `"${item.quote}"`;
+            if (quoteAuthorEl) quoteAuthorEl.textContent = item.author;
+            if (quoteCategoryEl) quoteCategoryEl.textContent = item.category;
+            updateQuoteDots(index);
+        }
+
+        function goToQuote(newIndex, direction = 'next') {
+            if (isQuoteTransitioning || !quoteBoxEl) return;
+            isQuoteTransitioning = true;
+
+            const outClass = direction === 'next' ? 'quote-anim-out-next' : 'quote-anim-out-prev';
+            const inClass = direction === 'next' ? 'quote-anim-in-next' : 'quote-anim-in-prev';
+
+            quoteBoxEl.classList.add(outClass);
+
+            setTimeout(() => {
+                currentQuoteIndex = (newIndex + activeQuotes.length) % activeQuotes.length;
+                renderQuoteData(currentQuoteIndex);
+
+                quoteBoxEl.classList.remove(outClass);
+                quoteBoxEl.classList.add(inClass);
+
+                // Force layout reflow
+                void quoteBoxEl.offsetWidth;
+
+                quoteBoxEl.classList.remove(inClass);
+
+                setTimeout(() => {
+                    isQuoteTransitioning = false;
+                }, 500);
+            }, 350);
+        }
+
+        function nextQuote() {
+            goToQuote(currentQuoteIndex + 1, 'next');
+        }
+
+        function prevQuote() {
+            goToQuote(currentQuoteIndex - 1, 'prev');
+        }
+
+        function startQuoteTimer() {
+            stopQuoteTimer();
+            quoteInterval = setInterval(nextQuote, 6500);
+        }
+
+        function stopQuoteTimer() {
+            if (quoteInterval) {
+                clearInterval(quoteInterval);
+                quoteInterval = null;
+            }
+        }
+
+        function resetQuoteTimer() {
+            stopQuoteTimer();
+            startQuoteTimer();
+        }
+
+        if (quoteCardEl) {
+            initQuoteDots();
+            renderQuoteData(0);
+            startQuoteTimer();
+
+            // Pause on mouse hover for comfortable reading
+            quoteCardEl.addEventListener('mouseenter', stopQuoteTimer);
+            quoteCardEl.addEventListener('mouseleave', startQuoteTimer);
+
+            if (nextQuoteBtn) {
+                nextQuoteBtn.addEventListener('click', () => {
+                    nextQuote();
+                    resetQuoteTimer();
+                });
+            }
+
+            if (prevQuoteBtn) {
+                prevQuoteBtn.addEventListener('click', () => {
+                    prevQuote();
+                    resetQuoteTimer();
+                });
             }
         }
     </script>
