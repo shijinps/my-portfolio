@@ -633,6 +633,26 @@
             transform: translateY(6px);
             filter: blur(2px);
         }
+
+        /* Alcohol Holidays Showcase */
+        body.light .alcohol-feature-box {
+            background-color: rgba(0, 0, 0, 0.03) !important;
+            border-color: rgba(0, 0, 0, 0.08) !important;
+        }
+
+        body.light .alcohol-feature-box h4 {
+            color: #1d2d35 !important;
+        }
+
+        body.light .alcohol-feature-box p {
+            color: #495057 !important;
+        }
+
+        body.light .alcohol-fleet-tag {
+            background-color: rgba(0, 0, 0, 0.04) !important;
+            border-color: rgba(0, 0, 0, 0.1) !important;
+            color: #2b3a4a !important;
+        }
     </style>
     <script type="application/ld+json">
     {
@@ -2166,9 +2186,238 @@
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
+                <!-- Featured Project: Alcohol Holidays Mobile App -->
+                <div class="section-card col-span-1 md:col-span-2 p-6 md:p-10 rounded-2xl border border-[#1e293b] hover:border-[#00f7d9]/60 shadow-2xl transition-all duration-300"
+                    data-aos="zoom-in-up" data-aos-delay="100">
+                    
+                    <!-- Top Header: Icon + Title + Stack -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-6 border-b border-[#1e293b]">
+                        <div class="flex items-start sm:items-center gap-4">
+                            <img src="assets/images/alcohol-holidays/app-icon.jpg" alt="Alcohol Holidays App Icon"
+                                class="w-16 h-16 rounded-2xl shadow-xl border border-white/10 ring-2 ring-[#00f7d9]/30 object-cover flex-shrink-0">
+                            <div>
+                                <div class="flex flex-wrap items-center gap-2 mb-1.5">
+                                    <span class="text-xs font-mono px-3 py-0.5 rounded-full bg-[rgba(0,247,217,0.1)] text-[#00f7d9] border border-[rgba(0,247,217,0.25)] flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-[#00f7d9] animate-pulse"></span>
+                                        Full-Stack Mobile App
+                                    </span>
+                                    <span class="text-xs font-mono px-2.5 py-0.5 rounded-full bg-white/5 text-[#8892b0] border border-white/10">
+                                        Android &bull; Cloud Backend
+                                    </span>
+                                </div>
+                                <h3 class="text-2xl md:text-3xl font-bold text-[#e6f1ff]">Alcohol Holidays — Holiday Tour Planning &amp; Tourist Bus Booking App</h3>
+                                <p class="text-xs sm:text-sm font-mono text-[#4CAF50] mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
+                                    <span><i class="fab fa-android mr-1"></i>Kotlin + Jetpack Compose</span>
+                                    <span class="text-white/20">&bull;</span>
+                                    <span><i class="fab fa-python mr-1"></i>Python + FastAPI + Uvicorn</span>
+                                    <span class="text-white/20">&bull;</span>
+                                    <span><i class="fab fa-whatsapp mr-1 text-[#25D366]"></i>WhatsApp Booking Handoff</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Executive Overview -->
+                    <p class="text-sm md:text-base text-[#cbd5e1] leading-relaxed mb-8">
+                        A modern, high-performance holiday tour planning and tourist bus booking platform built for travelers exploring South India (<strong class="text-[#e6f1ff]">Kerala, Tamil Nadu, and Karnataka</strong>). The platform allows customers to discover destinations, customize private group tour packages, choose from luxury tourist bus fleets (from 5-seat Innova Crysta up to 49-seat luxury Volvo coaches), and request instant bookings via automated backend booking requests with seamless WhatsApp handoff and direct confirmation.
+                    </p>
+
+                    <!-- Interactive Media Showcase: Screenshots & Video Demo -->
+                    <div id="alcohol-carousel-box" class="bg-[#0b1220]/80 rounded-2xl p-5 md:p-8 border border-white/5 mb-8">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-[#00f7d9]"></span>
+                                <h4 class="text-sm md:text-base font-bold text-[#e6f1ff] font-mono">App Interactive Showcase</h4>
+                            </div>
+                            <!-- Switcher Tabs -->
+                            <div class="flex items-center gap-2 bg-black/40 p-1 rounded-xl border border-white/10">
+                                <button id="alcohol-tab-screens" type="button"
+                                    class="px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-[#00f7d9] text-[#0a0a0a] transition-all flex items-center gap-1.5">
+                                    <i class="fas fa-mobile-screen"></i> Screenshots
+                                </button>
+                                <button id="alcohol-tab-video" type="button"
+                                    class="px-3 py-1.5 rounded-lg text-xs font-mono text-[#cbd5e1] hover:text-[#00f7d9] bg-white/5 hover:bg-white/10 transition-all flex items-center gap-1.5">
+                                    <i class="fas fa-play"></i> Watch Video Demo
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- View 1: Screenshots Gallery Slider -->
+                        <div id="alcohol-screens-view" class="flex flex-col items-center">
+                            <!-- Phone Mockup Screen -->
+                            <div class="relative group/screen cursor-pointer max-w-[260px] sm:max-w-[280px] md:max-w-[300px] w-full rounded-3xl border-4 border-[#1e293b] shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden bg-black aspect-[9/19] flex items-center justify-center transition-transform hover:scale-[1.02] duration-300">
+                                <img id="alcohol-current-img" src="assets/images/alcohol-holidays/screen-home.png"
+                                    alt="Home &amp; Packages Explorer"
+                                    class="w-full h-full object-cover transition-opacity duration-300">
+                                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/screen:opacity-100 transition-opacity flex items-center justify-center">
+                                    <span class="px-3 py-1.5 rounded-full bg-[#00f7d9] text-black text-xs font-mono font-bold flex items-center gap-1.5 shadow-lg">
+                                        <i class="fas fa-expand"></i> Click to Enlarge
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Screen Caption -->
+                            <div class="text-center mt-4 max-w-lg">
+                                <h5 id="alcohol-caption-title" class="text-base md:text-lg font-bold text-[#e6f1ff]">Home &amp; Packages Explorer</h5>
+                                <p id="alcohol-caption-desc" class="text-xs text-[#8892b0] mt-1 leading-relaxed">
+                                    Browse trending tour packages, quick filters for Kerala / TN / Karnataka, and floating AI assistant.
+                                </p>
+                            </div>
+
+                            <!-- Slider Controls -->
+                            <div class="flex items-center justify-center gap-4 mt-4">
+                                <button id="alcohol-prev-btn" type="button" aria-label="Previous screenshot"
+                                    class="w-9 h-9 rounded-full bg-white/5 hover:bg-[#00f7d9] hover:text-black text-[#cbd5e1] border border-white/10 flex items-center justify-center transition-all text-xs">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <div id="alcohol-dots" class="flex items-center gap-1.5">
+                                    <!-- Injected by JS -->
+                                </div>
+                                <span id="alcohol-counter" class="text-xs font-mono text-[#8892b0] min-w-[50px] text-center">1 / 7</span>
+                                <button id="alcohol-next-btn" type="button" aria-label="Next screenshot"
+                                    class="w-9 h-9 rounded-full bg-white/5 hover:bg-[#00f7d9] hover:text-black text-[#cbd5e1] border border-white/10 flex items-center justify-center transition-all text-xs">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- View 2: Video Player (Hidden by default) -->
+                        <div id="alcohol-video-view" class="hidden flex flex-col items-center">
+                            <div class="max-w-[280px] sm:max-w-[320px] md:max-w-[340px] w-full rounded-3xl border-4 border-[#1e293b] shadow-2xl overflow-hidden bg-black">
+                                <video id="alcohol-demo-video" controls playsinline preload="metadata" class="w-full h-auto">
+                                    <source src="assets/images/alcohol-holidays/demo-video.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <p class="text-xs text-[#8892b0] mt-3 font-mono text-center">
+                                <i class="fas fa-video mr-1 text-[#00f7d9]"></i> App Recording: Interactive Workflow, AI Chatbot &amp; Trip Exploration
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- App Features & How Customers / Users Use Them -->
+                    <div class="mb-8">
+                        <h4 class="text-lg md:text-xl font-bold text-[#e6f1ff] mb-4 flex items-center gap-2">
+                            <i class="fas fa-cubes text-[#00f7d9]"></i>
+                            <span>Core Features &amp; User Experience</span>
+                        </h4>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <!-- Feature 1: Authentication & Security -->
+                            <div class="alcohol-feature-box p-4 rounded-xl bg-black/30 border border-white/5 hover:border-[#00f7d9]/30 transition-colors">
+                                <div class="flex items-center gap-2.5 mb-2">
+                                    <span class="w-8 h-8 rounded-lg bg-[rgba(0,247,217,0.1)] text-[#00f7d9] flex items-center justify-center text-sm">
+                                        <i class="fas fa-shield-halved"></i>
+                                    </span>
+                                    <h4 class="text-sm font-bold text-[#e6f1ff]">1. Auth &amp; Security</h4>
+                                </div>
+                                <p class="text-xs text-[#cbd5e1] leading-relaxed">
+                                    Users sign up or log in via <strong class="text-white">Email + Password</strong>, automated <strong class="text-white">Email OTP verification</strong>, or frictionless <strong class="text-white">Google Social Sign-in</strong> with secure JWT token sessions.
+                                </p>
+                            </div>
+
+                            <!-- Feature 2: AI Travel Assistant Chatbot -->
+                            <div class="alcohol-feature-box p-4 rounded-xl bg-black/30 border border-white/5 hover:border-[#00f7d9]/30 transition-colors">
+                                <div class="flex items-center gap-2.5 mb-2">
+                                    <span class="w-8 h-8 rounded-lg bg-[rgba(0,247,217,0.1)] text-[#00f7d9] flex items-center justify-center text-sm">
+                                        <i class="fas fa-robot"></i>
+                                    </span>
+                                    <h4 class="text-sm font-bold text-[#e6f1ff]">2. AI Travel Assistant</h4>
+                                </div>
+                                <p class="text-xs text-[#cbd5e1] leading-relaxed">
+                                    Customers tap the floating chatbot button on the Home screen to ask real-time questions about package prices, hotel partners, cancellation policies, or top destinations across Kerala, Tamil Nadu, and Karnataka.
+                                </p>
+                            </div>
+
+                            <!-- Feature 3: Custom Holiday Package & Bus Builder -->
+                            <div class="alcohol-feature-box p-4 rounded-xl bg-black/30 border border-white/5 hover:border-[#4CAF50]/30 transition-colors">
+                                <div class="flex items-center gap-2.5 mb-2">
+                                    <span class="w-8 h-8 rounded-lg bg-[rgba(76,175,80,0.1)] text-[#4CAF50] flex items-center justify-center text-sm">
+                                        <i class="fas fa-bus-simple"></i>
+                                    </span>
+                                    <h4 class="text-sm font-bold text-[#e6f1ff]">3. Tour &amp; Bus Builder</h4>
+                                </div>
+                                <p class="text-xs text-[#cbd5e1] leading-relaxed">
+                                    5-step builder: Destination selection (Munnar, Ooty, Coorg) &rarr; Fleet selection &rarr; Dates &amp; Duration &rarr; Custom sightseeing attractions &rarr; Dynamic automated fare engine (distance + bus rate/km + entry fees).
+                                </p>
+                            </div>
+
+                            <!-- Feature 4: Destination & Tourist Places Discovery -->
+                            <div class="alcohol-feature-box p-4 rounded-xl bg-black/30 border border-white/5 hover:border-[#4CAF50]/30 transition-colors">
+                                <div class="flex items-center gap-2.5 mb-2">
+                                    <span class="w-8 h-8 rounded-lg bg-[rgba(76,175,80,0.1)] text-[#4CAF50] flex items-center justify-center text-sm">
+                                        <i class="fas fa-map-location-dot"></i>
+                                    </span>
+                                    <h4 class="text-sm font-bold text-[#e6f1ff]">4. Destination Discovery</h4>
+                                </div>
+                                <p class="text-xs text-[#cbd5e1] leading-relaxed">
+                                    Filter by state or browse categories (Hills, Beaches, Backwaters, Temples, Heritage). View fast-loading landmark galleries (10+ authentic photos), historical context, best seasons, fees, and launch interactive maps.
+                                </p>
+                            </div>
+
+                            <!-- Feature 5: Live Trip Tracking & Saved Places -->
+                            <div class="alcohol-feature-box p-4 rounded-xl bg-black/30 border border-white/5 hover:border-[#00f7d9]/30 transition-colors">
+                                <div class="flex items-center gap-2.5 mb-2">
+                                    <span class="w-8 h-8 rounded-lg bg-[rgba(0,247,217,0.1)] text-[#00f7d9] flex items-center justify-center text-sm">
+                                        <i class="fas fa-route"></i>
+                                    </span>
+                                    <h4 class="text-sm font-bold text-[#e6f1ff]">5. Live Trip Tracking</h4>
+                                </div>
+                                <p class="text-xs text-[#cbd5e1] leading-relaxed">
+                                    <strong class="text-white">My Trips:</strong> Live tracking displaying bus number, active status, and a real-time stop timeline (e.g. Kochi &rarr; Thrissur &rarr; Palakkad). Includes <strong class="text-white">Saved Destinations</strong> bookmarking.
+                                </p>
+                            </div>
+
+                            <!-- Feature 6: Booking Request & WhatsApp Handoff -->
+                            <div class="alcohol-feature-box p-4 rounded-xl bg-black/30 border border-white/5 hover:border-[#25D366]/30 transition-colors">
+                                <div class="flex items-center gap-2.5 mb-2">
+                                    <span class="w-8 h-8 rounded-lg bg-[rgba(37,211,102,0.1)] text-[#25D366] flex items-center justify-center text-sm">
+                                        <i class="fab fa-whatsapp"></i>
+                                    </span>
+                                    <h4 class="text-sm font-bold text-[#e6f1ff]">6. WhatsApp Booking</h4>
+                                </div>
+                                <p class="text-xs text-[#cbd5e1] leading-relaxed">
+                                    Generates backend booking ID (<strong class="text-white">BK-XXXX</strong>). Confirmation screen features one-tap <strong class="text-white">"Verify on WhatsApp"</strong> opening a pre-filled chat with trip details directly to tour operators.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fleet Range Support Bar -->
+                    <div class="p-4 rounded-xl bg-black/20 border border-white/5 mb-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <span class="text-xs font-mono text-[#00f7d9] uppercase tracking-wider font-semibold flex items-center gap-1.5">
+                                <i class="fas fa-van-shuttle"></i> Supported Vehicle Fleet Range:
+                            </span>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="alcohol-fleet-tag text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-[#cbd5e1] border border-white/10">Innova Crysta (5 seats)</span>
+                                <span class="alcohol-fleet-tag text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-[#cbd5e1] border border-white/10">Force Urbania (7 seats)</span>
+                                <span class="alcohol-fleet-tag text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-[#cbd5e1] border border-white/10">Tempo Traveller (12 seats)</span>
+                                <span class="alcohol-fleet-tag text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-[#cbd5e1] border border-white/10">Mini Bus (17 seats)</span>
+                                <span class="alcohol-fleet-tag text-[11px] font-mono px-2 py-0.5 rounded bg-white/5 text-[#00f7d9] border border-[#00f7d9]/20">Semi-Sleeper &amp; Volvo Luxury (28-49 seats)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tech Stack Tags -->
+                    <div class="pt-4 border-t border-[#1e293b]">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">Kotlin</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">Jetpack Compose</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">Python 3</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">FastAPI</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(76,175,80,0.08)] text-[#4CAF50] border border-[rgba(76,175,80,0.2)]">Uvicorn ASGI</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">AI Travel Chatbot</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">Email OTP &amp; Google Sign-in</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(0,247,217,0.08)] text-[#00f7d9] border border-[rgba(0,247,217,0.2)]">Live Stop Tracking</span>
+                            <span class="text-xs font-mono px-2.5 py-1 rounded bg-[rgba(37,211,102,0.08)] text-[#25D366] border border-[rgba(37,211,102,0.2)]">WhatsApp Booking API</span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Project 1: Web App Pentesting -->
                 <div class="section-card p-6 md:p-8 rounded-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between border border-[#1e293b] hover:border-[#4CAF50]/60 shadow-xl"
-                    data-aos="zoom-in-up" data-aos-delay="100">
+                    data-aos="zoom-in-up" data-aos-delay="200">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <div class="w-12 h-12 rounded-lg bg-[rgba(76,175,80,0.12)] border border-[#4CAF50]/30 flex items-center justify-center text-2xl text-[#4CAF50]">
@@ -3426,7 +3675,247 @@
             quoteCardEl.addEventListener('mouseenter', stopQuoteTimer);
             quoteCardEl.addEventListener('mouseleave', startQuoteTimer);
         }
+
+        // --- Alcohol Holidays App Showcase Controller ---
+        const alcoholScreens = [
+            {
+                src: 'assets/images/alcohol-holidays/screen-home.png',
+                title: 'Home Screen & Popular Packages',
+                desc: 'Browse South Indian tour packages, dynamic pricing filters for Kerala / TN / Karnataka, and instant AI travel assistant.'
+            },
+            {
+                src: 'assets/images/alcohol-holidays/screen-places.png',
+                title: 'State Discovery (Kerala, Tamil Nadu, Karnataka)',
+                desc: 'Filter by state or browse categories (Hills, Beaches, Backwaters, Temples) with fast-loading galleries.'
+            },
+            {
+                src: 'assets/images/alcohol-holidays/screen-states.png',
+                title: 'Regional Tourist Places Catalog',
+                desc: 'Browse curated attractions like Alleppey, Munnar, Rameshwaram & Ooty with entry fees and map links.'
+            },
+            {
+                src: 'assets/images/alcohol-holidays/screen-tracking.png',
+                title: 'Live Trip Tracking & Stop Timeline',
+                desc: 'Real-time journey timeline (Kochi -> Thrissur -> Palakkad), active bus number, and stop progression.'
+            },
+            {
+                src: 'assets/images/alcohol-holidays/screen-chatbot.png',
+                title: 'AI Travel Assistant Chatbot',
+                desc: 'In-app floating AI assistant answering questions on package prices, hotel partners, and tour guidelines.'
+            },
+            {
+                src: 'assets/images/alcohol-holidays/screen-welcome.png',
+                title: 'Welcome & Onboarding Experience',
+                desc: 'Custom mountain & bus artwork welcoming travelers across Kerala, Tamil Nadu, and Karnataka.'
+            },
+            {
+                src: 'assets/images/alcohol-holidays/screen-login.png',
+                title: 'Authentication & Security',
+                desc: 'Multi-factor access: Email + Password, automated Email OTP verification, and Google Social Sign-in.'
+            }
+        ];
+
+        let alcoholCurrentIndex = 0;
+        let alcoholInterval = null;
+        let alcoholIsVideo = false;
+
+        const alcoholImg = document.getElementById('alcohol-current-img');
+        const alcoholTitle = document.getElementById('alcohol-caption-title');
+        const alcoholDesc = document.getElementById('alcohol-caption-desc');
+        const alcoholCounter = document.getElementById('alcohol-counter');
+        const alcoholPrevBtn = document.getElementById('alcohol-prev-btn');
+        const alcoholNextBtn = document.getElementById('alcohol-next-btn');
+        const alcoholDotsContainer = document.getElementById('alcohol-dots');
+        const alcoholViewScreensBtn = document.getElementById('alcohol-tab-screens');
+        const alcoholViewVideoBtn = document.getElementById('alcohol-tab-video');
+        const alcoholScreensView = document.getElementById('alcohol-screens-view');
+        const alcoholVideoView = document.getElementById('alcohol-video-view');
+        const alcoholVideoEl = document.getElementById('alcohol-demo-video');
+        const alcoholCarouselBox = document.getElementById('alcohol-carousel-box');
+
+        const alcoholModal = document.getElementById('alcohol-lightbox-modal');
+        const alcoholModalImg = document.getElementById('alcohol-modal-img');
+        const alcoholModalCaption = document.getElementById('alcohol-modal-caption');
+
+        function initAlcoholDots() {
+            if (!alcoholDotsContainer) return;
+            alcoholDotsContainer.innerHTML = '';
+            alcoholScreens.forEach((_, idx) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.setAttribute('aria-label', `View screenshot ${idx + 1}`);
+                dot.className = idx === 0
+                    ? 'h-1.5 rounded-full transition-all duration-300 bg-[#00f7d9] w-5'
+                    : 'h-1.5 rounded-full transition-all duration-300 bg-white/20 hover:bg-white/50 w-1.5';
+                dot.addEventListener('click', () => {
+                    showAlcoholSlide(idx);
+                    resetAlcoholAuto();
+                });
+                alcoholDotsContainer.appendChild(dot);
+            });
+        }
+
+        function showAlcoholSlide(index) {
+            if (!alcoholScreens || alcoholScreens.length === 0) return;
+            alcoholCurrentIndex = index;
+            const item = alcoholScreens[index];
+            if (alcoholImg) {
+                alcoholImg.style.opacity = '0';
+                setTimeout(() => {
+                    alcoholImg.src = item.src;
+                    alcoholImg.alt = item.title;
+                    alcoholImg.style.opacity = '1';
+                }, 150);
+            }
+            if (alcoholTitle) alcoholTitle.textContent = item.title;
+            if (alcoholDesc) alcoholDesc.textContent = item.desc;
+            if (alcoholCounter) alcoholCounter.textContent = `${index + 1} / ${alcoholScreens.length}`;
+            if (alcoholDotsContainer) {
+                const dots = alcoholDotsContainer.querySelectorAll('button');
+                dots.forEach((dot, i) => {
+                    dot.className = i === index
+                        ? 'h-1.5 rounded-full transition-all duration-300 bg-[#00f7d9] w-5'
+                        : 'h-1.5 rounded-full transition-all duration-300 bg-white/20 hover:bg-white/50 w-1.5';
+                });
+            }
+        }
+
+        function nextAlcoholSlide() {
+            showAlcoholSlide((alcoholCurrentIndex + 1) % alcoholScreens.length);
+        }
+
+        function prevAlcoholSlide() {
+            showAlcoholSlide((alcoholCurrentIndex - 1 + alcoholScreens.length) % alcoholScreens.length);
+        }
+
+        function startAlcoholAuto() {
+            stopAlcoholAuto();
+            if (!alcoholIsVideo) {
+                alcoholInterval = setInterval(nextAlcoholSlide, 4500);
+            }
+        }
+
+        function stopAlcoholAuto() {
+            if (alcoholInterval) {
+                clearInterval(alcoholInterval);
+                alcoholInterval = null;
+            }
+        }
+
+        function resetAlcoholAuto() {
+            stopAlcoholAuto();
+            startAlcoholAuto();
+        }
+
+        function switchAlcoholTab(toVideo) {
+            alcoholIsVideo = toVideo;
+            if (toVideo) {
+                stopAlcoholAuto();
+                if (alcoholScreensView) alcoholScreensView.classList.add('hidden');
+                if (alcoholVideoView) alcoholVideoView.classList.remove('hidden');
+                if (alcoholViewVideoBtn) {
+                    alcoholViewVideoBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-[#00f7d9] text-[#0a0a0a] transition-all flex items-center gap-1.5';
+                }
+                if (alcoholViewScreensBtn) {
+                    alcoholViewScreensBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-mono text-[#cbd5e1] hover:text-[#00f7d9] bg-white/5 hover:bg-white/10 transition-all flex items-center gap-1.5';
+                }
+            } else {
+                if (alcoholVideoEl) alcoholVideoEl.pause();
+                if (alcoholVideoView) alcoholVideoView.classList.add('hidden');
+                if (alcoholScreensView) alcoholScreensView.classList.remove('hidden');
+                if (alcoholViewScreensBtn) {
+                    alcoholViewScreensBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-mono font-semibold bg-[#00f7d9] text-[#0a0a0a] transition-all flex items-center gap-1.5';
+                }
+                if (alcoholViewVideoBtn) {
+                    alcoholViewVideoBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-mono text-[#cbd5e1] hover:text-[#00f7d9] bg-white/5 hover:bg-white/10 transition-all flex items-center gap-1.5';
+                }
+                startAlcoholAuto();
+            }
+        }
+
+        function openAlcoholModal() {
+            if (!alcoholModal || !alcoholModalImg) return;
+            stopAlcoholAuto();
+            alcoholModalImg.src = alcoholScreens[alcoholCurrentIndex].src;
+            if (alcoholModalCaption) {
+                alcoholModalCaption.textContent = alcoholScreens[alcoholCurrentIndex].title;
+            }
+            alcoholModal.classList.remove('hidden');
+            alcoholModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAlcoholModal() {
+            if (!alcoholModal) return;
+            alcoholModal.classList.add('hidden');
+            alcoholModal.classList.remove('flex');
+            document.body.style.overflow = '';
+            if (!alcoholIsVideo) startAlcoholAuto();
+        }
+
+        if (alcoholCarouselBox) {
+            initAlcoholDots();
+            showAlcoholSlide(0);
+            startAlcoholAuto();
+
+            alcoholCarouselBox.addEventListener('mouseenter', stopAlcoholAuto);
+            alcoholCarouselBox.addEventListener('mouseleave', () => {
+                if (!alcoholIsVideo) startAlcoholAuto();
+            });
+
+            if (alcoholNextBtn) {
+                alcoholNextBtn.addEventListener('click', () => {
+                    nextAlcoholSlide();
+                    resetAlcoholAuto();
+                });
+            }
+
+            if (alcoholPrevBtn) {
+                alcoholPrevBtn.addEventListener('click', () => {
+                    prevAlcoholSlide();
+                    resetAlcoholAuto();
+                });
+            }
+
+            if (alcoholViewScreensBtn) {
+                alcoholViewScreensBtn.addEventListener('click', () => switchAlcoholTab(false));
+            }
+
+            if (alcoholViewVideoBtn) {
+                alcoholViewVideoBtn.addEventListener('click', () => switchAlcoholTab(true));
+            }
+        }
+
+        if (alcoholImg) {
+            alcoholImg.addEventListener('click', openAlcoholModal);
+        }
+        if (alcoholModal) {
+            alcoholModal.addEventListener('click', (e) => {
+                if (e.target === alcoholModal || e.target.closest('#alcohol-modal-close')) {
+                    closeAlcoholModal();
+                }
+            });
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !alcoholModal.classList.contains('hidden')) {
+                    closeAlcoholModal();
+                }
+            });
+        }
     </script>
+
+    <!-- Lightbox Modal for Alcohol Holidays Screenshots -->
+    <div id="alcohol-lightbox-modal"
+        class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="relative max-w-sm md:max-w-md max-h-[90vh] flex flex-col items-center">
+            <button id="alcohol-modal-close" type="button" aria-label="Close modal"
+                class="absolute -top-12 right-0 text-white/70 hover:text-white text-2xl p-2 transition-colors focus:outline-none">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="alcohol-modal-img" src="" alt="Screenshot"
+                class="max-h-[80vh] w-auto rounded-2xl shadow-2xl border border-white/20 object-contain">
+            <p id="alcohol-modal-caption" class="text-sm font-mono text-[#00f7d9] mt-3 text-center"></p>
+        </div>
+    </div>
 </body>
 
 </html>
